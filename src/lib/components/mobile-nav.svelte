@@ -18,10 +18,8 @@
     >
       <SidebarOpen class="h-6 w-6" />
       <span class="sr-only">Toggle Menu</span>
+      <span class="inline-block font-bold ml-2">Meny</span>
     </Button>
-    <a href="/" class="mr-6 flex items-center space-x-2 md:hidden">
-      <span class="inline-block font-bold">Meny</span>
-    </a>
   </Sheet.Trigger>
   <Sheet.Content side="left" class="pt-8 pr-0">
     <MobileLink href="/" class="flex items-center" {open}>
