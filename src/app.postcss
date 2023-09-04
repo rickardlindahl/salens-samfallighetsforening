@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -34,9 +35,6 @@
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
-
-    --font-sans: CalSans SemiBold;
-    --font-heading: Inter Bold;
   }
 
   .dark {
@@ -77,33 +75,5 @@
   }
   body {
     @apply bg-background text-foreground;
-  }
-}
-
-@layer base {
-  @font-face {
-    font-family: "CalSans SemiBold";
-    src: local("CalSans SemiBold"), local("CalSans-SemiBold"), local("calsans semibold"),
-      local("calsans-semibold"), url("/fonts/CalSans-SemiBold.ttf") format("truetype"),
-      url("/fonts/CalSans-SemiBold.woff2") format("woff2"),
-      url("/fonts/CalSans-SemiBold.woff") format("woff");
-    font-weight: 600;
-    font-style: normal;
-  }
-
-  @font-face {
-    font-family: "Inter Regular";
-    src: local("Inter Regular"), local("Inter-Regular"), local("inter regular"),
-      local("rnter-regular"), url("/fonts/Inter-Regular.ttf") format("truetype");
-    font-weight: 500;
-    font-style: normal;
-  }
-
-  @font-face {
-    font-family: "Inter Bold";
-    src: local("Inter Bold"), local("Inter-Bold"), local("inter bold"), local("rnter-bold"),
-      url("/fonts/Inter-Bold.ttf") format("truetype");
-    font-weight: 700;
-    font-style: bold;
   }
 }
