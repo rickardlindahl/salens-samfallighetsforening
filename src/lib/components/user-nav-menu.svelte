@@ -1,34 +1,38 @@
 <script lang="ts">
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
   import UserAvatar from "$lib/components/user-avatar.svelte";
-  import type { User } from "@supabase/supabase-js";
+  import type { SupabaseClient } from "@supabase/supabase-js";
+  import type { Profile } from "../../types/database";
   import { Icons } from "./icons";
 
-  export let user: User;
+  export let profile: Profile;
+  export let supabase: SupabaseClient;
 </script>
 
 <DropdownMenu.Root>
   <DropdownMenu.Trigger>
-    <UserAvatar />
+    <UserAvatar
+      {supabase}
+      name={profile.full_name ?? undefined}
+      image={profile.avatar_url ?? undefined}
+    />
   </DropdownMenu.Trigger>
   <DropdownMenu.Content class="align-end">
     <DropdownMenu.Group>
       <div class="flex items-center justify-start gap-2 p-2">
         <div class="flex flex-col space-y-1 leading-none">
-          {#if user.user_metadata.name}
-            <p class="font-medium">{user.user_metadata.name}</p>
+          {#if profile.full_name}
+            <p class="font-medium">{profile.full_name}</p>
           {/if}
-          {#if user.email}
-            <p class="w-[200px] truncate text-sm text-muted-foreground">
-              {user.email}
-            </p>
-          {/if}
+          <p class="w-[200px] truncate text-sm text-muted-foreground">
+            {profile.email}
+          </p>
         </div>
       </div>
       <DropdownMenu.Separator />
       <DropdownMenu.Item>
-        <a href="/profile" class="flex items-center w-full"
-          ><Icons.settings class="w-4 h-4 mr-2" />Profil</a
+        <a href="/settings" class="flex items-center w-full"
+          ><Icons.settings class="w-4 h-4 mr-2" />Inställningar</a
         >
       </DropdownMenu.Item>
       <DropdownMenu.Separator />

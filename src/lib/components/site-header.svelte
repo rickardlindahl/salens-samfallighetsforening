@@ -2,11 +2,13 @@
   import MainNav from "$lib/components/main-nav.svelte";
   import MobileNav from "$lib/components/mobile-nav.svelte";
   import { cn } from "$lib/utils";
-  import type { User } from "@supabase/supabase-js";
   import { buttonVariants } from "./ui/button";
   import UserNavMenu from "./user-nav-menu.svelte";
+  import type { Profile } from "../../types/database";
+  import type { SupabaseClient } from "@supabase/supabase-js";
 
-  export let user: User | undefined;
+  export let profile: Profile | null;
+  export let supabase: SupabaseClient;
 </script>
 
 <header
@@ -21,8 +23,8 @@
       </div>
     </div>
     <nav>
-      {#if user}
-        <UserNavMenu {user} />
+      {#if profile}
+        <UserNavMenu {profile} {supabase} />
       {:else}
         <a
           href="/auth/login"
