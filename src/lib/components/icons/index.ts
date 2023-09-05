@@ -11,6 +11,7 @@ import {
   Moon,
   Newspaper,
   SunMedium,
+  User,
   X,
 } from "lucide-svelte";
 
@@ -28,4 +29,5 @@ export const Icons = {
   newspaper: Newspaper,
   spinner: Loader,
   sun: SunMedium,
+  user: User,
 };
