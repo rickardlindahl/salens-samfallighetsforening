@@ -2,6 +2,10 @@
   import * as siteConfig from "$lib/config/site";
   import { Icons } from "./icons";
   import { LightSwitch } from "./light-switch";
+
+  function getYear(date = new Date()) {
+    return date.getFullYear();
+  }
 </script>
 
 <footer>
@@ -25,7 +29,7 @@
     </div>
     <div class="my-8 md:order-1 md:my-0">
       <p class="text-center text-xs leading-5 text-gray-500">
-        &copy; {new Date().getFullYear()} Salens Samfällighetsförening
+        &copy; {getYear()} Salens Samfällighetsförening
       </p>
     </div>
   </div>
