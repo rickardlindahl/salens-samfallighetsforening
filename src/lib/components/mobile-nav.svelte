@@ -21,7 +21,7 @@
       <span class="inline-block font-bold ml-2">Meny</span>
     </Button>
   </Sheet.Trigger>
-  <Sheet.Content side="left" class="pt-8 pr-0">
+  <Sheet.Content side="left" class="pt-12 pr-0 w-4/5">
     <MobileLink href="/" class="flex items-center" {open}>
       <Icons.logo class="mr-2 h-4 w-4" />
       <span class="font-bold">{siteConfig.name}</span>

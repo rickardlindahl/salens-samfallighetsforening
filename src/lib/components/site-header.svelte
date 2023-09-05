@@ -2,7 +2,11 @@
   import MainNav from "$lib/components/main-nav.svelte";
   import MobileNav from "$lib/components/mobile-nav.svelte";
   import { cn } from "$lib/utils";
+  import type { User } from "@supabase/supabase-js";
   import { buttonVariants } from "./ui/button";
+  import UserNavMenu from "./user-nav-menu.svelte";
+
+  export let user: User | undefined;
 </script>
 
 <header
@@ -17,12 +21,16 @@
       </div>
     </div>
     <nav>
-      <a
-        href="/auth/login"
-        class={cn(buttonVariants({ variant: "secondary", size: "sm" }), "px-4")}
-      >
-        Logga in
-      </a>
+      {#if user}
+        <UserNavMenu {user} />
+      {:else}
+        <a
+          href="/auth/login"
+          class={cn(buttonVariants({ variant: "secondary", size: "sm" }), "px-4")}
+        >
+          Logga in
+        </a>
+      {/if}
     </nav>
   </div>
 </header>

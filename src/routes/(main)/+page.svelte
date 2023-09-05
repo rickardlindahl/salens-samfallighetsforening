@@ -3,9 +3,13 @@
   import { buttonVariants } from "$lib/components/ui/button";
 
   import { cn } from "$lib/utils";
+
+  export let data;
+  let { session } = data;
+  $: ({ session } = data);
 </script>
 
-<section class="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-32">
+<section class="space-y-6 py-6 md:py-8">
   <div class="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
     <h1 class="font-bold text-3xl sm:text-5xl md:text-6xl lg:text-7xl">
       {siteConfig.name}
@@ -14,15 +18,16 @@
       {siteConfig.description}
     </p>
     <div class="space-x-4">
-      <a href="/login" class={cn(buttonVariants({ size: "lg" }))}>Kom igång</a>
+      {#if session?.user}
+        <p>Inloggad som {session?.user.email}</p>
+      {:else}
+        <a href="/login" class={cn(buttonVariants({ size: "lg" }))}>Kom igång</a>
+      {/if}
     </div>
   </div>
 </section>
 
-<section
-  id="features"
-  class="container space-y-6 bg-slate-50 py-8 dark:bg-transparent md:py-12 lg:py-24"
->
+<section id="features" class="container space-y-6 bg-slate-50 py-6 dark:bg-transparent md:py-8">
   <div class="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
     <h2 class="font-bold text-3xl leading-[1.1] sm:text-3xl md:text-6xl">Innehåll</h2>
     <p class="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
