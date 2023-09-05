@@ -17,7 +17,10 @@
       </div>
     </div>
     <nav>
-      <a href="/login" class={cn(buttonVariants({ variant: "secondary", size: "sm" }), "px-4")}>
+      <a
+        href="/auth/login"
+        class={cn(buttonVariants({ variant: "secondary", size: "sm" }), "px-4")}
+      >
         Logga in
       </a>
     </nav>
