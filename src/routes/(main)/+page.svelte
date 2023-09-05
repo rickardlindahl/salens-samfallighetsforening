@@ -1,12 +1,13 @@
-<script>
+<script lang="ts">
   import * as siteConfig from "$lib/config/site";
-  import { buttonVariants } from "$lib/components/ui/button";
+  import type { PageData } from "./$types";
 
   import { cn } from "$lib/utils";
+  import { buttonVariants } from "$lib/components/ui/button";
 
-  export let data;
-  let { session } = data;
-  $: ({ session } = data);
+  export let data: PageData;
+  let { session, profile } = data;
+  $: ({ session, profile } = data);
 </script>
 
 <section class="space-y-6 py-6 md:py-8">
@@ -18,8 +19,8 @@
       {siteConfig.description}
     </p>
     <div class="space-x-4">
-      {#if session?.user}
-        <p>Inloggad som {session?.user.email}</p>
+      {#if profile}
+        <p>Inloggad som {profile.full_name ?? profile.email}</p>
       {:else}
         <a href="/login" class={cn(buttonVariants({ size: "lg" }))}>Kom igång</a>
       {/if}
