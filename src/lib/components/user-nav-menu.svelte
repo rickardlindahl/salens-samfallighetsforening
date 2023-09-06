@@ -36,6 +36,11 @@
         >
       </DropdownMenu.Item>
       <DropdownMenu.Item>
+        <a href="/dashboard/posts" class="flex items-center w-full"
+          ><Icons.newspaper class="w-4 h-4 mr-2" />Inlägg</a
+        >
+      </DropdownMenu.Item>
+      <DropdownMenu.Item>
         <a href="/dashboard/settings" class="flex items-center w-full"
           ><Icons.settings class="w-4 h-4 mr-2" />Inställningar</a
         >

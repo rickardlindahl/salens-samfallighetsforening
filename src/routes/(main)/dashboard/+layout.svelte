@@ -2,7 +2,6 @@
   import { page } from "$app/stores";
   import { cn } from "$lib/utils";
   import { Button } from "$lib/components/ui/button";
-  import { Separator } from "$lib/components/ui/separator";
   import { sidebarNavItems } from "$lib/config/dashboard";
 </script>
 
@@ -10,7 +9,7 @@
   <div class="flex flex-col space-y-8 md:flex-row md:space-x-12 md:space-y-0">
     <aside class="md:-mx-4 md:w-1/5">
       <nav class={cn("flex space-x-2 md:flex-col md:space-x-0 md:space-y-1")}>
-        {#each sidebarNavItems.filter((i) => !i.disabled) as item}
+        {#each sidebarNavItems as item}
           <Button
             href={item.href}
             variant="ghost"
