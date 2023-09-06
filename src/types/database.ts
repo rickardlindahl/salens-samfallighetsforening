@@ -13,3 +13,5 @@ export type DbResultOk<T> = T extends PromiseLike<{ data: infer U }> ? Exclude<U
 export type DbResultErr = PostgrestError;
 
 export type Profile = Tables<"profiles">;
+
+export type Role = Enums<"role_enum">;

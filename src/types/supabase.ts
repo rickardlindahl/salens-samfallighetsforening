@@ -34,6 +34,7 @@ export interface Database {
           email: string;
           full_name: string | null;
           id: string;
+          role: Database["public"]["Enums"]["role_enum"];
           updated_at: string | null;
         };
         Insert: {
@@ -41,6 +42,7 @@ export interface Database {
           email: string;
           full_name?: string | null;
           id: string;
+          role?: Database["public"]["Enums"]["role_enum"];
           updated_at?: string | null;
         };
         Update: {
@@ -48,6 +50,7 @@ export interface Database {
           email?: string;
           full_name?: string | null;
           id?: string;
+          role?: Database["public"]["Enums"]["role_enum"];
           updated_at?: string | null;
         };
         Relationships: [
@@ -67,7 +70,7 @@ export interface Database {
       [_ in never]: never;
     };
     Enums: {
-      [_ in never]: never;
+      role_enum: "admin" | "user";
     };
     CompositeTypes: {
       [_ in never]: never;
