@@ -2,7 +2,6 @@ export const sidebarNavItems = [
   {
     title: "Översikt",
     href: "/dashboard",
-    disabled: true,
   },
   {
     title: "Inlägg",

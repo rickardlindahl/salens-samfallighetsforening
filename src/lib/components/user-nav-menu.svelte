@@ -31,6 +31,11 @@
       </div>
       <DropdownMenu.Separator />
       <DropdownMenu.Item>
+        <a href="/dashboard" class="flex items-center w-full"
+          ><Icons.dashboard class="w-4 h-4 mr-2" />Översikt</a
+        >
+      </DropdownMenu.Item>
+      <DropdownMenu.Item>
         <a href="/dashboard/settings" class="flex items-center w-full"
           ><Icons.settings class="w-4 h-4 mr-2" />Inställningar</a
         >
