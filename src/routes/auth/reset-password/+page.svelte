@@ -33,7 +33,7 @@
     </div>
 
     <div class="grid gap-6">
-      <form method="POST" action="/auth/reset-password">
+      <form method="post" action="/auth/reset-password">
         <input type="hidden" value={accessToken} name="accessToken" />
         <input type="hidden" value={refreshToken} name="refreshToken" />
         <div class="grid gap-2">

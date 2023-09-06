@@ -47,7 +47,7 @@
       </DropdownMenu.Item>
       <DropdownMenu.Separator />
       <DropdownMenu.Item class="cursor-pointer">
-        <form action="/auth/logout" method="POST" class="w-full">
+        <form action="/auth/logout" method="post" class="w-full">
           <button type="submit" class="flex items-center w-full"
             ><Icons.logout class="w-4 h-4 mr-2" />Logga ut</button
           >

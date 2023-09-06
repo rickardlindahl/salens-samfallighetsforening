@@ -37,6 +37,9 @@
   "dependencies": {
     "@supabase/auth-helpers-sveltekit": "^0.10.2",
     "@supabase/supabase-js": "^2.33.1",
+    "@tiptap/core": "^2.1.8",
+    "@tiptap/pm": "^2.1.8",
+    "@tiptap/starter-kit": "^2.1.8",
     "bits-ui": "^0.5.6",
     "clsx": "^2.0.0",
     "esm-env": "^1.0.0",

@@ -31,7 +31,7 @@
 <DashboardShell heading="Inställningar" text="Hantera dina kontoinställningar.">
   <form
     slot="content"
-    method="POST"
+    method="post"
     action="?/update"
     use:enhance={handleSubmit}
     bind:this={profileForm}

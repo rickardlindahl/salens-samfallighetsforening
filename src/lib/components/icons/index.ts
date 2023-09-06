@@ -21,6 +21,7 @@ import {
 
 export type Icon = LucideIcon;
 export const Icons = {
+  add: Plus,
   arrowLeft: ChevronLeft,
   circleDollarSign: CircleDollarSign,
   close: X,
@@ -33,7 +34,6 @@ export const Icons = {
   logout: LogOut,
   moon: Moon,
   newspaper: Newspaper,
-  plus: Plus,
   settings: Settings,
   spinner: Loader,
   sun: SunMedium,

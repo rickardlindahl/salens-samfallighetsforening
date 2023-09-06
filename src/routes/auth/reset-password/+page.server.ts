@@ -1,4 +1,4 @@
-import { fail, type Actions, redirect } from "@sveltejs/kit";
+import { fail, type Actions, redirect, error } from "@sveltejs/kit";
 import { AuthApiError } from "@supabase/supabase-js";
 
 export const actions: Actions = {
@@ -11,7 +11,7 @@ export const actions: Actions = {
     });
 
     if (setSessionResponse.error) {
-      throw fail(500, { error: "Unable to set session" });
+      throw error(500, new Error("Unable to set session"));
     }
 
     const updateUserResponse = await supabase.auth.updateUser({

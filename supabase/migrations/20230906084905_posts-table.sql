@@ -15,12 +15,16 @@ alter table posts
   enable row level security;
 
 -- Allow read access to published posts
-create policy "Published posts that are not drafts are viewable by everyone." on posts
-  for select using (draft = false and publish_date <= now());
+create policy "Users can select their own posts. Everyone can select published posts that are not drafts." on posts
+  for select
+  using (
+    (auth.uid() = user_id) or
+    (draft = false and publish_date <= now())
+  );
 
 create policy "Users can insert their own post." on posts
-  for insert with check (auth.uid() = id);
+  for insert with check (auth.uid() = user_id);
 
 create policy "Users can update their own posts." on posts
-  for update using (auth.uid() = id);
+  for update using (auth.uid() = user_id);
 

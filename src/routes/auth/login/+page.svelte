@@ -28,7 +28,7 @@
     </div>
 
     <div class="grid gap-6">
-      <form method="POST" action="/auth/login">
+      <form method="post" action="/auth/login">
         <div class="grid gap-2">
           <div class="grid gap-1">
             <Label for="email">Epost</Label>
