@@ -30,9 +30,9 @@ export const actions: Actions = {
       .update({
         full_name: fullName,
         avatar_url: avatarUrl || null,
-        updated_at: new Date(),
+        updated_at: new Date().toISOString(),
       })
-      .eq("id", session?.user.id);
+      .eq("id", session?.user.id ?? "");
 
     if (error) {
       return fail(500, {
