@@ -34,6 +34,7 @@
 
   const uploadAvatar = async () => {
     try {
+      console.log("on:change, uploadAvatar");
       uploading = true;
 
       if (!files || files.length === 0) {
@@ -84,7 +85,7 @@
   <div class="flex flex-row">
     <div>
       <Label class={cn(buttonVariants(), "cursor-pointer")} for="single">
-        {uploading ? "Laddar upp ..." : "Ladda upp bild"}
+        {uploading ? "Laddar upp ..." : "Välj en bild"}
       </Label>
       <input
         style="visibility: hidden; position:absolute;"
@@ -97,8 +98,10 @@
       />
     </div>
     <div>
-      <button class={cn(buttonVariants({ variant: "link" }))} on:click={removeAvatar}
-        >Ta bort bild</button
+      <button
+        disabled={!avatarUrl}
+        class={cn(buttonVariants({ variant: "link" }))}
+        on:click={removeAvatar}>Ta bort bild</button
       >
     </div>
   </div>

@@ -27,13 +27,18 @@
   };
 </script>
 
+<div class="space-y-0.5">
+  <h2 class="text-2xl font-bold tracking-tight">Inställningar</h2>
+  <p class="text-muted-foreground">Hantera dina kontoinställningar.</p>
+</div>
+<Separator class="my-6" />
 <form method="POST" action="?/update" use:enhance={handleSubmit} bind:this={profileForm}>
   <div class="space-y-8">
     <div class="space-y-2">
-      <Label>Namn</Label>
+      <Label>Ditt namn</Label>
       <Input name="fullName" placeholder="Förnamn Efternamnsson" value={fullName} />
       <div class="text-[0.8rem] text-muted-foreground">
-        I detta fält fyller du i ditt för- och efternamn.
+        Var god ange ditt fullständiga namn eller ett visningsnamn du känner dig bekväm med.
       </div>
     </div>
     <div class="space-y-2">
@@ -50,7 +55,8 @@
     <Separator />
 
     <div class="space-y-2">
-      <button type="submit" class={cn(buttonVariants())} disabled={loading}>Uppdatera profil</button
+      <button type="submit" class={cn(buttonVariants())} disabled={loading}
+        >Spara inställningar</button
       >
     </div>
   </div>

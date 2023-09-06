@@ -31,7 +31,7 @@
       </div>
       <DropdownMenu.Separator />
       <DropdownMenu.Item>
-        <a href="/settings" class="flex items-center w-full"
+        <a href="/dashboard/settings" class="flex items-center w-full"
           ><Icons.settings class="w-4 h-4 mr-2" />Inställningar</a
         >
       </DropdownMenu.Item>
