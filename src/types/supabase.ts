@@ -28,6 +28,46 @@ export interface Database {
   };
   public: {
     Tables: {
+      posts: {
+        Row: {
+          body: Json | null;
+          draft: boolean | null;
+          id: string;
+          image: string | null;
+          publish_date: string | null;
+          title: string;
+          updated_at: string | null;
+          user_id: string;
+        };
+        Insert: {
+          body?: Json | null;
+          draft?: boolean | null;
+          id?: string;
+          image?: string | null;
+          publish_date?: string | null;
+          title: string;
+          updated_at?: string | null;
+          user_id: string;
+        };
+        Update: {
+          body?: Json | null;
+          draft?: boolean | null;
+          id?: string;
+          image?: string | null;
+          publish_date?: string | null;
+          title?: string;
+          updated_at?: string | null;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "posts_user_id_fkey";
+            columns: ["user_id"];
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       profiles: {
         Row: {
           avatar_url: string | null;
