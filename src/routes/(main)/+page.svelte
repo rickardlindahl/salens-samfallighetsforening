@@ -22,7 +22,7 @@
       {#if profile}
         <p>Inloggad som {profile.full_name ?? profile.email}</p>
       {:else}
-        <a href="/login" class={cn(buttonVariants({ size: "lg" }))}>Kom igång</a>
+        <a href="/auth/login" class={cn(buttonVariants({ size: "lg" }))}>Kom igång</a>
       {/if}
     </div>
   </div>
