@@ -39,7 +39,9 @@
   <div class="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3">
     {#each siteConfig.mainNav as navItem}
       <a href={navItem.href}>
-        <div class="relative overflow-hidden rounded-lg border bg-background p-2">
+        <article
+          class="shadow shadow-foreground/20 hover:shadow-foreground/30 p-4 hover:translate-x-1 w-full cursor-pointer transition-all rounded-lg bg-foreground/5 hover:bg-foreground/10 outline outline-1 outline-foreground/10 hover:outline-foreground/20 relative justify-between gap-x-2 flex items-center"
+        >
           <div class="flex h-[180px] flex-col justify-between rounded-md p-6">
             <svelte:component this={navItem.icon} class="h-12 w-12" />
             <div class="space-y-2">
@@ -49,7 +51,7 @@
               </p>
             </div>
           </div>
-        </div>
+        </article>
       </a>
     {/each}
   </div>
