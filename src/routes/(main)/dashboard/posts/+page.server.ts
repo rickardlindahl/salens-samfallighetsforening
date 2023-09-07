@@ -15,11 +15,8 @@ export const load: PageServerLoad = async ({ locals: { getSession, supabase } })
     .eq("user_id", session?.user.id);
 
   if (error) {
-    console.log("Error!!", error);
     throw svelteKitError(500, error);
   }
-
-  console.log(posts);
 
   return {
     posts,
@@ -39,6 +36,7 @@ export const actions: Actions = {
       .insert({
         title: "Ange en rubrik",
         user_id: session.user.id,
+        profile_id: session.user.id,
         draft: true,
         updated_at: new Date().toISOString(),
       })
