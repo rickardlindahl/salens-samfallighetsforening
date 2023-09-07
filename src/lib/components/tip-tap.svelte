@@ -22,7 +22,7 @@
       extensions: [
         StarterKit.configure({
           heading: {
-            levels: [2, 3],
+            levels: [2],
             HTMLAttributes: {
               class:
                 "mt-6 scroll-m-20 text-xl sm:text-2xl md:text-3xl xl:text-4xl font-semibold tracking-tight first:mt-0",
