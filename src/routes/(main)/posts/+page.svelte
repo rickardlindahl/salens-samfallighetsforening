@@ -21,7 +21,7 @@
             class="shadow shadow-foreground/20 hover:shadow-foreground/30 p-4 hover:translate-x-1 w-full cursor-pointer transition-all rounded-md bg-foreground/5 hover:bg-foreground/10 outline outline-1 outline-foreground/10 hover:outline-foreground/20 relative justify-between gap-x-2 flex items-center"
           >
             <a href={`/posts/${post.id}`} class="absolute inset-0 z-10">
-              <span class="sr-only">Läs artikel</span>
+              <span class="sr-only">Läs artikeln</span>
             </a>
             <div class="flex flex-col gap-y-2">
               <div class="flex flex-col gap-2">
@@ -46,7 +46,7 @@
         {/each}
       </div>
     {:else}
-      <p>No posts published.</p>
+      <p>Inga inlägg publicerade.</p>
     {/if}
   </main>
 </DashboardShell>
