@@ -20,6 +20,15 @@ export const handle: Handle = async ({ event, resolve }) => {
     return session;
   };
 
+  const session = await event.locals.getSession();
+  const protectedRoutes = ["/posts", "/documents", "/address-list", "/dashboard"];
+
+  const url = new URL(event.request.url);
+
+  if (!session && protectedRoutes.some((path) => url.pathname.startsWith(path))) {
+    return Response.redirect(new URL("/auth/login", url.origin), 302);
+  }
+
   return resolve(event, {
     filterSerializedResponseHeaders(name) {
       return name === "content-range";
