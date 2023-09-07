@@ -1,5 +1,6 @@
 // src/hooks.server.ts
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from "$env/static/public";
+import { handleLoginRedirect } from "$lib/utils";
 import { createSupabaseServerClient } from "@supabase/auth-helpers-sveltekit";
 import type { Handle } from "@sveltejs/kit";
 
@@ -26,7 +27,7 @@ export const handle: Handle = async ({ event, resolve }) => {
   const url = new URL(event.request.url);
 
   if (!session && protectedRoutes.some((path) => url.pathname.startsWith(path))) {
-    return Response.redirect(new URL("/auth/login", url.origin), 302);
+    return Response.redirect(handleLoginRedirect(event), 302);
   }
 
   return resolve(event, {

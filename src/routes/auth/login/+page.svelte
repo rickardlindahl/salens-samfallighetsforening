@@ -4,6 +4,11 @@
   import { Input } from "$lib/components/ui/input";
   import { Label } from "$lib/components/ui/label";
   import { Icons } from "$lib/components/icons";
+  import { page } from "$app/stores";
+
+  let message: string;
+
+  $: message = $page.url.searchParams.get("message") ?? "";
 </script>
 
 <svelte:head>
@@ -18,6 +23,14 @@
     <Icons.arrowLeft class="mr-2 h-4 w-4" />
     Tillbaka
   </a>
+  {#if message}
+    <div
+      class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-16"
+      role="alert"
+    >
+      <span class="block sm:inline">{message}</span>
+    </div>
+  {/if}
   <div class="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
     <div class="flex flex-col space-y-2 text-center">
       <Icons.logo class="mx-auto h-6 w-6" />

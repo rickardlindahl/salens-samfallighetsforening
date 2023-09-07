@@ -2,7 +2,7 @@ import { AuthApiError } from "@supabase/supabase-js";
 import { fail, type Actions, redirect } from "@sveltejs/kit";
 
 export const actions: Actions = {
-  default: async ({ request, locals: { supabase } }) => {
+  default: async ({ url, request, locals: { supabase } }) => {
     const formData = await request.formData();
 
     const email = formData.get("email") as string;
@@ -32,6 +32,11 @@ export const actions: Actions = {
       });
     }
 
-    throw redirect(303, "/");
+    const redirectTo = url.searchParams.get("redirectTo");
+    if (redirectTo) {
+      throw redirect(302, `/${redirectTo.slice(1)}`);
+    }
+
+    throw redirect(302, "/");
   },
 };

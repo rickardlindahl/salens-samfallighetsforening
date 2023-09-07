@@ -2,6 +2,19 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { cubicOut } from "svelte/easing";
 import type { TransitionConfig } from "svelte/transition";
+import type { RequestEvent } from "@sveltejs/kit";
+
+export function handleLoginRedirect(
+  event: RequestEvent,
+  message: string = "Du måste vara inloggad för att komma åt denna sida",
+) {
+  const newURL = new URL("/auth/login", event.url.origin);
+
+  newURL.searchParams.append("redirectTo", event.url.pathname + event.url.search);
+  newURL.searchParams.append("message", message);
+
+  return newURL;
+}
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
