@@ -87,7 +87,7 @@
         {/if}
         {#if post.updated_at}
           <br />
-          Uppdaterad: {formatRelative(new Date(post.updated_at))}
+          Uppdaterad: {formatRelative(new Date(post.updated_at ?? ""))}
         {/if}
       </p>
       <Input

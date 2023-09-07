@@ -3,8 +3,15 @@
   import { enhance } from "$app/forms";
   import { cn } from "$lib/utils";
   import DashboardShell from "../(components)/dashboard-shell.svelte";
-  import { buttonVariants } from "$lib/components/ui/button";
+  import { Button, buttonVariants } from "$lib/components/ui/button";
+  import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
   import { Icons } from "$lib/components/icons";
+  import { formatRelative } from "$lib/date";
+  import type { PageData } from "./$types";
+
+  export let data: PageData;
+
+  let { posts } = data;
 
   let isLoading = false;
 
@@ -15,6 +22,7 @@
       await update();
     };
   };
+  $: ({ posts } = data);
 </script>
 
 <DashboardShell heading="Inlägg" text="Skapa och hantera inlägg">
@@ -34,7 +42,47 @@
     </button>
   </form>
 
-  <div slot="content" class="flex flex-col gap-4 md:flex-row">
-    <p>Alla dina inlägg.</p>
+  <div slot="content" class="flex flex-col gap-4">
+    {#if posts.length > 0}
+      <div class="divide-y divide-border rounded-md border">
+        {#each posts as post}
+          <div class="flex items-center justify-between p-4">
+            <div class="grid gap-1">
+              <a class="font-semibold hover:underline" href={`/editor/${post.id}`}>{post.title}</a>
+              <div>
+                <p class="text-sm text-muted-foreground">
+                  {#if post.draft}
+                    Utkast: {formatRelative(new Date(post.updated_at ?? ""))}
+                  {:else}
+                    Publicerad: {formatRelative(new Date(post.publish_date ?? ""))}
+                  {/if}
+                </p>
+              </div>
+            </div>
+
+            <DropdownMenu.Root>
+              <DropdownMenu.Trigger asChild let:builder>
+                <Button builders={[builder]} variant="outline"
+                  ><Icons.more class="h-4 w-4" /></Button
+                >
+              </DropdownMenu.Trigger>
+              <DropdownMenu.Content>
+                <DropdownMenu.Item>
+                  <a href={`/editor/${post.id}`} class="flex w-full"> Redigera </a>
+                </DropdownMenu.Item>
+                <DropdownMenu.Separator />
+                <DropdownMenu.Item
+                  class="flex cursor-pointer items-center text-destructive focus:text-destructive"
+                >
+                  Ta bort
+                </DropdownMenu.Item>
+              </DropdownMenu.Content>
+            </DropdownMenu.Root>
+          </div>
+        {/each}
+      </div>
+    {:else}
+      <p>Du har inte gjort några inlägg än.</p>
+    {/if}
   </div>
 </DashboardShell>
