@@ -2,6 +2,7 @@
   import { enhance } from "$app/forms";
   import { Icons } from "$lib/components/icons";
   import TipTap from "$lib/components/tip-tap.svelte";
+  import { formatRelative } from "$lib/date";
   import { Button, buttonVariants } from "$lib/components/ui/button";
   import { Input } from "$lib/components/ui/input";
   import { cn } from "$lib/utils";
@@ -40,13 +41,6 @@
           <Icons.arrowLeft class="mr-2 h-4 w-4" />
           Back
         </a>
-        <p class="text-sm text-muted-foreground">
-          {#if post.draft}
-            Utkast
-          {:else}
-            Publicerad den {post.publish_date}
-          {/if}
-        </p>
       </div>
 
       <div>
@@ -56,7 +50,11 @@
           {:else}
             <Icons.save class="mr-2 h-4 w-4" />
           {/if}
-          Spara
+          {#if post.draft}
+            Spara
+          {:else}
+            Uppdatera
+          {/if}
         </Button>
 
         {#if post.draft}
@@ -68,9 +66,7 @@
             {/if}
             <span>Publicera</span>
           </Button>
-        {/if}
-
-        {#if !post.draft}
+        {:else}
           <Button type="submit" formaction="?/unpublish">
             {#if isSaving}
               <Icons.spinner class="mr-2 h-4 w-4 animate-spin" />
@@ -83,6 +79,17 @@
       </div>
     </div>
     <div class="grid gap-8 prose prose-stone mx-auto max-w-[800px] dark:prose-invert">
+      <p class="text-md text-muted-foreground">
+        {#if post.draft}
+          Utkast
+        {:else}
+          Publicerad: {formatRelative(new Date(post.publish_date ?? ""))}
+        {/if}
+        {#if post.updated_at}
+          <br />
+          Uppdaterad: {formatRelative(new Date(post.updated_at))}
+        {/if}
+      </p>
       <Input
         autofocus
         id="title"

@@ -10,9 +10,8 @@
 
   const handleSubmit: SubmitFunction = () => {
     isLoading = true;
-    return async ({ result, update }) => {
+    return async ({ update }) => {
       isLoading = false;
-      console.log({ result, update });
       await update();
     };
   };

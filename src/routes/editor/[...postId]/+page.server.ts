@@ -31,10 +31,7 @@ async function updatePost(
 ) {
   const result = await supabase
     .from("posts")
-    .update({
-      ...updatedPost,
-      updated_at: new Date().toISOString(),
-    })
+    .update(updatedPost)
     .eq("id", postId)
     .select()
     .single();
@@ -61,12 +58,13 @@ function toPost(formData: FormData) {
 export const actions: Actions<{ postId: string }> = {
   save: async ({ request, params, locals: { supabase } }) => {
     const formData = await request.formData();
-    const updatedPost = toPost(formData);
-    if (!updatedPost.draft) {
-      updatedPost.updated_at = new Date().toISOString();
-    }
 
-    const { data: post, error } = await updatePost(supabase, toPost(formData), params.postId);
+    const updatedPost: Update<"posts"> = {
+      ...toPost(formData),
+      updated_at: new Date().toISOString(),
+    };
+
+    const { data: post, error } = await updatePost(supabase, updatedPost, params.postId);
 
     if (error) {
       return fail(400, { success: false, message: "Something went wrong." });
@@ -83,7 +81,7 @@ export const actions: Actions<{ postId: string }> = {
       ...toPost(formData),
       draft: false,
       publish_date: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
+      updated_at: null,
     };
     const { data: post, error } = await updatePost(supabase, updatedPost, params.postId);
 

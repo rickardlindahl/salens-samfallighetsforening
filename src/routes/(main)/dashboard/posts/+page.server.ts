@@ -18,8 +18,6 @@ export const actions: Actions = {
       .select()
       .single();
 
-    console.log({ post, error });
-
     if (error) {
       return fail(400, {
         title: "Something went wrong.",
