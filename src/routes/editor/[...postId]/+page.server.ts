@@ -1,5 +1,8 @@
-import { error as sveltekitError, type Actions } from "@sveltejs/kit";
+import { error as sveltekitError, type Actions, fail } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
+import type { Update } from "../../../types/database";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import type { Database } from "../../../types/supabase";
 
 export const load: PageServerLoad = async ({ params, locals: { supabase } }) => {
   const { data: post, error } = await supabase
@@ -7,8 +10,6 @@ export const load: PageServerLoad = async ({ params, locals: { supabase } }) => 
     .select()
     .eq("id", params.postId)
     .single();
-
-  console.log({ post, error });
 
   if (error) {
     if (error.code === "PGRST116") {
@@ -23,26 +24,95 @@ export const load: PageServerLoad = async ({ params, locals: { supabase } }) => 
   };
 };
 
-export const actions: Actions = {
+async function updatePost(
+  supabase: SupabaseClient<Database>,
+  updatedPost: Update<"posts">,
+  postId: string,
+) {
+  const result = await supabase
+    .from("posts")
+    .update({
+      ...updatedPost,
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", postId)
+    .select()
+    .single();
+
+  return result;
+}
+
+function toPost(formData: FormData) {
+  const title = formData.get("title") as string;
+  const body = formData.get("body") as string;
+  const draft = formData.get("draft") as string;
+  const publishDate = formData.get("publishDate") as string;
+
+  const post: Update<"posts"> = {
+    title,
+    body: JSON.parse(body),
+    draft: draft === "true",
+    publish_date: publishDate || null,
+  };
+
+  return post;
+}
+
+export const actions: Actions<{ postId: string }> = {
   save: async ({ request, params, locals: { supabase } }) => {
     const formData = await request.formData();
-    const title = formData.get("title") as string;
-    const body = formData.get("body") as string;
-    const draft = (formData.get("draft") as string) ?? "true";
+    const updatedPost = toPost(formData);
+    if (!updatedPost.draft) {
+      updatedPost.updated_at = new Date().toISOString();
+    }
 
-    const res = await supabase
-      .from("posts")
-      .update({
-        title,
-        body: JSON.parse(body),
-        updated_at: new Date().toISOString(),
-        draft: draft === "true",
-      })
-      .eq("id", params.postId!);
+    const { data: post, error } = await updatePost(supabase, toPost(formData), params.postId);
 
-    console.log({ title, body, res });
+    if (error) {
+      return fail(400, { success: false, message: "Something went wrong." });
+    }
+
     return {
       success: true,
+      post,
+    };
+  },
+  publish: async ({ request, params, locals: { supabase } }) => {
+    const formData = await request.formData();
+    const updatedPost: Update<"posts"> = {
+      ...toPost(formData),
+      draft: false,
+      publish_date: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    };
+    const { data: post, error } = await updatePost(supabase, updatedPost, params.postId);
+
+    if (error) {
+      return fail(400, { success: false, message: "Something went wrong." });
+    }
+
+    return {
+      success: true,
+      post,
+    };
+  },
+  unpublish: async ({ request, params, locals: { supabase } }) => {
+    const formData = await request.formData();
+    const updatedPost: Update<"posts"> = {
+      ...toPost(formData),
+      draft: true,
+      publish_date: null,
+      updated_at: new Date().toISOString(),
+    };
+    const { data: post, error } = await updatePost(supabase, updatedPost, params.postId);
+
+    if (error) {
+      return fail(400, { success: false, message: "Something went wrong." });
+    }
+
+    return {
+      success: true,
+      post,
     };
   },
 };

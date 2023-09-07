@@ -4,10 +4,11 @@
   import StarterKit from "@tiptap/starter-kit";
   import { cn } from "$lib/utils";
   import { Button, buttonVariants } from "./ui/button";
+  import type { Json } from "../../types/supabase";
 
   let element: HTMLDivElement;
   let editor: Editor;
-  export let body: JSONContent;
+  export let body: Json | JSONContent | null;
 
   onMount(() => {
     editor = new Editor({
@@ -22,10 +23,19 @@
         StarterKit.configure({
           heading: {
             levels: [2, 3],
+            HTMLAttributes: {
+              class:
+                "mt-6 scroll-m-20 text-xl sm:text-2xl md:text-3xl xl:text-4xl font-semibold tracking-tight first:mt-0",
+            },
+          },
+          paragraph: {
+            HTMLAttributes: {
+              class: "leading-7 [&:not(:first-child)]:mt-4",
+            },
           },
         }),
       ],
-      content: body,
+      content: body as JSONContent,
       onTransaction: () => {
         // force re-render so `editor.isActive` works as expected
         editor = editor;

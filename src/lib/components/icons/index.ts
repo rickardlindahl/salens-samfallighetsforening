@@ -13,8 +13,11 @@ import {
   Moon,
   Newspaper,
   Plus,
+  Save,
+  Send,
   Settings,
   SunMedium,
+  Undo,
   User,
   X,
 } from "lucide-svelte";
@@ -34,8 +37,11 @@ export const Icons = {
   logout: LogOut,
   moon: Moon,
   newspaper: Newspaper,
+  publish: Send,
+  save: Save,
   settings: Settings,
   spinner: Loader,
   sun: SunMedium,
+  unpublish: Undo,
   user: User,
 };
