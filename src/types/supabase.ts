@@ -28,12 +28,53 @@ export interface Database {
   };
   public: {
     Tables: {
+      documents: {
+        Row: {
+          created_at: string;
+          description: string;
+          file_url: string;
+          id: string;
+          profile_id: string;
+          user_id: string;
+        };
+        Insert: {
+          created_at: string;
+          description: string;
+          file_url: string;
+          id?: string;
+          profile_id: string;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          description?: string;
+          file_url?: string;
+          id?: string;
+          profile_id?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "documents_profile_id_fkey";
+            columns: ["profile_id"];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "documents_user_id_fkey";
+            columns: ["user_id"];
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       posts: {
         Row: {
           body: Json | null;
           draft: boolean | null;
           id: string;
           image: string | null;
+          profile_id: string;
           publish_date: string | null;
           title: string;
           updated_at: string | null;
@@ -44,6 +85,7 @@ export interface Database {
           draft?: boolean | null;
           id?: string;
           image?: string | null;
+          profile_id: string;
           publish_date?: string | null;
           title: string;
           updated_at?: string | null;
@@ -54,12 +96,19 @@ export interface Database {
           draft?: boolean | null;
           id?: string;
           image?: string | null;
+          profile_id?: string;
           publish_date?: string | null;
           title?: string;
           updated_at?: string | null;
           user_id?: string;
         };
         Relationships: [
+          {
+            foreignKeyName: "posts_profile_id_fkey";
+            columns: ["profile_id"];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
           {
             foreignKeyName: "posts_user_id_fkey";
             columns: ["user_id"];

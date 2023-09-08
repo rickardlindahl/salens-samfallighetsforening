@@ -16,10 +16,12 @@ export const load: PageServerLoad = async ({ params, locals: { supabase } }) => 
     }
   }
 
+  const { profiles, ...rest } = post;
+
   return {
     post: {
-      ...post,
-      profile: Array.isArray(post.profiles) ? post.profiles[0] : post.profiles,
+      ...rest,
+      profile: Array.isArray(profiles) ? profiles[0] : profiles,
     },
   };
 };
