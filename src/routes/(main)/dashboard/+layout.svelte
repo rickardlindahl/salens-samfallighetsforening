@@ -8,7 +8,7 @@
 <div class="container space-y-6 p-10 pb-16">
   <div class="flex flex-col space-y-8 md:flex-row md:space-x-12 md:space-y-0">
     <aside class="md:-mx-4 md:w-1/5">
-      <nav class={cn("flex space-x-2 md:flex-col md:space-x-0 md:space-y-1")}>
+      <nav class="flex flex-wrap space-x-2 md:flex-col md:space-x-0 md:space-y-1">
         {#each sidebarNavItems as item}
           <Button
             href={item.href}

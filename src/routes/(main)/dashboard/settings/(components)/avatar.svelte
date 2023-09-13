@@ -34,7 +34,6 @@
 
   const uploadAvatar = async () => {
     try {
-      console.log("on:change, uploadAvatar");
       uploading = true;
 
       if (!files || files.length === 0) {
