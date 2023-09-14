@@ -6,16 +6,11 @@
   import type { PageData } from "./$types";
   import DeleteDocumentForm from "./delete-document-form.svelte";
   import UploadDocumentForm from "./upload-document-form.svelte";
-  import { superForm } from "sveltekit-superforms/client";
 
   export let data: PageData;
 
   let { documents, deleteForm, uploadForm } = data;
-
   $: ({ documents, deleteForm, uploadForm } = data);
-  $: console.log({ uploadForm });
-
-  const f = superForm(deleteForm, { warnings: { duplicateId: false } });
 </script>
 
 <DashboardShell heading="Dokument" text="Ladda upp och hantera dokument">
