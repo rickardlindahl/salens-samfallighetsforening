@@ -25,7 +25,7 @@
   $: ({ posts } = data);
 </script>
 
-<DashboardShell heading="Inlägg" text="Skapa och hantera inlägg">
+<DashboardShell heading="Inlägg" text="Skapa nya och hantera dina inlägg">
   <form slot="action" action="?/createPost" method="post" use:enhance={handleSubmit}>
     <button
       class={cn(buttonVariants(), {
