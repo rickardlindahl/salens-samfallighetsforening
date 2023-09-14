@@ -1,16 +1,17 @@
 <script lang="ts">
   import DashboardShell from "../(components)/dashboard-shell.svelte";
   import * as Accordion from "$lib/components/ui/accordion";
+  import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
   import { Icons } from "$lib/components/icons";
   import { formatRelative } from "$lib/date";
   import type { PageData } from "./$types";
-  import DeleteDocumentForm from "./delete-document-form.svelte";
   import UploadDocumentForm from "./upload-document-form.svelte";
+  import { Button } from "$lib/components/ui/button";
 
   export let data: PageData;
 
-  let { documents, deleteForm, uploadForm } = data;
-  $: ({ documents, deleteForm, uploadForm } = data);
+  let { documents, uploadForm } = data;
+  $: ({ documents, uploadForm } = data);
 </script>
 
 <DashboardShell heading="Dokument" text="Ladda upp och hantera dokument">
@@ -44,7 +45,35 @@
                 </p>
               </div>
             </div>
-            <DeleteDocumentForm form={deleteForm} documentId={doc.id} />
+
+            <DropdownMenu.Root>
+              <DropdownMenu.Trigger asChild let:builder>
+                <Button builders={[builder]} variant="outline"
+                  ><Icons.more class="h-4 w-4" /></Button
+                >
+              </DropdownMenu.Trigger>
+              <DropdownMenu.Content>
+                <DropdownMenu.Item>
+                  <a href={`/documents/${doc.id}`} download={doc.file_name} class="flex w-full">
+                    Ladda ner
+                  </a>
+                </DropdownMenu.Item>
+                <DropdownMenu.Separator />
+                <DropdownMenu.Item
+                  class="flex cursor-pointer items-center text-destructive focus:text-destructive"
+                >
+                  <form action="?/deleteDocument" method="post">
+                    <input type="hidden" name="documentId" value={doc.id} />
+                    <input
+                      id={`submit-${doc.id}`}
+                      type="submit"
+                      value="Ta bort"
+                      class="appearance-none"
+                    />
+                  </form>
+                </DropdownMenu.Item>
+              </DropdownMenu.Content>
+            </DropdownMenu.Root>
           </div>
         {/each}
       </div>

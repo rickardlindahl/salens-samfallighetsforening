@@ -21,8 +21,7 @@ export const load: PageServerLoad = async ({ locals: { getSession, supabase } })
   }
 
   return {
-    documents,
-    deleteForm: superValidate(deleteDocumentSchema),
+    documents: documents ?? [],
     uploadForm: superValidate(uploadDocumentSchema),
   };
 };
@@ -86,16 +85,18 @@ export const actions: Actions = {
     }
 
     const formData = await request.formData();
-    const deleteForm = await superValidate(formData, deleteDocumentSchema);
+    const documentId = formData.get("documentId");
 
-    if (!deleteForm.valid) {
-      return fail(400, { deleteForm });
+    const result = deleteDocumentSchema.safeParse({ documentId });
+
+    if (!result.success) {
+      return fail(400, { success: false, message: "Dokumentet saknar id" });
     }
 
     const { data: doc, error: postgrestError } = await supabase
       .from("documents")
       .delete()
-      .eq("id", deleteForm.data.documentId)
+      .eq("id", result.data.documentId)
       .select()
       .single();
 
@@ -111,6 +112,11 @@ export const actions: Actions = {
       throw svelteKitError(500, "Kunde ej ta bort dokumentet. Var god försök igen senare.");
     }
 
-    return message(deleteForm, "Dokumentet har blivit borttaget");
+    console.log("dokumentet är borta");
+
+    return {
+      success: true,
+      message: "Dokumentet har blivit borttaget",
+    };
   },
 };
