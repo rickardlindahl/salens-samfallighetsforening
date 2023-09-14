@@ -33,6 +33,7 @@
                 {#if post.publish_date}
                   <span class="flex flex-wrap items-center gap-x-2 text-sm text-muted-foreground">
                     <time>{formatRelative(new Date(post.publish_date))}</time>
+                    ·
                     {#if post.profile.full_name}
                       <p>{post.profile.full_name}</p>
                     {:else}

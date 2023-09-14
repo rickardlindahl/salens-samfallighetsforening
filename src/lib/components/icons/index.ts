@@ -1,5 +1,6 @@
 import type { Icon as LucideIcon } from "lucide-svelte";
 import {
+  AlertCircle,
   ChevronLeft,
   CircleDollarSign,
   Command,
@@ -18,6 +19,7 @@ import {
   Send,
   Settings,
   SunMedium,
+  Trash2,
   Undo,
   User,
   X,
@@ -25,12 +27,14 @@ import {
 
 export type Icon = LucideIcon;
 export const Icons = {
+  alert: AlertCircle,
   add: Plus,
   arrowLeft: ChevronLeft,
   circleDollarSign: CircleDollarSign,
   close: X,
   contact: Contact,
   dashboard: LayoutDashboard,
+  delete: Trash2,
   facebook: Facebook,
   file: File,
   github: Github,

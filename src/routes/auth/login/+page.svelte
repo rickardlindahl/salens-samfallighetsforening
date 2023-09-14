@@ -1,5 +1,6 @@
 <script lang="ts">
   import { cn } from "$lib/utils";
+  import * as Alert from "$lib/components/ui/alert";
   import { buttonVariants } from "$lib/components/ui/button";
   import { Input } from "$lib/components/ui/input";
   import { Label } from "$lib/components/ui/label";
@@ -23,15 +24,16 @@
     <Icons.arrowLeft class="mr-2 h-4 w-4" />
     Tillbaka
   </a>
-  {#if message}
-    <div
-      class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-16"
-      role="alert"
-    >
-      <span class="block sm:inline">{message}</span>
-    </div>
-  {/if}
   <div class="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+    {#if message}
+      <Alert.Root variant="destructive">
+        <Icons.alert class="h-4 w-4" />
+        <Alert.Title>Ej behörig</Alert.Title>
+        <Alert.Description>
+          {message}
+        </Alert.Description>
+      </Alert.Root>
+    {/if}
     <div class="flex flex-col space-y-2 text-center">
       <Icons.logo class="mx-auto h-6 w-6" />
       <h1 class="text-2xl font-semibold tracking-tight">Välkommen tillbaka!</h1>
@@ -59,6 +61,8 @@
           <div class="grid gap-1">
             <Label for="password">Lösenord</Label>
             <Input id="password" name="password" type="password" />
+          </div>
+          <div class="grid gap-1">
             <button class={cn(buttonVariants())}>Logga in</button>
           </div>
         </div>
