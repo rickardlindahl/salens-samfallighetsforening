@@ -59,6 +59,8 @@
           <div class="grid gap-1">
             <Label for="password">Lösenord</Label>
             <Input id="password" name="password" type="password" />
+          </div>
+          <div class="grid gap-1">
             <button class={cn(buttonVariants())}>Logga in</button>
           </div>
         </div>
