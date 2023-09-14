@@ -2,8 +2,13 @@
   import * as Form from "$lib/components/ui/form";
   import type { SuperValidated } from "sveltekit-superforms";
   import { uploadDocumentSchema, type UploadDocumentSchema } from "./schema";
+  import type { FormOptions } from "formsnap";
 
   export let form: SuperValidated<UploadDocumentSchema>;
+
+  const options: FormOptions<UploadDocumentSchema> = {
+    resetForm: true,
+  };
 </script>
 
 <Form.Root
@@ -14,6 +19,7 @@
   let:config
   enctype="multipart/form-data"
   class="grid gap-y-2 py-4"
+  {options}
 >
   <Form.Field {config} name="description">
     <Form.Item>
