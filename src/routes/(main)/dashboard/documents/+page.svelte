@@ -23,7 +23,6 @@
             Ladda upp dokument
           </div></Accordion.Trigger
         >
-
         <Accordion.Content>
           <UploadDocumentForm form={uploadForm} />
         </Accordion.Content>
@@ -34,8 +33,10 @@
         {#each documents as doc}
           <div class="flex items-center justify-between p-4">
             <div class="grid gap-1">
-              <a class="font-semibold hover:underline" href={`/documents/${doc.id}`}
-                >{doc.description}</a
+              <a
+                class="font-semibold hover:underline"
+                download={doc.file_name}
+                href={`/documents/${doc.id}`}>{doc.description}</a
               >
               <div>
                 <p class="text-sm text-muted-foreground">
@@ -43,7 +44,6 @@
                 </p>
               </div>
             </div>
-
             <DeleteDocumentForm form={deleteForm} documentId={doc.id} />
           </div>
         {/each}

@@ -32,25 +32,28 @@ export interface Database {
         Row: {
           created_at: string;
           description: string;
-          file_url: string;
+          file_name: string;
           id: string;
           profile_id: string;
+          storage_path: string;
           user_id: string;
         };
         Insert: {
           created_at: string;
           description: string;
-          file_url: string;
+          file_name: string;
           id?: string;
           profile_id: string;
+          storage_path: string;
           user_id: string;
         };
         Update: {
           created_at?: string;
           description?: string;
-          file_url?: string;
+          file_name?: string;
           id?: string;
           profile_id?: string;
+          storage_path?: string;
           user_id?: string;
         };
         Relationships: [

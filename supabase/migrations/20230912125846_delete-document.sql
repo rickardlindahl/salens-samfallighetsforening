@@ -3,3 +3,9 @@ create policy "Users can delete their own documents." on documents
 
 create policy "Users can delete their own documents." on storage.objects
   for delete using (auth.uid() = owner and bucket_id = 'documents');
+
+alter table documents
+rename column file_url to storage_path;
+
+alter table documents
+add column file_name text not null;

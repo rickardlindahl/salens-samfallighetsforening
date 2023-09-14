@@ -51,9 +51,11 @@ export const actions: Actions = {
     const { data: file } = result;
 
     const fileExt = file.name.split(".").pop();
-    const filePath = `${Math.random()}.${fileExt}`;
+    const storagePath = `${Math.random()}.${fileExt}`;
 
-    let { error: storageError } = await supabase.storage.from("documents").upload(filePath, file);
+    let { error: storageError } = await supabase.storage
+      .from("documents")
+      .upload(storagePath, file);
 
     if (storageError) {
       throw svelteKitError(500, "Något gick fel. Var god försök igen senare.");
@@ -64,7 +66,8 @@ export const actions: Actions = {
       description: uploadForm.data.description,
       user_id: session.user.id,
       profile_id: session.user.id,
-      file_url: filePath,
+      storage_path: storagePath,
+      file_name: file.name,
     });
 
     if (error) {
@@ -100,7 +103,9 @@ export const actions: Actions = {
       throw svelteKitError(500, "Kunde ej ta bort dokumentet. Var god försök igen senare.");
     }
 
-    const { error: storageError } = await supabase.storage.from("documents").remove([doc.file_url]);
+    const { error: storageError } = await supabase.storage
+      .from("documents")
+      .remove([doc.storage_path]);
 
     if (storageError) {
       throw svelteKitError(500, "Kunde ej ta bort dokumentet. Var god försök igen senare.");
