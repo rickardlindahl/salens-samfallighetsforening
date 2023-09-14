@@ -20,7 +20,9 @@
               <a
                 class="font-semibold hover:underline"
                 download={doc.file_name}
-                href={`/documents/${doc.id}`}>{doc.description}</a
+                href={`/documents/${doc.id}`}
+                data-author-name={doc.profile.full_name}
+                data-author-email={doc.profile.email}>{doc.description}</a
               >
               <div>
                 <p class="text-sm text-muted-foreground">
