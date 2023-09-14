@@ -12,38 +12,26 @@
 <DashboardShell heading="Dokument" text="Här visas alla dokument som laddats upp.">
   <main slot="content">
     {#if documents.length > 0}
-      <div class="flex flex-col gap-4">
+      <div class="divide-y divide-border rounded-md border">
         {#each documents as doc}
-          <article
-            class="shadow shadow-foreground/20 hover:shadow-foreground/30 p-4 hover:translate-x-1 w-full cursor-pointer transition-all rounded-md bg-foreground/5 hover:bg-foreground/10 outline outline-1 outline-foreground/10 hover:outline-foreground/20 relative justify-between gap-x-2 flex items-center"
-          >
-            <a class="absolute inset-0 z-10" download={doc.file_name} href={`/documents/${doc.id}`}>
-              <span class="sr-only">Ladda ned dokumentet</span>
-            </a>
-            <div class="flex flex-col gap-y-2">
-              <div class="flex flex-col gap-2">
-                <h2
-                  class="text-xl sm:text-xl md:text-2xl xl:text-3xl font-semibold tracking-tight mb-0"
-                >
-                  {doc.description}
-                </h2>
-                {#if doc.created_at}
-                  <span class="flex flex-wrap items-center gap-x-2 text-sm text-muted-foreground">
-                    <time>{formatRelative(new Date(doc.created_at))}</time>
-                    {#if doc.profile.full_name}
-                      <p>{doc.profile.full_name}</p>
-                    {:else}
-                      <p>{doc.profile.email}</p>
-                    {/if}
-                  </span>
-                {/if}
+          <div class="flex items-center justify-between p-4">
+            <div class="grid gap-1">
+              <a
+                class="font-semibold hover:underline"
+                download={doc.file_name}
+                href={`/documents/${doc.id}`}>{doc.description}</a
+              >
+              <div>
+                <p class="text-sm text-muted-foreground">
+                  Uppladdad: {formatRelative(new Date(doc.created_at))}
+                </p>
               </div>
             </div>
-          </article>
+          </div>
         {/each}
       </div>
     {:else}
-      <p>Inga dokument uppladdade.</p>
+      <p>Inga dokument uppladdade än.</p>
     {/if}
   </main>
 </DashboardShell>
