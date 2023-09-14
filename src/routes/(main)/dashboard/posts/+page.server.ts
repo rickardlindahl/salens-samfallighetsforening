@@ -1,4 +1,4 @@
-import { error as svelteKitError, fail, type Actions, redirect } from "@sveltejs/kit";
+import { error, type Actions, redirect } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ locals: { getSession, supabase } }) => {
@@ -8,14 +8,14 @@ export const load: PageServerLoad = async ({ locals: { getSession, supabase } })
     throw redirect(303, "/auth/login");
   }
 
-  const { data: posts, error } = await supabase
+  const { data: posts, error: selectError } = await supabase
     .from("posts")
     .select()
     .order("publish_date", { ascending: false })
     .eq("user_id", session?.user.id);
 
-  if (error) {
-    throw svelteKitError(500, error);
+  if (selectError) {
+    throw error(500, selectError);
   }
 
   return {
@@ -31,10 +31,10 @@ export const actions: Actions = {
       throw redirect(303, "/auth/login");
     }
 
-    const { data: post, error } = await supabase
+    const { data: post, error: insertError } = await supabase
       .from("posts")
       .insert({
-        title: "Ange en rubrik",
+        title: "",
         user_id: session.user.id,
         profile_id: session.user.id,
         draft: true,
@@ -43,12 +43,8 @@ export const actions: Actions = {
       .select()
       .single();
 
-    if (error) {
-      return fail(400, {
-        title: "Something went wrong.",
-        description: "Your post was not created. Please try again.",
-        variant: "destructive",
-      });
+    if (insertError) {
+      throw error(500, "Något gick fel. Var god försök igen senare");
     }
 
     throw redirect(303, `/editor/${post.id}`);
