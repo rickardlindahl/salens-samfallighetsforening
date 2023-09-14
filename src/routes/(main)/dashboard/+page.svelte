@@ -2,6 +2,7 @@
   import * as Alert from "$lib/components/ui/alert";
   import { Icons } from "$lib/components/icons";
   import { formatRelative } from "$lib/date";
+  import { formatFileSize } from "$lib/utils";
   import type { PageData } from "./$types";
   import DashboardShell from "./(components)/dashboard-shell.svelte";
 
@@ -81,7 +82,9 @@
                   >
                   <div>
                     <p class="text-sm text-muted-foreground">
-                      Uppladdad: {formatRelative(new Date(doc.created_at))}
+                      Uppladdad: {formatRelative(new Date(doc.created_at))} · {formatFileSize(
+                        doc.file_size,
+                      )}
                     </p>
                   </div>
                 </div>

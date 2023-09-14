@@ -1,5 +1,6 @@
 <script lang="ts">
   import { formatRelative } from "$lib/date";
+  import { formatFileSize } from "$lib/utils";
   import DashboardShell from "../dashboard/(components)/dashboard-shell.svelte";
   import type { PageData } from "./$types";
 
@@ -23,7 +24,9 @@
               >
               <div>
                 <p class="text-sm text-muted-foreground">
-                  Uppladdad: {formatRelative(new Date(doc.created_at))}
+                  Uppladdad: {formatRelative(new Date(doc.created_at))} · {formatFileSize(
+                    doc.file_size,
+                  )}
                 </p>
               </div>
             </div>

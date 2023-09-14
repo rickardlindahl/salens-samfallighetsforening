@@ -4,6 +4,7 @@
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
   import { Icons } from "$lib/components/icons";
   import { formatRelative } from "$lib/date";
+  import { formatFileSize } from "$lib/utils";
   import type { PageData } from "./$types";
   import UploadDocumentForm from "./upload-document-form.svelte";
   import { Button } from "$lib/components/ui/button";
@@ -41,7 +42,9 @@
               >
               <div>
                 <p class="text-sm text-muted-foreground">
-                  Uppladdad: {formatRelative(new Date(doc.created_at))}
+                  Uppladdad: {formatRelative(new Date(doc.created_at))} · {formatFileSize(
+                    doc.file_size,
+                  )}
                 </p>
               </div>
             </div>

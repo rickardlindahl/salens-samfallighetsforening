@@ -4,6 +4,16 @@ import { cubicOut } from "svelte/easing";
 import type { TransitionConfig } from "svelte/transition";
 import type { RequestEvent } from "@sveltejs/kit";
 
+export function formatFileSize(size: number) {
+  if (size === 0) {
+    return `0 B`;
+  }
+
+  const i = Math.floor(Math.log(size) / Math.log(1024));
+  const suffix = ["B", "kB", "MB", "GB", "TB"][i];
+  return `${Number((size / Math.pow(1024, i)).toFixed(2))} ${suffix}`;
+}
+
 export function handleLoginRedirect(
   event: RequestEvent,
   message: string = "Du måste vara inloggad för att komma åt denna sida",
