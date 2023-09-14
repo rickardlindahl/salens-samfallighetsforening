@@ -89,14 +89,20 @@ export const actions: Actions = {
       return fail(400, { deleteForm });
     }
 
-    const { error } = await supabase
+    const { data: doc, error: postgrestError } = await supabase
       .from("documents")
       .delete()
-
       .eq("id", deleteForm.data.documentId)
-      .select();
+      .select()
+      .single();
 
-    if (error) {
+    if (postgrestError) {
+      throw svelteKitError(500, "Kunde ej ta bort dokumentet. Var god försök igen senare.");
+    }
+
+    const { error: storageError } = await supabase.storage.from("documents").remove([doc.file_url]);
+
+    if (storageError) {
       throw svelteKitError(500, "Kunde ej ta bort dokumentet. Var god försök igen senare.");
     }
 
