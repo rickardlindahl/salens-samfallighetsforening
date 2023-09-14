@@ -1,14 +1,21 @@
 <script lang="ts">
   import { cn } from "$lib/utils";
   import { buttonVariants } from "$lib/components/ui/button";
+  import * as Form from "$lib/components/ui/form";
   import { Input } from "$lib/components/ui/input";
   import { Label } from "$lib/components/ui/label";
   import { Icons } from "$lib/components/icons";
   import { page } from "$app/stores";
+  import type { PageData } from "./$types";
+  import { resetPasswordFormSchema } from "$lib/schema";
+  import InputValueBinder from "$lib/components/input-value-binder.svelte";
 
   const searchParams = new URLSearchParams($page.url.hash.replace("#", "?"));
-  const accessToken = searchParams.get("access_token");
-  const refreshToken = searchParams.get("refresh_token");
+
+  export let data: PageData;
+
+  const accessToken = data.accessToken ?? searchParams.get("access_token");
+  const refreshToken = data.refreshToken ?? searchParams.get("refresh_token");
 </script>
 
 <svelte:head>
@@ -33,17 +40,33 @@
     </div>
 
     <div class="grid gap-6">
-      <form method="post" action="/auth/reset-password">
-        <input type="hidden" value={accessToken} name="accessToken" />
-        <input type="hidden" value={refreshToken} name="refreshToken" />
-        <div class="grid gap-2">
-          <div class="grid gap-1">
-            <Label for="password">Lösenord</Label>
-            <Input id="password" name="password" type="password" />
-            <button class={cn(buttonVariants())}>Uppdatera lösenord</button>
-          </div>
-        </div>
-      </form>
+      <Form.Root form={data.form} schema={resetPasswordFormSchema} let:config>
+        <Form.Field {config} name="accessToken" let:value let:setValue>
+          <Form.Item>
+            <InputValueBinder {setValue} value={accessToken} />
+            <Form.Input type="hidden" {value} />
+            <Form.Validation />
+          </Form.Item>
+        </Form.Field>
+
+        <Form.Field {config} name="refreshToken" let:value let:setValue>
+          <Form.Item>
+            <InputValueBinder {setValue} value={refreshToken} />
+            <Form.Input type="hidden" {value} />
+            <Form.Validation />
+          </Form.Item>
+        </Form.Field>
+
+        <Form.Field {config} name="password">
+          <Form.Item>
+            <Form.Label>Lösenord</Form.Label>
+            <Form.Input type="password" />
+            <Form.Validation />
+          </Form.Item>
+        </Form.Field>
+
+        <Form.Button>Uppdatera lösenord</Form.Button>
+      </Form.Root>
     </div>
   </div>
 </div>

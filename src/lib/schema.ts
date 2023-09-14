@@ -29,3 +29,11 @@ export const loginFormSchema = z.object({
 });
 
 export type LoginFormSchema = typeof loginFormSchema;
+
+export const resetPasswordFormSchema = z.object({
+  password: passwordSchema,
+  accessToken: z.string().min(1),
+  refreshToken: z.string().min(1),
+});
+
+export type ResetPasswordFormSchema = typeof resetPasswordFormSchema;
