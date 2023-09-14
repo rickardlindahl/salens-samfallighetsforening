@@ -1,35 +1,34 @@
 import { AuthApiError } from "@supabase/supabase-js";
-import { fail, type Actions, redirect } from "@sveltejs/kit";
+import { error as svelteKitError, fail, type Actions, redirect } from "@sveltejs/kit";
+import { superValidate, setError } from "sveltekit-superforms/server";
+import type { PageServerLoad } from "./$types";
+import { loginFormSchema } from "./schema";
+
+export const load: PageServerLoad = () => {
+  return {
+    form: superValidate(loginFormSchema),
+  };
+};
 
 export const actions: Actions = {
   default: async ({ url, request, locals: { supabase } }) => {
     const formData = await request.formData();
+    const form = await superValidate(formData, loginFormSchema);
 
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
+    if (!form.valid) {
+      return fail(400, { form });
+    }
 
     const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
+      email: form.data.email,
+      password: form.data.password,
     });
 
     if (error) {
       if (error instanceof AuthApiError && error.status === 400) {
-        return fail(400, {
-          error: "Invalid credentials.",
-          values: {
-            email,
-            password,
-          },
-        });
+        return setError(form, "password", "Felaktigt användarnamn eller lösenord");
       }
-      return fail(500, {
-        error: "Server error. Try again later.",
-        values: {
-          email,
-          password,
-        },
-      });
+      throw svelteKitError(500, "Server error. Try again later.");
     }
 
     const redirectTo = url.searchParams.get("redirectTo");

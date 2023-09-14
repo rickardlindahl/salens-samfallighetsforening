@@ -2,10 +2,13 @@
   import { cn } from "$lib/utils";
   import * as Alert from "$lib/components/ui/alert";
   import { buttonVariants } from "$lib/components/ui/button";
-  import { Input } from "$lib/components/ui/input";
-  import { Label } from "$lib/components/ui/label";
+  import * as Form from "$lib/components/ui/form";
   import { Icons } from "$lib/components/icons";
   import { page } from "$app/stores";
+  import type { PageData } from "./$types";
+  import { loginFormSchema } from "./schema";
+
+  export let data: PageData;
 
   let message: string;
 
@@ -43,30 +46,34 @@
     </div>
 
     <div class="grid gap-6">
-      <form method="post" action="/auth/login">
+      <Form.Root form={data.form} schema={loginFormSchema} let:config>
         <div class="grid gap-2">
           <div class="grid gap-1">
-            <Label for="email">Epost</Label>
-            <Input
-              id="email"
-              name="email"
-              placeholder="name@example.com"
-              type="email"
-              autocapitalize="none"
-              autocomplete="email"
-              autocorrect="off"
-            />
+            <Form.Field {config} name="email">
+              <Form.Label>Epost</Form.Label>
+              <Form.Input
+                placeholder="name@example.com"
+                type="email"
+                autocapitalize="none"
+                autocomplete="email"
+                autocorrect="off"
+              />
+              <Form.Validation />
+            </Form.Field>
           </div>
 
           <div class="grid gap-1">
-            <Label for="password">Lösenord</Label>
-            <Input id="password" name="password" type="password" />
+            <Form.Field {config} name="password">
+              <Form.Label>Lösenord</Form.Label>
+              <Form.Input type="password" />
+              <Form.Validation />
+            </Form.Field>
           </div>
           <div class="grid gap-1">
-            <button class={cn(buttonVariants())}>Logga in</button>
+            <Form.Button>Logga in</Form.Button>
           </div>
         </div>
-      </form>
+      </Form.Root>
     </div>
   </div>
 </div>
