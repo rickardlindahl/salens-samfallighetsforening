@@ -67,6 +67,7 @@ export const actions: Actions = {
       profile_id: session.user.id,
       storage_path: storagePath,
       file_name: file.name,
+      file_size: file.size,
     });
 
     if (error) {

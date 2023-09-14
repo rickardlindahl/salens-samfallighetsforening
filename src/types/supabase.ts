@@ -33,6 +33,7 @@ export interface Database {
           created_at: string;
           description: string;
           file_name: string;
+          file_size: number;
           id: string;
           profile_id: string;
           storage_path: string;
@@ -42,6 +43,7 @@ export interface Database {
           created_at: string;
           description: string;
           file_name: string;
+          file_size: number;
           id?: string;
           profile_id: string;
           storage_path: string;
@@ -51,6 +53,7 @@ export interface Database {
           created_at?: string;
           description?: string;
           file_name?: string;
+          file_size?: number;
           id?: string;
           profile_id?: string;
           storage_path?: string;
