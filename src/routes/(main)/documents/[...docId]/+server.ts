@@ -15,10 +15,7 @@ export const GET: RequestHandler<{ docId: string }> = async ({
     .eq("id", params.docId)
     .single();
 
-  console.log({ data: doc, postgrestError });
-
   if (postgrestError) {
-    console.error(postgrestError);
     throw error(500, "Internal Server Error");
   }
 
@@ -27,7 +24,6 @@ export const GET: RequestHandler<{ docId: string }> = async ({
     .download(doc.storage_path);
 
   if (storageError) {
-    console.error(storageError);
     throw error(500, "Internal Server Error");
   }
 

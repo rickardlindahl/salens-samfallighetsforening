@@ -7,7 +7,6 @@
   export let setValue: (v: typeof value) => void;
 
   function handleUpdate(json: JSONContent) {
-    console.log("handleUpdate", { json, value, stringified: JSON.stringify(json) });
     setValue(JSON.stringify(json));
   }
 </script>

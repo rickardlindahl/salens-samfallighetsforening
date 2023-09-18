@@ -55,7 +55,6 @@ export const actions: Actions<{ postId: string }> = {
     const { error } = await updatePost(supabase, updatedPost);
 
     if (error) {
-      console.log(error);
       return fail(400, { form });
     }
 

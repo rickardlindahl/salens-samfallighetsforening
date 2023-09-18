@@ -113,8 +113,6 @@ export const actions: Actions = {
       throw svelteKitError(500, "Kunde ej ta bort dokumentet. Var god försök igen senare.");
     }
 
-    console.log("dokumentet är borta");
-
     return {
       success: true,
       message: "Dokumentet har blivit borttaget",
