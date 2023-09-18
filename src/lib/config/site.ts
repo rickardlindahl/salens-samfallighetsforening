@@ -20,8 +20,8 @@ export const mainNav = [
     description: "Uppladdade filer, t.ex. protokoll från styrelsemöten.",
   },
   {
-    title: "Adresslista",
-    href: "/address-list",
+    title: "Hushåll",
+    href: "/households",
     icon: Icons.contact,
     description: "Kontaktuppgifter till medlemmarna.",
   },
