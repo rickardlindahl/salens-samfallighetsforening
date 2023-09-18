@@ -3,6 +3,8 @@ import type { PageServerLoad } from "./$types";
 import type { Update } from "../../../types/database";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "../../../types/supabase";
+import { superValidate } from "sveltekit-superforms/server";
+import { postFormSchema } from "$lib/schema";
 
 export const load: PageServerLoad = async ({ params, locals: { supabase } }) => {
   const { data: post, error } = await supabase
@@ -19,98 +21,106 @@ export const load: PageServerLoad = async ({ params, locals: { supabase } }) => 
     }
   }
 
+  const form = superValidate(post, postFormSchema);
+
   return {
     post,
+    form,
   };
 };
 
-async function updatePost(
-  supabase: SupabaseClient<Database>,
-  updatedPost: Update<"posts">,
-  postId: string,
-) {
-  const result = await supabase
-    .from("posts")
-    .update(updatedPost)
-    .eq("id", postId)
-    .select()
-    .single();
-
-  return result;
-}
-
-function toPost(formData: FormData) {
-  const title = formData.get("title") as string;
-  const body = formData.get("body") as string;
-  const draft = formData.get("draft") as string;
-  const publishDate = formData.get("publishDate") as string;
-
-  const post: Update<"posts"> = {
-    title,
-    body: JSON.parse(body),
-    draft: draft === "true",
-    publish_date: publishDate || null,
-  };
-
-  return post;
+async function updatePost(supabase: SupabaseClient<Database>, updatedPost: Update<"posts">) {
+  return supabase.from("posts").update(updatedPost).eq("id", updatedPost.id!);
 }
 
 export const actions: Actions<{ postId: string }> = {
-  save: async ({ request, params, locals: { supabase } }) => {
+  save: async ({ locals: { supabase }, request, params }) => {
     const formData = await request.formData();
 
+    const form = await superValidate(formData, postFormSchema);
+
+    if (!form.valid) {
+      return fail(400, { form });
+    }
+
+    const body = formData.get("body") as string;
+
     const updatedPost: Update<"posts"> = {
-      ...toPost(formData),
+      ...form.data,
+      body: JSON.parse(body),
+      id: params.postId,
       updated_at: new Date().toISOString(),
     };
 
-    const { data: post, error } = await updatePost(supabase, updatedPost, params.postId);
+    const { error } = await updatePost(supabase, updatedPost);
 
     if (error) {
-      return fail(400, { success: false, message: "Something went wrong." });
+      console.log(error);
+      return fail(400, { form });
     }
 
     return {
-      success: true,
-      post,
+      form,
     };
   },
-  publish: async ({ request, params, locals: { supabase } }) => {
+  publish: async ({ locals: { supabase }, params, request }) => {
     const formData = await request.formData();
+
+    const form = await superValidate(formData, postFormSchema);
+
+    if (!form.valid) {
+      return fail(400, { form });
+    }
+
+    const body = formData.get("body") as string;
+
     const updatedPost: Update<"posts"> = {
-      ...toPost(formData),
+      ...form.data,
+      body: JSON.parse(body),
+      id: params.postId,
       draft: false,
       publish_date: new Date().toISOString(),
       updated_at: null,
     };
-    const { data: post, error } = await updatePost(supabase, updatedPost, params.postId);
+
+    const { error } = await updatePost(supabase, updatedPost);
 
     if (error) {
-      return fail(400, { success: false, message: "Something went wrong." });
+      return fail(400, { form, message: error.message });
     }
 
     return {
-      success: true,
-      post,
+      form,
     };
   },
-  unpublish: async ({ request, params, locals: { supabase } }) => {
+  unpublish: async ({ locals: { supabase }, params, request }) => {
     const formData = await request.formData();
+
+    const form = await superValidate(formData, postFormSchema);
+
+    if (!form.valid) {
+      return fail(400, { form });
+    }
+
+    const body = formData.get("body") as string;
+
     const updatedPost: Update<"posts"> = {
-      ...toPost(formData),
+      ...form.data,
+      body: JSON.parse(body),
+      id: params.postId,
       draft: true,
       publish_date: null,
       updated_at: new Date().toISOString(),
     };
-    const { data: post, error } = await updatePost(supabase, updatedPost, params.postId);
+
+    const { error } = await updatePost(supabase, updatedPost);
 
     if (error) {
       return fail(400, { success: false, message: "Something went wrong." });
     }
 
     return {
-      success: true,
-      post,
+      form,
     };
   },
 };

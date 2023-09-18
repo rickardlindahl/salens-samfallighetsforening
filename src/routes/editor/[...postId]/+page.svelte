@@ -1,38 +1,44 @@
 <script lang="ts">
-  import { enhance } from "$app/forms";
   import { Icons } from "$lib/components/icons";
-  import TipTap from "$lib/components/tip-tap.svelte";
   import { formatRelative } from "$lib/date";
-  import { Button, buttonVariants } from "$lib/components/ui/button";
-  import { Input } from "$lib/components/ui/input";
+  import { buttonVariants } from "$lib/components/ui/button";
+  import * as Form from "$lib/components/ui/form";
   import { cn } from "$lib/utils";
-  import type { SubmitFunction } from "@sveltejs/kit";
+  import { postFormSchema } from "$lib/schema";
   import type { PageData } from "./$types";
+  import TipTap from "$lib/components/tip-tap.svelte";
 
-  let isSaving = false;
   export let data: PageData;
 
-  let { post } = data;
+  let { post, form } = data;
 
-  const handleSubmit: SubmitFunction = () => {
-    isSaving = true;
-    return async ({ update }) => {
-      isSaving = false;
-      update({ reset: false });
-    };
-  };
-
-  $: ({ post } = data);
   let bodyString: string;
-  $: if (post.body) {
-    bodyString = JSON.stringify(post.body);
-  }
+
+  $: ({ post, form } = data);
 </script>
 
-<form action="?/save" method="post" use:enhance={handleSubmit}>
-  <input type="hidden" name="publishDate" id="publishDate" bind:value={post.publish_date} />
-  <input type="hidden" name="body" id="body" bind:value={bodyString} />
-  <input type="hidden" name="draft" id="draft" bind:value={post.draft} />
+<Form.Root
+  method="post"
+  {form}
+  schema={postFormSchema}
+  let:config
+  let:enhance
+  let:delayed
+  options={{ delayMs: 5000 }}
+>
+  <Form.Field {config} name="publish_date" let:value>
+    <Form.Item>
+      <Form.Input type="hidden" {value} />
+      <Form.Validation />
+    </Form.Item>
+  </Form.Field>
+
+  <Form.Field {config} name="draft" let:value>
+    <Form.Item>
+      <Form.Input type="hidden" {value} />
+      <Form.Validation />
+    </Form.Item>
+  </Form.Field>
 
   <div class="grid w-full gap-10">
     <div class="flex w-full items-center justify-between">
@@ -44,8 +50,8 @@
       </div>
 
       <div>
-        <Button type="submit">
-          {#if isSaving}
+        <Form.Button type="submit" formaction="?/save">
+          {#if delayed}
             <Icons.spinner class="mr-2 h-4 w-4 animate-spin" />
           {:else}
             <Icons.save class="mr-2 h-4 w-4" />
@@ -55,26 +61,26 @@
           {:else}
             Uppdatera
           {/if}
-        </Button>
+        </Form.Button>
 
         {#if post.draft}
-          <Button type="submit" formaction="?/publish">
-            {#if isSaving}
+          <Form.Button type="submit" formaction="?/publish">
+            {#if delayed}
               <Icons.spinner class="mr-2 h-4 w-4 animate-spin" />
             {:else}
               <Icons.publish class="mr-2 h-4 w-4" />
             {/if}
             <span>Publicera</span>
-          </Button>
+          </Form.Button>
         {:else}
-          <Button type="submit" formaction="?/unpublish">
-            {#if isSaving}
+          <Form.Button type="submit" formaction="?/unpublish">
+            {#if delayed}
               <Icons.spinner class="mr-2 h-4 w-4 animate-spin" />
             {:else}
               <Icons.unpublish class="mr-2 h-4 w-4" />
             {/if}
             <span>Avpublicera</span>
-          </Button>
+          </Form.Button>
         {/if}
       </div>
     </div>
@@ -90,17 +96,26 @@
           Uppdaterad: {formatRelative(new Date(post.updated_at ?? ""))}
         {/if}
       </p>
-      <Input
-        autofocus
-        id="title"
-        name="title"
-        bind:value={post.title}
-        placeholder="Ange en rubrik"
-        class="w-full h-auto resize-none appearance-none overflow-hidden bg-transparent text-2xl sm:text-3xl md:text-4xl xl:text-5xl font-bold focus:outline-none"
+
+      <Form.Field {config} name="title" let:value>
+        <Form.Item>
+          <Form.Input
+            autofocus
+            placeholder="Ange en rubrik"
+            {value}
+            class="w-full h-auto resize-none appearance-none overflow-hidden bg-transparent text-2xl sm:text-3xl md:text-4xl xl:text-5xl font-bold focus:outline-none"
+          />
+          <Form.Validation />
+        </Form.Item>
+      </Form.Field>
+
+      <input type="hidden" name="body" value={bodyString} />
+      <TipTap
+        body={post.body}
+        onUpdate={function updateBodyString(json) {
+          bodyString = JSON.stringify(json);
+        }}
       />
-      <div>
-        <TipTap bind:body={post.body} />
-      </div>
     </div>
   </div>
-</form>
+</Form.Root>
