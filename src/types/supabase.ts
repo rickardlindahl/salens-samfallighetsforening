@@ -74,6 +74,64 @@ export interface Database {
           },
         ];
       };
+      household_members: {
+        Row: {
+          house_id: string;
+          id: string;
+          profile_id: string;
+          user_id: string;
+        };
+        Insert: {
+          house_id: string;
+          id?: string;
+          profile_id: string;
+          user_id: string;
+        };
+        Update: {
+          house_id?: string;
+          id?: string;
+          profile_id?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "household_members_house_id_fkey";
+            columns: ["house_id"];
+            referencedRelation: "houses";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "household_members_profile_id_fkey";
+            columns: ["profile_id"];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "household_members_user_id_fkey";
+            columns: ["user_id"];
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      houses: {
+        Row: {
+          house_number: number;
+          id: string;
+          street_address: string;
+        };
+        Insert: {
+          house_number: number;
+          id?: string;
+          street_address: string;
+        };
+        Update: {
+          house_number?: number;
+          id?: string;
+          street_address?: string;
+        };
+        Relationships: [];
+      };
       posts: {
         Row: {
           body: Json | null;

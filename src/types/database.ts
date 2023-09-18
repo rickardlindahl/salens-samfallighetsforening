@@ -18,5 +18,7 @@ export type DbResultErr = PostgrestError;
 export type Document = Tables<"documents">;
 export type Post = Tables<"posts">;
 export type Profile = Tables<"profiles">;
+export type House = Tables<"houses">;
+export type HouseholdMember = Tables<"household_members">;
 
 export type Role = Enums<"role_enum">;

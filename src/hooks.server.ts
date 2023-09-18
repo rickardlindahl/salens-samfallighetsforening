@@ -22,7 +22,7 @@ export const handle: Handle = async ({ event, resolve }) => {
   };
 
   const session = await event.locals.getSession();
-  const protectedRoutes = ["/posts", "/documents", "/address-list", "/dashboard"];
+  const protectedRoutes = ["/posts", "/documents", "/households", "/dashboard"];
 
   const url = new URL(event.request.url);
 
