@@ -34,7 +34,7 @@ create table household_members (
   user_id uuid references auth.users not null,
   profile_id uuid references public.profiles not null,
   house_id uuid references public.houses not null,
-  unique(user_id, profile_id, house_id)
+  unique(user_id, profile_id)
 );
 
 -- Set up Row Level Security (RLS)
