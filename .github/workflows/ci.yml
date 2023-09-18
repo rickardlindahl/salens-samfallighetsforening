@@ -8,6 +8,10 @@ on:
     branches:
       - main
 
+env:
+  PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.PUBLIC_SUPABASE_ANON_KEY }}
+  PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
