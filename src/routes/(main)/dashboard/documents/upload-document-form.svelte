@@ -1,7 +1,7 @@
 <script lang="ts">
   import * as Form from "$lib/components/ui/form";
   import type { SuperValidated } from "sveltekit-superforms";
-  import { uploadDocumentSchema, type UploadDocumentSchema } from "./schema";
+  import { uploadDocumentSchema, type UploadDocumentSchema } from "$lib/schema";
   import type { FormOptions } from "formsnap";
 
   export let form: SuperValidated<UploadDocumentSchema>;

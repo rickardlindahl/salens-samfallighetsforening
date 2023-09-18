@@ -4,9 +4,9 @@
   import { buttonVariants } from "$lib/components/ui/button";
   import * as Form from "$lib/components/ui/form";
   import { Icons } from "$lib/components/icons";
+  import { loginFormSchema } from "$lib/schema";
   import { page } from "$app/stores";
   import type { PageData } from "./$types";
-  import { loginFormSchema } from "./schema";
 
   export let data: PageData;
 
@@ -46,7 +46,7 @@
     </div>
 
     <div class="grid gap-6">
-      <Form.Root form={data.form} schema={loginFormSchema} let:config>
+      <Form.Root method="post" form={data.form} schema={loginFormSchema} let:config>
         <div class="grid gap-2">
           <div class="grid gap-1">
             <Form.Field {config} name="email">

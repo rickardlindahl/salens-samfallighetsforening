@@ -9,6 +9,7 @@
   let element: HTMLDivElement;
   let editor: Editor;
   export let body: Json | JSONContent | null;
+  export let onUpdate: (jsonContent: JSONContent) => void;
 
   onMount(() => {
     editor = new Editor({
@@ -39,6 +40,7 @@
       onTransaction: () => {
         // force re-render so `editor.isActive` works as expected
         editor = editor;
+        onUpdate(editor.getJSON());
       },
     });
   });
@@ -48,10 +50,6 @@
       editor.destroy();
     }
   });
-
-  $: if (editor) {
-    body = editor.getJSON();
-  }
 </script>
 
 <div class="mb-2 flex gap-x-4">

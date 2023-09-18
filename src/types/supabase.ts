@@ -77,7 +77,7 @@ export interface Database {
       posts: {
         Row: {
           body: Json | null;
-          draft: boolean | null;
+          draft: boolean;
           id: string;
           image: string | null;
           profile_id: string;
@@ -88,7 +88,7 @@ export interface Database {
         };
         Insert: {
           body?: Json | null;
-          draft?: boolean | null;
+          draft?: boolean;
           id?: string;
           image?: string | null;
           profile_id: string;
@@ -99,7 +99,7 @@ export interface Database {
         };
         Update: {
           body?: Json | null;
-          draft?: boolean | null;
+          draft?: boolean;
           id?: string;
           image?: string | null;
           profile_id?: string;

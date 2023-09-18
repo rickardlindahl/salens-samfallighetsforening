@@ -1,7 +1,7 @@
 import { error as svelteKitError, fail, type Actions, redirect } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
-import { message, setError, superValidate } from "sveltekit-superforms/server";
-import { deleteDocumentSchema, fileSchema, uploadDocumentSchema } from "./schema";
+import { setError, superValidate } from "sveltekit-superforms/server";
+import { deleteDocumentSchema, fileSchema, uploadDocumentSchema } from "$lib/schema";
 
 export const load: PageServerLoad = async ({ locals: { getSession, supabase } }) => {
   const session = await getSession();
@@ -112,8 +112,6 @@ export const actions: Actions = {
     if (storageError) {
       throw svelteKitError(500, "Kunde ej ta bort dokumentet. Var god försök igen senare.");
     }
-
-    console.log("dokumentet är borta");
 
     return {
       success: true,

@@ -1,8 +1,8 @@
 import { AuthApiError } from "@supabase/supabase-js";
 import { error as svelteKitError, fail, type Actions, redirect } from "@sveltejs/kit";
 import { superValidate, setError } from "sveltekit-superforms/server";
+import { loginFormSchema } from "$lib/schema";
 import type { PageServerLoad } from "./$types";
-import { loginFormSchema } from "./schema";
 
 export const load: PageServerLoad = () => {
   return {
