@@ -52,7 +52,7 @@ export const actions: Actions = {
     const fileExt = file.name.split(".").pop();
     const storagePath = `${Math.random()}.${fileExt}`;
 
-    let { error: storageError } = await supabase.storage
+    const { error: storageError } = await supabase.storage
       .from("documents")
       .upload(storagePath, file);
 

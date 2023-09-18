@@ -16,7 +16,7 @@ export function formatFileSize(size: number) {
 
 export function handleLoginRedirect(
   event: RequestEvent,
-  message: string = "Du måste vara inloggad för att komma åt denna sida",
+  message = "Du måste vara inloggad för att komma åt denna sida",
 ) {
   const newURL = new URL("/auth/login", event.url.origin);
 
