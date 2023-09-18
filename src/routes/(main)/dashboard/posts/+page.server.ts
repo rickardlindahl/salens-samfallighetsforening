@@ -12,6 +12,7 @@ export const load: PageServerLoad = async ({ locals: { getSession, supabase } })
     .from("posts")
     .select()
     .order("publish_date", { ascending: false })
+    .order("updated_at", { ascending: false })
     .eq("user_id", session?.user.id);
 
   if (selectError) {
