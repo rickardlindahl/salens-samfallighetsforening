@@ -2,8 +2,6 @@
   import { cn } from "$lib/utils";
   import { buttonVariants } from "$lib/components/ui/button";
   import * as Form from "$lib/components/ui/form";
-  import { Input } from "$lib/components/ui/input";
-  import { Label } from "$lib/components/ui/label";
   import { Icons } from "$lib/components/icons";
   import { page } from "$app/stores";
   import type { PageData } from "./$types";
