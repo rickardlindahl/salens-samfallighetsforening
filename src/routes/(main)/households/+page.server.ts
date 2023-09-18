@@ -11,8 +11,8 @@ export const load: PageServerLoad = async ({ locals: { getSession, supabase } })
 
   const { data: houses, error: selectError } = await supabase
     .from("houses")
-    .select(`*, household_members(profiles(*))`);
-  console.log({ data: houses, selectError });
+    .select(`*, household_members(profiles(*))`)
+    .order("house_number", { ascending: true });
 
   if (selectError) {
     throw error(500, "Internal Server Error");
