@@ -130,3 +130,23 @@ values
   false,
   'e3a1bddb-ebae-4ec8-8eaa-68ea8d4c517f'::uuid
 );
+
+-- Generate a series of numbers from 1 to 31
+with house_numbers as (
+    select generate_series(1, 31) as house_number
+)
+
+-- Insert rows into the "houses" table with the generated house numbers
+insert into houses (street_address, house_number)
+select
+    'Elm Street' as street_address,
+    house_number as house_number
+from house_numbers;
+
+insert into household_members (user_id, profile_id, house_id)
+values (
+
+    'e3a1bddb-ebae-4ec8-8eaa-68ea8d4c517f'::uuid,
+    'e3a1bddb-ebae-4ec8-8eaa-68ea8d4c517f'::uuid,
+    (select id from houses h where h.street_address = 'Elm Street' and h.house_number = 1)
+)
