@@ -1,4 +1,3 @@
-// src/hooks.server.ts
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from "$env/static/public";
 import { handleLoginRedirect } from "$lib/utils";
 import { createSupabaseServerClient } from "@supabase/auth-helpers-sveltekit";
@@ -22,7 +21,7 @@ export const handle: Handle = async ({ event, resolve }) => {
   };
 
   const session = await event.locals.getSession();
-  const protectedRoutes = ["/posts", "/documents", "/households", "/dashboard"];
+  const protectedRoutes = ["/posts", "/documents", "/households", "/dashboard", "/admin"];
 
   const url = new URL(event.request.url);
 
