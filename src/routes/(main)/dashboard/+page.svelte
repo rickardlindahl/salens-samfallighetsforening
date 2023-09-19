@@ -4,7 +4,7 @@
   import { formatRelative } from "$lib/date";
   import { formatFileSize } from "$lib/utils";
   import type { PageData } from "./$types";
-  import LayoutShell from "./(components)/layout-shell.svelte";
+  import LayoutShell from "$lib/components/layout-shell.svelte";
 
   export let data: PageData;
   let { posts, documents } = data;

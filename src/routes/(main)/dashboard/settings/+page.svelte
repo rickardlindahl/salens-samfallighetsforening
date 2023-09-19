@@ -8,7 +8,7 @@
   import type { SubmitFunction } from "@sveltejs/kit";
   import { cn } from "$lib/utils";
   import Separator from "$lib/components/ui/separator/separator.svelte";
-  import LayoutShell from "../(components)/layout-shell.svelte";
+  import LayoutShell from "$lib/components/layout-shell.svelte";
 
   export let data: PageData;
 

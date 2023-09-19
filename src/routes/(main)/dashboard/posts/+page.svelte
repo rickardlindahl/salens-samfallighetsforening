@@ -2,7 +2,7 @@
   import type { SubmitFunction } from "@sveltejs/kit";
   import { enhance } from "$app/forms";
   import { cn } from "$lib/utils";
-  import LayoutShell from "../(components)/layout-shell.svelte";
+  import LayoutShell from "$lib/components/layout-shell.svelte";
   import { Button, buttonVariants } from "$lib/components/ui/button";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
   import { Icons } from "$lib/components/icons";

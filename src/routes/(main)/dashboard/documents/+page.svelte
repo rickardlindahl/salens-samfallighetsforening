@@ -1,5 +1,5 @@
 <script lang="ts">
-  import LayoutShell from "../(components)/layout-shell.svelte";
+  import LayoutShell from "$lib/components/layout-shell.svelte";
   import * as Accordion from "$lib/components/ui/accordion";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
   import { Icons } from "$lib/components/icons";

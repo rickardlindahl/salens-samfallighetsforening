@@ -1,7 +1,7 @@
 <script lang="ts">
   import { formatRelative } from "$lib/date";
   import { formatFileSize } from "$lib/utils";
-  import LayoutShell from "../dashboard/(components)/layout-shell.svelte";
+  import LayoutShell from "$lib/components/layout-shell.svelte";
   import type { PageData } from "./$types";
 
   export let data: PageData;
