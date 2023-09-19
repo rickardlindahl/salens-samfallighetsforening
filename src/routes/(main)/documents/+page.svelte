@@ -1,7 +1,7 @@
 <script lang="ts">
   import { formatRelative } from "$lib/date";
   import { formatFileSize } from "$lib/utils";
-  import DashboardShell from "../dashboard/(components)/dashboard-shell.svelte";
+  import LayoutShell from "../dashboard/(components)/layout-shell.svelte";
   import type { PageData } from "./$types";
 
   export let data: PageData;
@@ -10,7 +10,7 @@
   $: ({ documents } = data);
 </script>
 
-<DashboardShell heading="Dokument" text="Här visas alla dokument som laddats upp.">
+<LayoutShell heading="Dokument" text="Här visas alla dokument som laddats upp.">
   <main slot="content">
     {#if documents.length > 0}
       <div class="divide-y divide-border rounded-md border">
@@ -39,4 +39,4 @@
       <p>Inga dokument uppladdade än.</p>
     {/if}
   </main>
-</DashboardShell>
+</LayoutShell>

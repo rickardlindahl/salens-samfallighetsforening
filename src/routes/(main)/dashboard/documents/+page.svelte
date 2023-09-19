@@ -1,5 +1,5 @@
 <script lang="ts">
-  import DashboardShell from "../(components)/dashboard-shell.svelte";
+  import LayoutShell from "../(components)/layout-shell.svelte";
   import * as Accordion from "$lib/components/ui/accordion";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
   import { Icons } from "$lib/components/icons";
@@ -15,7 +15,7 @@
   $: ({ documents, uploadForm } = data);
 </script>
 
-<DashboardShell heading="Dokument" text="Ladda upp och hantera dokument">
+<LayoutShell heading="Dokument" text="Ladda upp och hantera dokument">
   <div slot="content" class="flex flex-col gap-4">
     <Accordion.Root class="w-full mb-4">
       <Accordion.Item value="item-1">
@@ -84,4 +84,4 @@
       <p>Du har inte laddat upp några dokument än.</p>
     {/if}
   </div>
-</DashboardShell>
+</LayoutShell>

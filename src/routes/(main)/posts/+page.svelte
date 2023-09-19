@@ -1,6 +1,6 @@
 <script lang="ts">
   import { formatRelative } from "$lib/date";
-  import DashboardShell from "../dashboard/(components)/dashboard-shell.svelte";
+  import LayoutShell from "../dashboard/(components)/layout-shell.svelte";
   import type { PageData } from "./$types";
 
   export let data: PageData;
@@ -9,10 +9,7 @@
   $: ({ posts } = data);
 </script>
 
-<DashboardShell
-  heading="Inlägg"
-  text="Här visas alla inlägg som skapats av medlemmar i föreningen."
->
+<LayoutShell heading="Inlägg" text="Här visas alla inlägg som skapats av medlemmar i föreningen.">
   <main slot="content">
     {#if posts.length > 0}
       <div class="flex flex-col gap-4">
@@ -50,4 +47,4 @@
       <p>Inga inlägg publicerade.</p>
     {/if}
   </main>
-</DashboardShell>
+</LayoutShell>

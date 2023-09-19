@@ -1,5 +1,5 @@
 <script lang="ts">
-  import DashboardShell from "../dashboard/(components)/dashboard-shell.svelte";
+  import LayoutShell from "../dashboard/(components)/layout-shell.svelte";
   import type { PageData } from "./$types";
   import HouseholdMember from "./household-member.svelte";
 
@@ -9,7 +9,7 @@
   $: ({ houses, supabase } = data);
 </script>
 
-<DashboardShell heading="Hushåll" text="Här visas samfällighetens alla hushåll.">
+<LayoutShell heading="Hushåll" text="Här visas samfällighetens alla hushåll.">
   <main slot="content">
     {#if houses.length > 0}
       <div class="divide-y divide-border rounded-md border">
@@ -35,4 +35,4 @@
       <p>Inga dokument uppladdade än.</p>
     {/if}
   </main>
-</DashboardShell>
+</LayoutShell>
