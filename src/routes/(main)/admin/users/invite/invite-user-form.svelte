@@ -3,7 +3,7 @@
   import type { SuperValidated } from "sveltekit-superforms";
   import * as Form from "$lib/components/ui/form";
   import { inviteUserFormSchema, type InviteUserFormSchema } from "$lib/schema";
-  import type { House } from "../../../../types/database";
+  import type { House } from "../../../../../types/database";
 
   export let form: SuperValidated<InviteUserFormSchema>;
   export let houses: House[];
