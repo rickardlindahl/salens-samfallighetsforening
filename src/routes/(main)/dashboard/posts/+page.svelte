@@ -25,6 +25,10 @@
   $: ({ posts } = data);
 </script>
 
+<svelte:head>
+  <title>Skapa nya och hantera dina inlägg | Salens Samfällighetsförening</title>
+</svelte:head>
+
 <LayoutShell heading="Inlägg" text="Skapa nya och hantera dina inlägg">
   <form slot="action" action="?/createPost" method="post" use:enhance={handleSubmit}>
     <button

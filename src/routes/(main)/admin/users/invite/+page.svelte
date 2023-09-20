@@ -9,6 +9,10 @@
   $: ({ form, houses } = data);
 </script>
 
+<svelte:head>
+  <title>Bjud in användare | Salens Samfällighetsförening</title>
+</svelte:head>
+
 <LayoutShell
   heading="Bjud in användare"
   text="Bjud in en ny användare till samfällighetens hemsida."

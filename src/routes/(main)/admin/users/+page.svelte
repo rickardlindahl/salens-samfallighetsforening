@@ -7,6 +7,10 @@
   const { profiles } = data;
 </script>
 
+<svelte:head>
+  <title>Hantera användare | Salens Samfällighetsförening</title>
+</svelte:head>
+
 <LayoutShell heading="Användare" text="Hantera användare.">
   <div slot="content">
     <Table.Root>

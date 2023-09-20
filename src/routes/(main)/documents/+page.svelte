@@ -10,6 +10,10 @@
   $: ({ documents } = data);
 </script>
 
+<svelte:head>
+  <title>Dokument | Salens Samfällighetsförening</title>
+</svelte:head>
+
 <LayoutShell heading="Dokument" text="Här visas alla dokument som laddats upp.">
   <main slot="content">
     {#if documents.length > 0}

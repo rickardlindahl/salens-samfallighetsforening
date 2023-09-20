@@ -16,7 +16,7 @@
 </script>
 
 <svelte:head>
-  <title>Logga in</title>
+  <title>Logga in | Salens Samfällighetsförening</title>
 </svelte:head>
 
 <div class="container flex h-screen w-screen flex-col items-center justify-center">
