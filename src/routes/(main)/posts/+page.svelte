@@ -9,6 +9,10 @@
   $: ({ posts } = data);
 </script>
 
+<svelte:head>
+  <title>Inlägg | Salens Samfällighetsförening</title>
+</svelte:head>
+
 <LayoutShell heading="Inlägg" text="Här visas alla inlägg som skapats av medlemmar i föreningen.">
   <main slot="content">
     {#if posts.length > 0}

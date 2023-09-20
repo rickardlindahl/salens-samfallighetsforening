@@ -7,7 +7,11 @@
   let { profiles } = data;
 </script>
 
-<LayoutShell heading="Översikt" text="Administratörsverktyg.">
+<svelte:head>
+  <title>Administration | Salens Samfällighetsförening</title>
+</svelte:head>
+
+<LayoutShell heading="Översikt" text="Administration.">
   <div slot="content">
     <p>Antal registrerade användare: {profiles?.length ?? 0}</p>
   </div>

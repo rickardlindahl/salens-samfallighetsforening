@@ -33,6 +33,10 @@
   let { post } = data;
 </script>
 
+<svelte:head>
+  <title>{post.title} | Salens Samfällighetsförening</title>
+</svelte:head>
+
 <article class="flex flex-col gap-4">
   <h1 class="w-full h-auto text-2xl sm:text-3xl md:text-4xl xl:text-5xl font-bold">
     {post.title}

@@ -9,6 +9,10 @@
   $: ({ houses, supabase } = data);
 </script>
 
+<svelte:head>
+  <title>Hushåll | Salens Samfällighetsförening</title>
+</svelte:head>
+
 <LayoutShell heading="Hushåll" text="Här visas samfällighetens alla hushåll.">
   <main slot="content">
     {#if houses.length > 0}

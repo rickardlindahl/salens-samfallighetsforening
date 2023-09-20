@@ -17,6 +17,10 @@
   $: ({ post, form } = data);
 </script>
 
+<svelte:head>
+  <title>Skriv ett inlägg | Salens Samfällighetsförening</title>
+</svelte:head>
+
 <Form.Root
   method="post"
   {form}

@@ -10,10 +10,6 @@
   $: ({ supabase, profile } = data);
 </script>
 
-<svelte:head>
-  <title>Salens Samfällighetsförening</title>
-</svelte:head>
-
 <div class="flex min-h-screen flex-col">
   <SiteHeader {profile} {supabase} />
   <main class="flex-1">

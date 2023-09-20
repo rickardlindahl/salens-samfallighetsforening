@@ -15,6 +15,10 @@
   $: ({ documents, uploadForm } = data);
 </script>
 
+<svelte:head>
+  <title>Ladda upp och hantera dokument | Salens Samfällighetsförening</title>
+</svelte:head>
+
 <LayoutShell heading="Dokument" text="Ladda upp och hantera dokument">
   <div slot="content" class="flex flex-col gap-4">
     <Accordion.Root class="w-full mb-4">

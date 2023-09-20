@@ -28,6 +28,10 @@
   };
 </script>
 
+<svelte:head>
+  <title>Hantera dina kontoinställningar | Salens Samfällighetsförening</title>
+</svelte:head>
+
 <LayoutShell heading="Inställningar" text="Hantera dina kontoinställningar.">
   <form
     slot="content"
