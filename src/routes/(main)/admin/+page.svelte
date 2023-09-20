@@ -7,7 +7,7 @@
   let { profiles } = data;
 </script>
 
-<LayoutShell heading="Admin" text="Administratörsverktyg">
+<LayoutShell heading="Översikt" text="Administratörsverktyg.">
   <div slot="content">
     <p>Antal registrerade användare: {profiles?.length ?? 0}</p>
   </div>

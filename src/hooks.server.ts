@@ -1,3 +1,4 @@
+import { SUPABASE_SERVICE_ROLE_KEY } from "$env/static/private";
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from "$env/static/public";
 import { handleLoginRedirect } from "$lib/utils";
 import { createSupabaseServerClient } from "@supabase/auth-helpers-sveltekit";
@@ -5,9 +6,15 @@ import type { Handle } from "@sveltejs/kit";
 
 export const handle: Handle = async ({ event, resolve }) => {
   event.locals.supabase = createSupabaseServerClient({
-    supabaseUrl: PUBLIC_SUPABASE_URL,
-    supabaseKey: PUBLIC_SUPABASE_ANON_KEY,
     event,
+    supabaseKey: PUBLIC_SUPABASE_ANON_KEY,
+    supabaseUrl: PUBLIC_SUPABASE_URL,
+  });
+
+  event.locals.supabaseAdmin = createSupabaseServerClient({
+    event,
+    supabaseKey: SUPABASE_SERVICE_ROLE_KEY,
+    supabaseUrl: PUBLIC_SUPABASE_URL,
   });
 
   /**
