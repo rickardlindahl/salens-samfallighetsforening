@@ -6,8 +6,8 @@
   import { buttonVariants } from "$lib/components/ui/button";
 
   export let data: PageData;
-  let { session, profile } = data;
-  $: ({ session, profile } = data);
+  let { profile } = data;
+  $: ({ profile } = data);
 </script>
 
 <section class="space-y-6 py-6 md:py-8">

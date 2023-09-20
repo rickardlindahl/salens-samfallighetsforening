@@ -6,8 +6,8 @@
   import type { LayoutData } from "./$types";
 
   export let data: LayoutData;
-  let { supabase, session, profile } = data;
-  $: ({ supabase, session, profile } = data);
+  let { supabase, profile } = data;
+  $: ({ supabase, profile } = data);
 </script>
 
 <svelte:head>
