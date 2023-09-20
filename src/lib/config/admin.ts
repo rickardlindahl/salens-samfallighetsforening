@@ -4,6 +4,10 @@ export const sidebarNavItems = [
     href: "/admin",
   },
   {
+    title: "Användare",
+    href: "/admin/users",
+  },
+  {
     title: "Bjud in användare",
     href: "/admin/users/invite",
   },
