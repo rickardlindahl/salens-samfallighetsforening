@@ -13,3 +13,7 @@ package-lock.json
 yarn.lock
 
 .github
+supabase
+
+# shadcn-svelte ui components
+src/lib/components/ui

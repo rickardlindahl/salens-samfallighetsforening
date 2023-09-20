@@ -4,7 +4,7 @@
   import { formatRelative } from "$lib/date";
   import { formatFileSize } from "$lib/utils";
   import type { PageData } from "./$types";
-  import DashboardShell from "./(components)/dashboard-shell.svelte";
+  import LayoutShell from "$lib/components/layout-shell.svelte";
 
   export let data: PageData;
   let { posts, documents } = data;
@@ -12,7 +12,7 @@
   $: ({ posts, documents } = data);
 </script>
 
-<DashboardShell heading="Översikt" text="En översikt över de senaste händelserna.">
+<LayoutShell heading="Översikt" text="En översikt över de senaste händelserna.">
   <div slot="content" class="grid grid-cols-1 gap-4 md:grid-cols-2">
     <div>
       <h2 class="font-bold text-2xl mb-4">Senaste inläggen</h2>
@@ -95,4 +95,4 @@
       </div>
     </div>
   </div>
-</DashboardShell>
+</LayoutShell>

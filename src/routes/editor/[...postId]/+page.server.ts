@@ -29,8 +29,12 @@ export const load: PageServerLoad = async ({ params, locals: { supabase } }) => 
   };
 };
 
-async function updatePost(supabase: SupabaseClient<Database>, updatedPost: Update<"posts">) {
-  return supabase.from("posts").update(updatedPost).eq("id", updatedPost.id!);
+async function updatePost(
+  supabase: SupabaseClient<Database>,
+  updatedPost: Update<"posts">,
+  id: string,
+) {
+  return supabase.from("posts").update(updatedPost).eq("id", id);
 }
 
 export const actions: Actions<{ postId: string }> = {
@@ -48,11 +52,10 @@ export const actions: Actions<{ postId: string }> = {
     const updatedPost: Update<"posts"> = {
       ...form.data,
       body: JSON.parse(body),
-      id: params.postId,
       updated_at: new Date().toISOString(),
     };
 
-    const { error } = await updatePost(supabase, updatedPost);
+    const { error } = await updatePost(supabase, updatedPost, params.postId);
 
     if (error) {
       return fail(400, { form });
@@ -76,13 +79,12 @@ export const actions: Actions<{ postId: string }> = {
     const updatedPost: Update<"posts"> = {
       ...form.data,
       body: JSON.parse(body),
-      id: params.postId,
       draft: false,
       publish_date: new Date().toISOString(),
       updated_at: null,
     };
 
-    const { error } = await updatePost(supabase, updatedPost);
+    const { error } = await updatePost(supabase, updatedPost, params.postId);
 
     if (error) {
       return fail(400, { form, message: error.message });
@@ -106,13 +108,12 @@ export const actions: Actions<{ postId: string }> = {
     const updatedPost: Update<"posts"> = {
       ...form.data,
       body: JSON.parse(body),
-      id: params.postId,
       draft: true,
       publish_date: null,
       updated_at: new Date().toISOString(),
     };
 
-    const { error } = await updatePost(supabase, updatedPost);
+    const { error } = await updatePost(supabase, updatedPost, params.postId);
 
     if (error) {
       return fail(400, { success: false, message: "Something went wrong." });

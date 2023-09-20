@@ -1,3 +1,15 @@
+-- Generate a series of numbers from 1 to 31
+with house_numbers as (
+    select generate_series(1, 31) as house_number
+)
+
+-- Insert rows into the "houses" table with the generated house numbers
+insert into houses (street_address, house_number)
+select
+    'Elm Street' as street_address,
+    house_number as house_number
+from house_numbers;
+
 insert into auth.users (
     id,
     instance_id,
@@ -48,8 +60,21 @@ insert into auth.users (
     '',
     null::timestamp,
     now()::timestamp,
-    '{"provider":"email","providers":["email"]}'::jsonb,
-    '{}'::jsonb,
+    (select jsonb_build_object(
+      'provider', 'email',
+      'providers', jsonb_agg(
+        jsonb_build_array('email')
+      )
+    ) from houses limit 1),
+    (select jsonb_build_object(
+        'role', 'admin',
+        'full_name', 'Rickard Lindahl',
+        'house_id', (
+            select id
+            from houses h
+            where h.house_number = 1
+        )
+    ) from houses limit 1),
     0::boolean,
     '2022-10-04 03:41:27.391146+00'::timestamp,
     '2022-10-04 03:41:27.391146+00'::timestamp,
@@ -130,23 +155,3 @@ values
   false,
   'e3a1bddb-ebae-4ec8-8eaa-68ea8d4c517f'::uuid
 );
-
--- Generate a series of numbers from 1 to 31
-with house_numbers as (
-    select generate_series(1, 31) as house_number
-)
-
--- Insert rows into the "houses" table with the generated house numbers
-insert into houses (street_address, house_number)
-select
-    'Elm Street' as street_address,
-    house_number as house_number
-from house_numbers;
-
-insert into household_members (user_id, profile_id, house_id)
-values (
-
-    'e3a1bddb-ebae-4ec8-8eaa-68ea8d4c517f'::uuid,
-    'e3a1bddb-ebae-4ec8-8eaa-68ea8d4c517f'::uuid,
-    (select id from houses h where h.street_address = 'Elm Street' and h.house_number = 1)
-)

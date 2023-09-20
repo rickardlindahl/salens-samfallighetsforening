@@ -25,7 +25,7 @@ export const passwordSchema = z.string().min(8, "Lösenordet måste vara minst 8
 
 export const loginFormSchema = z.object({
   email: z.string().email("Var god fyll i en giltig epost-adress"),
-  password: passwordSchema,
+  password: z.string(),
 });
 
 export type LoginFormSchema = typeof loginFormSchema;
@@ -47,3 +47,12 @@ export const postFormSchema = z.object({
 });
 
 export type PostFormSchema = typeof postFormSchema;
+
+export const inviteUserFormSchema = z.object({
+  email: z.string().email("Var vänlig fyll i en giltig epostadress"),
+  full_name: z.string().min(2, "Var vänlig fyll i ett namn"),
+  role: z.enum(["admin", "user"]),
+  house_id: z.string().uuid("Var vänlig välj ett hushåll"),
+});
+
+export type InviteUserFormSchema = typeof inviteUserFormSchema;

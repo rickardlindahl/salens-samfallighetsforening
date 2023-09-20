@@ -2,7 +2,7 @@
   import type { SubmitFunction } from "@sveltejs/kit";
   import { enhance } from "$app/forms";
   import { cn } from "$lib/utils";
-  import DashboardShell from "../(components)/dashboard-shell.svelte";
+  import LayoutShell from "$lib/components/layout-shell.svelte";
   import { Button, buttonVariants } from "$lib/components/ui/button";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
   import { Icons } from "$lib/components/icons";
@@ -25,7 +25,7 @@
   $: ({ posts } = data);
 </script>
 
-<DashboardShell heading="Inlägg" text="Skapa nya och hantera dina inlägg">
+<LayoutShell heading="Inlägg" text="Skapa nya och hantera dina inlägg">
   <form slot="action" action="?/createPost" method="post" use:enhance={handleSubmit}>
     <button
       class={cn(buttonVariants(), {
@@ -85,4 +85,4 @@
       <p>Du har inte gjort några inlägg än.</p>
     {/if}
   </div>
-</DashboardShell>
+</LayoutShell>

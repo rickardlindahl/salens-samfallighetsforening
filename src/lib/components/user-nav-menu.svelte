@@ -51,6 +51,14 @@
         >
       </DropdownMenu.Item>
       <DropdownMenu.Separator />
+      {#if profile.role === "admin"}
+        <DropdownMenu.Item>
+          <a href="/admin" class="flex items-center w-full"
+            ><Icons.lock class="w-4 h-4 mr-2" />Admin</a
+          >
+        </DropdownMenu.Item>
+        <DropdownMenu.Separator />
+      {/if}
       <DropdownMenu.Item class="cursor-pointer">
         <form action="/auth/logout" method="post" class="w-full">
           <button type="submit" class="flex items-center w-full"
