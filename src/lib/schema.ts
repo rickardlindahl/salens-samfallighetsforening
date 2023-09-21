@@ -16,7 +16,7 @@ export const fileSchema = z
   .refine((file) => file.size < 5 * oneMiB, "Filen får inte vara större än 5 MiB");
 
 export const deleteDocumentSchema = z.object({
-  documentId: z.string().min(2),
+  documentId: z.string().uuid(),
 });
 
 export type DeleteDocumentSchema = typeof deleteDocumentSchema;
