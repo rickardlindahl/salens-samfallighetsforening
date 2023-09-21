@@ -48,6 +48,12 @@ export const postFormSchema = z.object({
 
 export type PostFormSchema = typeof postFormSchema;
 
+export const deletePostSchema = z.object({
+  postId: z.string().uuid(),
+});
+
+export type DeletePostSchema = typeof deletePostSchema;
+
 export const inviteUserFormSchema = z.object({
   email: z.string().email("Var vänlig fyll i en giltig epostadress"),
   full_name: z.string().min(2, "Var vänlig fyll i ett namn"),
