@@ -22,6 +22,18 @@
       await update();
     };
   };
+
+  const handleDelete: SubmitFunction = ({ cancel }) => {
+    if (!confirm("Är du säker på att du vill ta bort inlägget?")) {
+      return cancel();
+    }
+
+    isLoading = true;
+    return async ({ update }) => {
+      isLoading = false;
+      await update();
+    };
+  };
   $: ({ posts } = data);
 </script>
 
@@ -78,7 +90,16 @@
                 <DropdownMenu.Item
                   class="flex cursor-pointer items-center text-destructive focus:text-destructive"
                 >
-                  Ta bort
+                  <form action="?/deletePost" method="post" use:enhance={handleDelete}>
+                    <input type="hidden" name="postId" value={post.id} />
+                    <input
+                      id={`delete-${post.id}`}
+                      type="submit"
+                      value="Ta bort"
+                      disabled={isLoading}
+                      class="appearance-none cursor-pointer"
+                    />
+                  </form>
                 </DropdownMenu.Item>
               </DropdownMenu.Content>
             </DropdownMenu.Root>

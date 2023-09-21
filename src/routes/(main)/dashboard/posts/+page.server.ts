@@ -1,5 +1,6 @@
-import { error, type Actions, redirect } from "@sveltejs/kit";
+import { error, type Actions, redirect, fail } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
+import { deletePostSchema } from "$lib/schema";
 
 export const load: PageServerLoad = async ({ locals: { getSession, supabase } }) => {
   const session = await getSession();
@@ -49,5 +50,35 @@ export const actions: Actions = {
     }
 
     throw redirect(303, `/editor/${post.id}`);
+  },
+  deletePost: async ({ request, locals: { supabase, getSession } }) => {
+    const session = await getSession();
+
+    if (!session) {
+      throw redirect(303, "/auth/login");
+    }
+
+    const formData = await request.formData();
+    const postId = formData.get("postId");
+
+    const result = deletePostSchema.safeParse({ postId });
+
+    if (!result.success) {
+      return fail(400, { success: false, message: "Inlägget saknar id" });
+    }
+
+    const { error: postgrestError } = await supabase
+      .from("posts")
+      .delete()
+      .eq("id", result.data.postId);
+
+    if (postgrestError) {
+      throw error(500, "Kunde ej ta bort inlägget. Var god försök igen senare.");
+    }
+
+    return {
+      success: true,
+      message: "Inlägget har blivit borttaget",
+    };
   },
 };

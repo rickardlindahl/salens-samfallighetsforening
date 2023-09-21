@@ -8,11 +8,27 @@
   import type { PageData } from "./$types";
   import UploadDocumentForm from "./upload-document-form.svelte";
   import { Button } from "$lib/components/ui/button";
+  import { enhance } from "$app/forms";
+  import type { SubmitFunction } from "@sveltejs/kit";
 
   export let data: PageData;
 
   let { documents, uploadForm } = data;
   $: ({ documents, uploadForm } = data);
+
+  let isLoading = false;
+
+  const handleDelete: SubmitFunction = ({ cancel }) => {
+    if (!confirm("Är du säker på att du vill ta bort dokumentet?")) {
+      return cancel();
+    }
+
+    isLoading = true;
+    return async ({ update }) => {
+      isLoading = false;
+      await update();
+    };
+  };
 </script>
 
 <svelte:head>
@@ -69,13 +85,14 @@
                 <DropdownMenu.Item
                   class="flex cursor-pointer items-center text-destructive focus:text-destructive"
                 >
-                  <form action="?/deleteDocument" method="post">
+                  <form action="?/deleteDocument" method="post" use:enhance={handleDelete}>
                     <input type="hidden" name="documentId" value={doc.id} />
                     <input
-                      id={`submit-${doc.id}`}
+                      id={`delete-${doc.id}`}
                       type="submit"
                       value="Ta bort"
-                      class="appearance-none"
+                      disabled={isLoading}
+                      class="appearance-none cursor-pointer"
                     />
                   </form>
                 </DropdownMenu.Item>
