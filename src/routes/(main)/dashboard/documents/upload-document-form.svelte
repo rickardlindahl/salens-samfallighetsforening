@@ -4,35 +4,25 @@
   import { uploadDocumentSchema, type UploadDocumentSchema } from "$lib/schema";
   import type { FormOptions, SubmitFunction } from "formsnap";
   import { addToast } from "$lib/components/toast/store";
+  import { Icons } from "$lib/components/icons";
 
   export let form: SuperValidated<UploadDocumentSchema>;
 
   const options: FormOptions<UploadDocumentSchema> = {
     resetForm: true,
-  };
-
-  let isLoading = false;
-
-  const handleSubmit: SubmitFunction = () => {
-    isLoading = true;
-
-    return async ({ update, result }) => {
-      isLoading = false;
-
+    onResult: ({ result }) => {
       addToast(
         result.type === "success"
           ? {
               type: "success",
-              message: "Dokument uppladdat!",
+              message: "Dokumentet har laddats upp!",
             }
-          : {
-              type: "error",
-              message: "Misslyckades att ladda upp dokumentet!",
-            },
+          : { type: "error", message: "Misslyckades att ladda upp dokumentet!" },
       );
-
-      await update();
-    };
+    },
+    onError: () => {
+      addToast({ type: "error", message: "Misslyckades att ladda upp dokumentet!" });
+    },
   };
 </script>
 
@@ -42,7 +32,7 @@
   {form}
   schema={uploadDocumentSchema}
   let:config
-  let:enhance={handleSubmit}
+  let:delayed
   enctype="multipart/form-data"
   class="grid gap-y-2 py-4"
   {options}
@@ -62,5 +52,11 @@
       <Form.Validation />
     </Form.Item>
   </Form.Field>
-  <Form.Button>Ladda upp</Form.Button>
+  <Form.Button disabled={delayed} class="flex gap-2 items-center">
+    {#if delayed}
+      <Icons.spinner class="w-4 h-4 animate-spin" />Laddar upp
+    {:else}
+      Ladda upp
+    {/if}
+  </Form.Button>
 </Form.Root>
