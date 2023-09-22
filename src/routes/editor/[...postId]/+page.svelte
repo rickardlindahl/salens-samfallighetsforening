@@ -4,9 +4,11 @@
   import { buttonVariants } from "$lib/components/ui/button";
   import * as Form from "$lib/components/ui/form";
   import { cn } from "$lib/utils";
-  import { postFormSchema } from "$lib/schema";
+  import { postFormSchema, type PostFormSchema } from "$lib/schema";
   import type { PageData } from "./$types";
   import TipTap from "$lib/components/tip-tap.svelte";
+  import type { FormOptions, SubmitFunction } from "formsnap";
+  import { addToast } from "$lib/components/toast/store";
 
   export let data: PageData;
 
@@ -15,21 +17,30 @@
   let bodyString: string;
 
   $: ({ post, form } = data);
+
+  const options: FormOptions<PostFormSchema> = {
+    resetForm: false,
+    onResult: ({ result }) => {
+      addToast(
+        result.type === "success"
+          ? {
+              type: "success",
+              message: "Inlägget har sparats!",
+            }
+          : { type: "error", message: "Misslyckades att spara inlägget!" },
+      );
+    },
+    onError: () => {
+      addToast({ type: "error", message: "Misslyckades att spara inlägget!" });
+    },
+  };
 </script>
 
 <svelte:head>
   <title>Skriv ett inlägg | Salens Samfällighetsförening</title>
 </svelte:head>
 
-<Form.Root
-  method="post"
-  {form}
-  schema={postFormSchema}
-  let:config
-  let:enhance
-  let:delayed
-  options={{ delayMs: 5000 }}
->
+<Form.Root method="post" {form} schema={postFormSchema} let:config let:delayed {options}>
   <Form.Field {config} name="publish_date" let:value>
     <Form.Item>
       <Form.Input type="hidden" {value} />
