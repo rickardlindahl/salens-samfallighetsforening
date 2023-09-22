@@ -3,6 +3,7 @@
   import { invalidate, invalidateAll } from "$app/navigation";
   import { onMount } from "svelte";
   import { setInitialClassState } from "$lib/components/light-switch/light-switch";
+  import Toasts from "$lib/components/toast/toasts.svelte";
 
   export let data;
 
@@ -30,3 +31,5 @@
 </svelte:head>
 
 <slot />
+
+<Toasts />
