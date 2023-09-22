@@ -2,7 +2,7 @@
   import * as Form from "$lib/components/ui/form";
   import type { SuperValidated } from "sveltekit-superforms";
   import { uploadDocumentSchema, type UploadDocumentSchema } from "$lib/schema";
-  import type { FormOptions, SubmitFunction } from "formsnap";
+  import type { FormOptions } from "formsnap";
   import { addToast } from "$lib/components/toast/store";
   import { Icons } from "$lib/components/icons";
 
