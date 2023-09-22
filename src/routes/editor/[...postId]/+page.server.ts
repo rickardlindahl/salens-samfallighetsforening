@@ -21,11 +21,9 @@ export const load: PageServerLoad = async ({ params, locals: { supabase } }) => 
     }
   }
 
-  const form = superValidate(post, postFormSchema);
-
   return {
     post,
-    form,
+    form: superValidate(post, postFormSchema),
   };
 };
 
