@@ -10,6 +10,7 @@
   import { Button } from "$lib/components/ui/button";
   import { enhance } from "$app/forms";
   import type { SubmitFunction } from "@sveltejs/kit";
+  import { addToast } from "$lib/components/toast/store";
 
   export let data: PageData;
 
@@ -24,8 +25,21 @@
     }
 
     isLoading = true;
-    return async ({ update }) => {
+    return async ({ update, result }) => {
       isLoading = false;
+
+      addToast(
+        result.type === "success"
+          ? {
+              type: "success",
+              message: "Dokument borttaget!",
+            }
+          : {
+              type: "error",
+              message: "Misslyckades att ta bort dokumentet!",
+            },
+      );
+
       await update();
     };
   };
