@@ -88,6 +88,18 @@ export const actions: Actions<{ postId: string }> = {
       return fail(400, { form, message: error.message });
     }
 
+    // This might not be the best place to send an email but will do for now...
+    fetch("/emails/post-published", {
+      method: "post",
+      body: JSON.stringify({
+        id: params.postId,
+      }),
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then(console.log)
+      .catch(console.error);
+
     return {
       form,
     };
