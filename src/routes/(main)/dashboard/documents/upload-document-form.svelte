@@ -2,12 +2,37 @@
   import * as Form from "$lib/components/ui/form";
   import type { SuperValidated } from "sveltekit-superforms";
   import { uploadDocumentSchema, type UploadDocumentSchema } from "$lib/schema";
-  import type { FormOptions } from "formsnap";
+  import type { FormOptions, SubmitFunction } from "formsnap";
+  import { addToast } from "$lib/components/toast/store";
 
   export let form: SuperValidated<UploadDocumentSchema>;
 
   const options: FormOptions<UploadDocumentSchema> = {
     resetForm: true,
+  };
+
+  let isLoading = false;
+
+  const handleSubmit: SubmitFunction = () => {
+    isLoading = true;
+
+    return async ({ update, result }) => {
+      isLoading = false;
+
+      addToast(
+        result.type === "success"
+          ? {
+              type: "success",
+              message: "Dokument uppladdat!",
+            }
+          : {
+              type: "error",
+              message: "Misslyckades att ladda upp dokumentet!",
+            },
+      );
+
+      await update();
+    };
   };
 </script>
 
@@ -17,6 +42,7 @@
   {form}
   schema={uploadDocumentSchema}
   let:config
+  let:enhance={handleSubmit}
   enctype="multipart/form-data"
   class="grid gap-y-2 py-4"
   {options}
