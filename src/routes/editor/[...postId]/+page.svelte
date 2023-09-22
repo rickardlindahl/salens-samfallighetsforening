@@ -20,6 +20,8 @@
 
   const options: FormOptions<PostFormSchema> = {
     resetForm: false,
+    taintedMessage:
+      "Du har gjort förändringar utan att spara. Är du säker på att du vill lämna sidan utan att spara?",
     onResult: ({ result }) => {
       addToast(
         result.type === "success"
