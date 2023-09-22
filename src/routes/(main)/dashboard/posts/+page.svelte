@@ -8,6 +8,7 @@
   import { Icons } from "$lib/components/icons";
   import { formatRelative } from "$lib/date";
   import type { PageData } from "./$types";
+  import { addToast } from "$lib/components/toast/store";
 
   export let data: PageData;
 
@@ -17,8 +18,17 @@
 
   const handleSubmit: SubmitFunction = () => {
     isLoading = true;
-    return async ({ update }) => {
+
+    return async ({ update, result }) => {
       isLoading = false;
+
+      if (result.type === "error" || result.type === "failure") {
+        addToast({
+          type: "error",
+          message: "Misslyckades att skapa nytt inlägg. Var god försök igen!",
+        });
+      }
+
       await update();
     };
   };
@@ -29,8 +39,21 @@
     }
 
     isLoading = true;
-    return async ({ update }) => {
+    return async ({ update, result }) => {
       isLoading = false;
+
+      addToast(
+        result.type === "success"
+          ? {
+              type: "success",
+              message: "Inlägg borttaget!",
+            }
+          : {
+              type: "error",
+              message: "Misslyckades att ta bort inlägget!",
+            },
+      );
+
       await update();
     };
   };

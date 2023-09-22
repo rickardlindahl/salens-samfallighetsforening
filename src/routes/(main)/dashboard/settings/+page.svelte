@@ -9,6 +9,7 @@
   import { cn } from "$lib/utils";
   import Separator from "$lib/components/ui/separator/separator.svelte";
   import LayoutShell from "$lib/components/layout-shell.svelte";
+  import { addToast } from "$lib/components/toast/store";
 
   export let data: PageData;
 
@@ -22,8 +23,20 @@
 
   const handleSubmit: SubmitFunction = () => {
     loading = true;
-    return async () => {
+
+    return async ({ update, result }) => {
       loading = false;
+
+      addToast(
+        result.type === "success"
+          ? {
+              type: "success",
+              message: "Inställningarna har uppdaterats!",
+            }
+          : { type: "error", message: "Misslyckades att uppdatera inställningarna!" },
+      );
+
+      await update({ reset: false });
     };
   };
 </script>

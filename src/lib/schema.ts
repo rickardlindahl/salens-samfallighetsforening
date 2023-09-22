@@ -40,9 +40,6 @@ export type ResetPasswordFormSchema = typeof resetPasswordFormSchema;
 
 export const postFormSchema = z.object({
   title: z.string().min(1, "Ange en rubrik"),
-  draft: z.boolean(),
-  updated_at: z.string().datetime({ offset: true }).nullable(),
-  publish_date: z.string().datetime({ offset: true }).nullable(),
   image: z.string().nullable(),
 });
 

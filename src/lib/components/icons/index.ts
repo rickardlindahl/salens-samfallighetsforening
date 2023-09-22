@@ -1,6 +1,7 @@
 import type { Icon as LucideIcon } from "lucide-svelte";
 import {
   AlertCircle,
+  CheckCircle,
   ChevronLeft,
   CircleDollarSign,
   Command,
@@ -8,6 +9,7 @@ import {
   Facebook,
   File,
   Github,
+  Info,
   LayoutDashboard,
   Loader,
   Lock,
@@ -25,21 +27,24 @@ import {
   Undo,
   User,
   X,
+  XCircle,
 } from "lucide-svelte";
 
 export type Icon = LucideIcon;
 export const Icons = {
-  alert: AlertCircle,
   add: Plus,
+  alert: AlertCircle,
   arrowLeft: ChevronLeft,
   circleDollarSign: CircleDollarSign,
   close: X,
   contact: Contact,
   dashboard: LayoutDashboard,
   delete: Trash2,
+  error: XCircle,
   facebook: Facebook,
   file: File,
   github: Github,
+  info: Info,
   lock: Lock,
   logo: Command,
   logout: LogOut,
@@ -51,6 +56,7 @@ export const Icons = {
   save: Save,
   settings: Settings,
   spinner: Loader,
+  success: CheckCircle,
   sun: SunMedium,
   unpublish: Undo,
   user: User,

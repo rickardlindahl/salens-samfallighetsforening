@@ -4,9 +4,11 @@
   import { buttonVariants } from "$lib/components/ui/button";
   import * as Form from "$lib/components/ui/form";
   import { cn } from "$lib/utils";
-  import { postFormSchema } from "$lib/schema";
+  import { postFormSchema, type PostFormSchema } from "$lib/schema";
   import type { PageData } from "./$types";
   import TipTap from "$lib/components/tip-tap.svelte";
+  import type { FormOptions } from "formsnap";
+  import { addToast } from "$lib/components/toast/store";
 
   export let data: PageData;
 
@@ -15,35 +17,68 @@
   let bodyString: string;
 
   $: ({ post, form } = data);
+
+  let isSaving = false;
+  let isPublishing = false;
+  let isUnpublishing = false;
+
+  const options: FormOptions<PostFormSchema> = {
+    resetForm: false,
+    taintedMessage:
+      "Du har gjort förändringar utan att spara. Är du säker på att du vill lämna sidan utan att spara?",
+    multipleSubmits: "prevent",
+    onSubmit: ({ action }) => {
+      isSaving = action.search === "?/save";
+      isPublishing = action.search === "?/publish";
+      isUnpublishing = action.search === "?/unpublish";
+    },
+    onResult: ({ result }) => {
+      addToast(
+        result.type === "success"
+          ? {
+              type: "success",
+              message: isSaving
+                ? "Inlägget har sparats!"
+                : isPublishing
+                ? "Inlägget har publicerats!"
+                : "Inlägget har avpublicerats!",
+            }
+          : {
+              type: "error",
+              message: isSaving
+                ? "Misslyckades att spara inlägget!"
+                : isPublishing
+                ? "Misslyckades att publicera inlägget!"
+                : "Misslyckades att avpublicera inlägget!",
+            },
+      );
+
+      isSaving = false;
+      isPublishing = false;
+      isUnpublishing = false;
+    },
+    onError: () => {
+      addToast({
+        type: "error",
+        message: isSaving
+          ? "Misslyckades att spara inlägget!"
+          : isPublishing
+          ? "Misslyckades att publicera inlägget!"
+          : "Misslyckades att avpublicera inlägget!",
+      });
+
+      isSaving = false;
+      isPublishing = false;
+      isUnpublishing = false;
+    },
+  };
 </script>
 
 <svelte:head>
   <title>Skriv ett inlägg | Salens Samfällighetsförening</title>
 </svelte:head>
 
-<Form.Root
-  method="post"
-  {form}
-  schema={postFormSchema}
-  let:config
-  let:enhance
-  let:delayed
-  options={{ delayMs: 5000 }}
->
-  <Form.Field {config} name="publish_date" let:value>
-    <Form.Item>
-      <Form.Input type="hidden" {value} />
-      <Form.Validation />
-    </Form.Item>
-  </Form.Field>
-
-  <Form.Field {config} name="draft" let:value>
-    <Form.Item>
-      <Form.Input type="hidden" {value} />
-      <Form.Validation />
-    </Form.Item>
-  </Form.Field>
-
+<Form.Root method="post" {form} schema={postFormSchema} let:config let:delayed {options}>
   <div class="grid w-full gap-10">
     <div class="flex w-full items-center justify-between">
       <div class="flex items-center space-x-10">
@@ -53,37 +88,59 @@
         </a>
       </div>
 
-      <div>
-        <Form.Button type="submit" formaction="?/save">
-          {#if delayed}
-            <Icons.spinner class="mr-2 h-4 w-4 animate-spin" />
+      <div class="flex flex-row gap-2">
+        <Form.Button
+          type="submit"
+          formaction="?/save"
+          class="flex items-center gap-2"
+          disabled={delayed || isSaving}
+        >
+          {#if isSaving}
+            <Icons.spinner class="h-4 w-4 animate-spin" />
+            {#if post.draft}
+              Sparar
+            {:else}
+              Uppdaterar
+            {/if}
           {:else}
-            <Icons.save class="mr-2 h-4 w-4" />
-          {/if}
-          {#if post.draft}
-            Spara
-          {:else}
-            Uppdatera
+            <Icons.save class="h-4 w-4" />
+            {#if post.draft}
+              Spara
+            {:else}
+              Uppdatera
+            {/if}
           {/if}
         </Form.Button>
 
         {#if post.draft}
-          <Form.Button type="submit" formaction="?/publish">
-            {#if delayed}
-              <Icons.spinner class="mr-2 h-4 w-4 animate-spin" />
+          <Form.Button
+            type="submit"
+            formaction="?/publish"
+            class="flex items-center gap-2"
+            disabled={delayed || isPublishing}
+          >
+            {#if isPublishing}
+              <Icons.spinner class="h-4 w-4 animate-spin" />
+              <span>Publicerar</span>
             {:else}
-              <Icons.publish class="mr-2 h-4 w-4" />
+              <Icons.publish class="h-4 w-4" />
+              <span>Publicera</span>
             {/if}
-            <span>Publicera</span>
           </Form.Button>
         {:else}
-          <Form.Button type="submit" formaction="?/unpublish">
-            {#if delayed}
-              <Icons.spinner class="mr-2 h-4 w-4 animate-spin" />
+          <Form.Button
+            type="submit"
+            formaction="?/unpublish"
+            class="flex items-center gap-2"
+            disabled={delayed || isUnpublishing}
+          >
+            {#if isUnpublishing}
+              <Icons.spinner class="h-4 w-4 animate-spin" />
+              <span>Avpublicerar</span>
             {:else}
-              <Icons.unpublish class="mr-2 h-4 w-4" />
+              <Icons.unpublish class="h-4 w-4" />
+              <span>Avpublicera</span>
             {/if}
-            <span>Avpublicera</span>
           </Form.Button>
         {/if}
       </div>
