@@ -9,6 +9,7 @@
   import TipTap from "$lib/components/tip-tap.svelte";
   import type { FormOptions } from "formsnap";
   import { addToast } from "$lib/components/toast/store";
+  import { actionToState, stateToToastMessage, type FormState } from "./state";
 
   export let data: PageData;
 
@@ -18,9 +19,7 @@
 
   $: ({ post, form } = data);
 
-  let isSaving = false;
-  let isPublishing = false;
-  let isUnpublishing = false;
+  let state: FormState = "idle";
 
   const options: FormOptions<PostFormSchema> = {
     resetForm: false,
@@ -28,48 +27,25 @@
       "Du har gjort förändringar utan att spara. Är du säker på att du vill lämna sidan utan att spara?",
     multipleSubmits: "prevent",
     onSubmit: ({ action }) => {
-      isSaving = action.search === "?/save";
-      isPublishing = action.search === "?/publish";
-      isUnpublishing = action.search === "?/unpublish";
+      state = actionToState[action.search] ?? "idle";
     },
     onResult: ({ result }) => {
-      addToast(
-        result.type === "success"
-          ? {
-              type: "success",
-              message: isSaving
-                ? "Inlägget har sparats!"
-                : isPublishing
-                ? "Inlägget har publicerats!"
-                : "Inlägget har avpublicerats!",
-            }
-          : {
-              type: "error",
-              message: isSaving
-                ? "Misslyckades att spara inlägget!"
-                : isPublishing
-                ? "Misslyckades att publicera inlägget!"
-                : "Misslyckades att avpublicera inlägget!",
-            },
-      );
+      const type = result.type === "success" ? "success" : "error";
 
-      isSaving = false;
-      isPublishing = false;
-      isUnpublishing = false;
+      addToast({
+        type,
+        message: stateToToastMessage[state][type],
+      });
+
+      state = "idle";
     },
     onError: () => {
       addToast({
         type: "error",
-        message: isSaving
-          ? "Misslyckades att spara inlägget!"
-          : isPublishing
-          ? "Misslyckades att publicera inlägget!"
-          : "Misslyckades att avpublicera inlägget!",
+        message: stateToToastMessage[state].error,
       });
 
-      isSaving = false;
-      isPublishing = false;
-      isUnpublishing = false;
+      state = "idle";
     },
   };
 </script>
@@ -89,13 +65,30 @@
       </div>
 
       <div class="flex flex-row gap-2">
+        {#if !post.draft}
+          <Form.Button
+            type="submit"
+            formaction="?/sendEmailNotification"
+            class="flex items-center gap-2"
+            disabled={delayed || state === "sendingEmailNotification"}
+          >
+            {#if state === "sendingEmailNotification"}
+              <Icons.spinner class="h-4 w-4 animate-spin" />
+              Skickar epost-notifiering
+            {:else}
+              <Icons.mail class="h-4 w-4" />
+              Skicka epost-notifiering
+            {/if}
+          </Form.Button>
+        {/if}
+
         <Form.Button
           type="submit"
           formaction="?/save"
           class="flex items-center gap-2"
-          disabled={delayed || isSaving}
+          disabled={delayed || state === "saving"}
         >
-          {#if isSaving}
+          {#if state === "saving"}
             <Icons.spinner class="h-4 w-4 animate-spin" />
             {#if post.draft}
               Sparar
@@ -117,9 +110,9 @@
             type="submit"
             formaction="?/publish"
             class="flex items-center gap-2"
-            disabled={delayed || isPublishing}
+            disabled={delayed || state === "publishing"}
           >
-            {#if isPublishing}
+            {#if state === "publishing"}
               <Icons.spinner class="h-4 w-4 animate-spin" />
               <span>Publicerar</span>
             {:else}
@@ -132,9 +125,9 @@
             type="submit"
             formaction="?/unpublish"
             class="flex items-center gap-2"
-            disabled={delayed || isUnpublishing}
+            disabled={delayed || state === "unpublishing"}
           >
-            {#if isUnpublishing}
+            {#if state === "unpublishing"}
               <Icons.spinner class="h-4 w-4 animate-spin" />
               <span>Avpublicerar</span>
             {:else}
