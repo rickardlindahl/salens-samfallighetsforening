@@ -65,23 +65,6 @@
       </div>
 
       <div class="flex flex-row gap-2">
-        {#if !post.draft}
-          <Form.Button
-            type="submit"
-            formaction="?/sendEmailNotification"
-            class="flex items-center gap-2"
-            disabled={delayed || state === "sendingEmailNotification"}
-          >
-            {#if state === "sendingEmailNotification"}
-              <Icons.spinner class="h-4 w-4 animate-spin" />
-              Skickar epost-notifiering
-            {:else}
-              <Icons.mail class="h-4 w-4" />
-              Skicka epost-notifiering
-            {/if}
-          </Form.Button>
-        {/if}
-
         <Form.Button
           type="submit"
           formaction="?/save"

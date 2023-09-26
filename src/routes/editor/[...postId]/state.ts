@@ -1,15 +1,9 @@
-export type FormState =
-  | "saving"
-  | "publishing"
-  | "unpublishing"
-  | "sendingEmailNotification"
-  | "idle";
+export type FormState = "saving" | "publishing" | "unpublishing" | "idle";
 
 export const actionToState: { [key: string]: FormState } = {
   "?/save": "saving",
   "?/publish": "publishing",
   "?/unpublish": "unpublishing",
-  "?/sendEmailNotification": "sendingEmailNotification",
 };
 
 export const stateToToastMessage: { [key in FormState]: { success: string; error: string } } = {
@@ -24,10 +18,6 @@ export const stateToToastMessage: { [key in FormState]: { success: string; error
   unpublishing: {
     success: "Inlägget har avpublicerats!",
     error: "Misslyckades att avpublicera inlägget!",
-  },
-  sendingEmailNotification: {
-    success: "En epost-notifiering har skickats!",
-    error: "Misslyckades att skicka en epost-notifiering!",
   },
   idle: {
     success: "",
