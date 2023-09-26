@@ -183,7 +183,6 @@ export interface Database {
       };
       profiles: {
         Row: {
-          avatar_url: string | null;
           email: string;
           full_name: string | null;
           id: string;
@@ -191,7 +190,6 @@ export interface Database {
           updated_at: string | null;
         };
         Insert: {
-          avatar_url?: string | null;
           email: string;
           full_name?: string | null;
           id: string;
@@ -199,7 +197,6 @@ export interface Database {
           updated_at?: string | null;
         };
         Update: {
-          avatar_url?: string | null;
           email?: string;
           full_name?: string | null;
           id?: string;

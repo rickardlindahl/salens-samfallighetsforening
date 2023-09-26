@@ -5,10 +5,8 @@
   import { buttonVariants } from "./ui/button";
   import UserNavMenu from "./user-nav-menu.svelte";
   import type { Profile } from "../../types/database";
-  import type { SupabaseClient } from "@supabase/supabase-js";
 
   export let profile: Profile | null;
-  export let supabase: SupabaseClient;
 </script>
 
 <header
@@ -24,7 +22,7 @@
     </div>
     <nav>
       {#if profile}
-        <UserNavMenu {profile} {supabase} />
+        <UserNavMenu {profile} />
       {:else}
         <a
           href="/auth/login"

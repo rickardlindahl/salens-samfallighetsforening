@@ -6,12 +6,12 @@
   import type { LayoutData } from "./$types";
 
   export let data: LayoutData;
-  let { supabase, profile } = data;
-  $: ({ supabase, profile } = data);
+  let { profile } = data;
+  $: ({ profile } = data);
 </script>
 
 <div class="flex min-h-screen flex-col">
-  <SiteHeader {profile} {supabase} />
+  <SiteHeader {profile} />
   <main class="flex-1">
     <slot />
   </main>

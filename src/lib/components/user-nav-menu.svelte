@@ -1,21 +1,20 @@
 <script lang="ts">
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
-  import UserAvatar from "$lib/components/user-avatar.svelte";
-  import type { SupabaseClient } from "@supabase/supabase-js";
   import type { Profile } from "../../types/database";
   import { Icons } from "./icons";
+  import * as Avatar from "./ui/avatar";
 
   export let profile: Profile;
-  export let supabase: SupabaseClient;
 </script>
 
 <DropdownMenu.Root>
   <DropdownMenu.Trigger>
-    <UserAvatar
-      {supabase}
-      name={profile.full_name ?? undefined}
-      image={profile.avatar_url ?? undefined}
-    />
+    <Avatar.Root>
+      <Avatar.Fallback>
+        <span class="sr-only">{profile.full_name}</span>
+        <Icons.user class="h-4 w-4" />
+      </Avatar.Fallback>
+    </Avatar.Root>
   </DropdownMenu.Trigger>
   <DropdownMenu.Content class="align-end">
     <DropdownMenu.Group>
