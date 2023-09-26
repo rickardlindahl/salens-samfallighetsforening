@@ -184,6 +184,8 @@ export interface Database {
       profiles: {
         Row: {
           email: string;
+          enable_notification_email_new_documents: boolean;
+          enable_notification_email_new_posts: boolean;
           full_name: string | null;
           id: string;
           role: Database["public"]["Enums"]["role_enum"];
@@ -191,6 +193,8 @@ export interface Database {
         };
         Insert: {
           email: string;
+          enable_notification_email_new_documents?: boolean;
+          enable_notification_email_new_posts?: boolean;
           full_name?: string | null;
           id: string;
           role?: Database["public"]["Enums"]["role_enum"];
@@ -198,6 +202,8 @@ export interface Database {
         };
         Update: {
           email?: string;
+          enable_notification_email_new_documents?: boolean;
+          enable_notification_email_new_posts?: boolean;
           full_name?: string | null;
           id?: string;
           role?: Database["public"]["Enums"]["role_enum"];

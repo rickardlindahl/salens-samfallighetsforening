@@ -36,6 +36,8 @@ export const actions: Actions = {
       .from("profiles")
       .update({
         full_name: form.data.full_name,
+        enable_notification_email_new_documents: form.data.enable_notification_email_new_documents,
+        enable_notification_email_new_posts: form.data.enable_notification_email_new_posts,
         updated_at: new Date().toISOString(),
       })
       .eq("id", session?.user.id ?? "");

@@ -62,6 +62,8 @@ export type InviteUserFormSchema = typeof inviteUserFormSchema;
 
 export const profileSettingsFormSchema = z.object({
   full_name: z.string().min(2, "Var vänlig fyll i ett namn").nullable(),
+  enable_notification_email_new_posts: z.boolean(),
+  enable_notification_email_new_documents: z.boolean(),
 });
 
 export type ProfileSettingsFormSchema = typeof profileSettingsFormSchema;
