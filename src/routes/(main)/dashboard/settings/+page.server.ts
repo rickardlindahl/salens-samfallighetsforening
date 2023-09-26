@@ -1,49 +1,55 @@
-import { fail, redirect, type Actions } from "@sveltejs/kit";
+import { fail, type Actions, redirect } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
+import { superValidate } from "sveltekit-superforms/server";
+import { profileSettingsFormSchema } from "$lib/schema";
 
-export const load: PageServerLoad = async ({ locals: { supabase, getSession } }) => {
+export const load: PageServerLoad = async ({ parent, locals: { getSession } }) => {
   const session = await getSession();
 
   if (!session) {
-    throw redirect(303, "/");
+    throw redirect(303, "/auth/login");
   }
+  const { profile } = await parent();
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("full_name, avatar_url")
-    .eq("id", session.user.id)
-    .single();
-
-  return { session, profile };
+  return {
+    form: superValidate(profile, profileSettingsFormSchema, { errors: false }),
+  };
 };
 
 export const actions: Actions = {
   update: async ({ request, locals: { supabase, getSession } }) => {
-    const formData = await request.formData();
-    const fullName = formData.get("fullName") as string;
-    const avatarUrl = formData.get("avatarUrl") as string;
-
     const session = await getSession();
+
+    if (!session) {
+      throw redirect(303, "/auth/login");
+    }
+
+    const formData = await request.formData();
+
+    const form = await superValidate(formData, profileSettingsFormSchema);
+
+    if (!form.valid) {
+      return fail(400, { form });
+    }
 
     const { error } = await supabase
       .from("profiles")
       .update({
-        full_name: fullName,
-        avatar_url: avatarUrl || null,
+        full_name: form.data.full_name,
+        enable_notification_email_new_documents: form.data.enable_notification_email_new_documents,
+        enable_notification_email_new_posts: form.data.enable_notification_email_new_posts,
         updated_at: new Date().toISOString(),
       })
       .eq("id", session?.user.id ?? "");
 
     if (error) {
       return fail(500, {
-        fullName,
-        avatarUrl,
+        form,
       });
     }
 
     return {
-      fullName,
-      avatarUrl,
+      form,
     };
   },
 };

@@ -183,24 +183,27 @@ export interface Database {
       };
       profiles: {
         Row: {
-          avatar_url: string | null;
           email: string;
+          enable_notification_email_new_documents: boolean;
+          enable_notification_email_new_posts: boolean;
           full_name: string | null;
           id: string;
           role: Database["public"]["Enums"]["role_enum"];
           updated_at: string | null;
         };
         Insert: {
-          avatar_url?: string | null;
           email: string;
+          enable_notification_email_new_documents?: boolean;
+          enable_notification_email_new_posts?: boolean;
           full_name?: string | null;
           id: string;
           role?: Database["public"]["Enums"]["role_enum"];
           updated_at?: string | null;
         };
         Update: {
-          avatar_url?: string | null;
           email?: string;
+          enable_notification_email_new_documents?: boolean;
+          enable_notification_email_new_posts?: boolean;
           full_name?: string | null;
           id?: string;
           role?: Database["public"]["Enums"]["role_enum"];

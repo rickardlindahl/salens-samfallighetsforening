@@ -27,7 +27,7 @@
                 </h2>
                 {#each house.household_members as household_member}
                   <div class="space-y-8">
-                    <HouseholdMember {supabase} profile={household_member} />
+                    <HouseholdMember profile={household_member} />
                   </div>
                 {/each}
               </div>
