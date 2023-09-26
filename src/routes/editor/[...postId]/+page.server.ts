@@ -1,5 +1,4 @@
 import { error as sveltekitError, type Actions, fail } from "@sveltejs/kit";
-import { MAILGUN_API_KEY } from "$env/static/private";
 import type { PageServerLoad } from "./$types";
 import type { Update } from "../../../types/database";
 import type { SupabaseClient } from "@supabase/supabase-js";
