@@ -32,6 +32,8 @@ export interface Database {
         Row: {
           created_at: string;
           description: string;
+          email_notification_sent: boolean;
+          email_notification_sent_at: string | null;
           file_name: string;
           file_size: number;
           id: string;
@@ -42,6 +44,8 @@ export interface Database {
         Insert: {
           created_at: string;
           description: string;
+          email_notification_sent?: boolean;
+          email_notification_sent_at?: string | null;
           file_name: string;
           file_size: number;
           id?: string;
@@ -52,6 +56,8 @@ export interface Database {
         Update: {
           created_at?: string;
           description?: string;
+          email_notification_sent?: boolean;
+          email_notification_sent_at?: string | null;
           file_name?: string;
           file_size?: number;
           id?: string;
@@ -136,6 +142,8 @@ export interface Database {
         Row: {
           body: Json | null;
           draft: boolean;
+          email_notification_sent: boolean;
+          email_notification_sent_at: string | null;
           id: string;
           image: string | null;
           profile_id: string;
@@ -147,6 +155,8 @@ export interface Database {
         Insert: {
           body?: Json | null;
           draft?: boolean;
+          email_notification_sent?: boolean;
+          email_notification_sent_at?: string | null;
           id?: string;
           image?: string | null;
           profile_id: string;
@@ -158,6 +168,8 @@ export interface Database {
         Update: {
           body?: Json | null;
           draft?: boolean;
+          email_notification_sent?: boolean;
+          email_notification_sent_at?: string | null;
           id?: string;
           image?: string | null;
           profile_id?: string;
