@@ -7,13 +7,7 @@
 </script>
 
 <div class="flex items-center">
-  <Avatar.Root>
-    <Avatar.Fallback>
-      <span class="sr-only">{profile.full_name}</span>
-      <Icons.user class="h-4 w-4" />
-    </Avatar.Fallback>
-  </Avatar.Root>
-  <div class="ml-4 space-y-1">
+  <div class="space-y-2">
     {#if profile.full_name}
       <p class="font-medium leading-none">{profile.full_name}</p>
     {/if}
