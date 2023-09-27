@@ -2,7 +2,7 @@ import { MAILGUN_API_KEY, SUPABASE_WEBHOOK_SECRET } from "$env/static/private";
 import { documentSchema, type Document } from "$lib/zod-schema";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { error, json, type RequestHandler } from "@sveltejs/kit";
-import type { Database } from "../../../types/supabase";
+import type { Database } from "../../../../types/supabase";
 import { webhookPayloadSchema } from "$lib/webhook";
 
 type SendDocumentUploadedEmail = {
