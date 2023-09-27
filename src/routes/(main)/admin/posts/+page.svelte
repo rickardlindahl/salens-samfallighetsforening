@@ -107,7 +107,10 @@
               </DropdownMenu.Trigger>
               <DropdownMenu.Content>
                 <DropdownMenu.Item>
-                  <a href={`/editor/${post.id}`} class="flex w-full"> Redigera </a>
+                  <a href={`/editor/${post.id}`} class="flex items-center w-full">
+                    <Icons.edit class="w-4 h-4 mr-2" />
+                    Redigera
+                  </a>
                 </DropdownMenu.Item>
                 <DropdownMenu.Separator />
                 <DropdownMenu.Item
