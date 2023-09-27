@@ -67,3 +67,9 @@ export const profileSettingsFormSchema = z.object({
 });
 
 export type ProfileSettingsFormSchema = typeof profileSettingsFormSchema;
+
+export const forgotPasswordSchema = z.object({
+  email: z.string().email(),
+});
+
+export type ForgotPasswordSchema = typeof forgotPasswordSchema;
