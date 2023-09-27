@@ -58,7 +58,7 @@
   <div class="grid w-full gap-10">
     <div class="flex w-full items-center justify-between">
       <div class="flex items-center space-x-10">
-        <a href="/dashboard/posts" class={cn(buttonVariants({ variant: "ghost" }))}>
+        <a href="/admin/posts" class={cn(buttonVariants({ variant: "ghost" }))}>
           <Icons.arrowLeft class="mr-2 h-4 w-4" />
           Back
         </a>

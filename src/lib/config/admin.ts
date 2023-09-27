@@ -11,4 +11,12 @@ export const sidebarNavItems = [
     title: "Bjud in användare",
     href: "/admin/users/invite",
   },
+  {
+    title: "Dokument",
+    href: "/admin/documents",
+  },
+  {
+    title: "Inlägg",
+    href: "/admin/posts",
+  },
 ];
