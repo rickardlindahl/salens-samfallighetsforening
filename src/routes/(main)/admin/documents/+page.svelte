@@ -91,7 +91,12 @@
               </DropdownMenu.Trigger>
               <DropdownMenu.Content>
                 <DropdownMenu.Item>
-                  <a href={`/documents/${doc.id}`} download={doc.file_name} class="flex w-full">
+                  <a
+                    href={`/documents/${doc.id}`}
+                    download={doc.file_name}
+                    class="flex items-center w-full"
+                  >
+                    <Icons.download class="w-4 h-4 mr-2" />
                     Ladda ner
                   </a>
                 </DropdownMenu.Item>
