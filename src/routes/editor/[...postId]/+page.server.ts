@@ -1,4 +1,4 @@
-import { error, type Actions, fail } from "@sveltejs/kit";
+import { error, type Actions, fail, redirect } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 import type { Update } from "../../../types/database";
 import type { SupabaseClient } from "@supabase/supabase-js";
@@ -6,7 +6,33 @@ import type { Database } from "../../../types/supabase";
 import { superValidate } from "sveltekit-superforms/server";
 import { postFormSchema } from "$lib/schema";
 
-export const load: PageServerLoad = async ({ params, locals: { supabase } }) => {
+export const load: PageServerLoad = async ({ params, locals: { getSession, supabase }, url }) => {
+  const session = await getSession();
+
+  if (!session) {
+    throw redirect(303, "/auth/login");
+  }
+
+  const { data: profile, error: profileError } = await supabase
+    .from("profiles")
+    .select()
+    .eq("id", session.user.id)
+    .single();
+
+  if (profileError) {
+    throw error(500, { status: 500, message: "Något gick fel. Vänligen försök igen senare." });
+  }
+
+  if (profile?.role !== "admin") {
+    const newURL = new URL("/dashboard", url.origin);
+
+    newURL.searchParams.append(
+      "message",
+      "Du måste vara administratör för att komma åt denna sida.",
+    );
+    throw redirect(302, newURL);
+  }
+
   const { data: post, error: postError } = await supabase
     .from("posts")
     .select()

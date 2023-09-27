@@ -4,10 +4,6 @@ export const sidebarNavItems = [
     href: "/dashboard",
   },
   {
-    title: "Inlägg",
-    href: "/dashboard/posts",
-  },
-  {
     title: "Inställningar",
     href: "/dashboard/settings",
   },

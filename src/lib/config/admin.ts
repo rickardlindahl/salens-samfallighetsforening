@@ -15,4 +15,8 @@ export const sidebarNavItems = [
     title: "Dokument",
     href: "/admin/documents",
   },
+  {
+    title: "Inlägg",
+    href: "/admin/posts",
+  },
 ];
