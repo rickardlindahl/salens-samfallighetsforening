@@ -12,5 +12,6 @@ export const postSchema = z.object({
   updated_at: z.string().datetime({ offset: true }).nullable(),
   user_id: z.string().uuid(),
 });
+export type PostSchema = typeof postSchema;
 
 export type Post = z.infer<typeof postSchema>;

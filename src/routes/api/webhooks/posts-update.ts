@@ -2,16 +2,8 @@ import { MAILGUN_API_KEY, SUPABASE_WEBHOOK_SECRET } from "$env/static/private";
 import { postSchema, type Post } from "$lib/zod-schema";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { error, json, type RequestHandler } from "@sveltejs/kit";
-import { z } from "zod";
 import type { Database } from "../../../types/supabase";
-
-const updatePayloadSchema = z.object({
-  type: z.literal("UPDATE"),
-  table: z.literal("posts"),
-  schema: z.string(),
-  record: postSchema,
-  old_record: postSchema,
-});
+import { webhookPayloadSchema } from "$lib/webhook";
 
 type SendPostPublishedEmail = {
   fetch(input: RequestInfo | URL, init?: RequestInit | undefined): Promise<Response>;
@@ -83,7 +75,9 @@ export const POST: RequestHandler = async ({ fetch, request, locals: { supabase 
   const body = await request.json();
 
   try {
-    const data = updatePayloadSchema.parse(body);
+    const data = webhookPayloadSchema({ table: "posts", type: "UPDATE", record: postSchema }).parse(
+      body,
+    );
 
     const { record: post } = data;
     if (shouldSendEmailNotification(post)) {
