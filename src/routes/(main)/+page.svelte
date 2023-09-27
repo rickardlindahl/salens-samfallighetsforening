@@ -10,6 +10,10 @@
   $: ({ profile } = data);
 </script>
 
+<svelte:head>
+  <title>Salens Samfällighetsförening</title>
+</svelte:head>
+
 <section class="space-y-6 py-6 md:py-8">
   <div class="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
     <h1 class="font-bold text-3xl sm:text-5xl md:text-6xl lg:text-7xl">
