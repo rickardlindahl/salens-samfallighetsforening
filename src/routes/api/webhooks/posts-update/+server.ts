@@ -3,7 +3,7 @@ import { postSchema, type Post } from "$lib/zod-schema";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { error, json, type RequestHandler } from "@sveltejs/kit";
 import type { Database } from "../../../../types/supabase";
-import { webhookPayloadSchema } from "$lib/webhook";
+import { webhookUpdatePayloadSchema } from "$lib/webhook";
 
 type SendPostPublishedEmail = {
   fetch(input: RequestInfo | URL, init?: RequestInit | undefined): Promise<Response>;
@@ -75,9 +75,10 @@ export const POST: RequestHandler = async ({ fetch, request, locals: { supabase 
   const body = await request.json();
 
   try {
-    const data = webhookPayloadSchema({ table: "posts", type: "UPDATE", record: postSchema }).parse(
-      body,
-    );
+    const data = webhookUpdatePayloadSchema({
+      table: "posts",
+      record: postSchema,
+    }).parse(body);
 
     const { record: post } = data;
     if (shouldSendEmailNotification(post)) {
