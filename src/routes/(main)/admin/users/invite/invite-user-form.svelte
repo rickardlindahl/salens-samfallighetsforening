@@ -4,12 +4,26 @@
   import * as Form from "$lib/components/ui/form";
   import { inviteUserFormSchema, type InviteUserFormSchema } from "$lib/schema";
   import type { House } from "../../../../../types/database";
+  import { addToast } from "$lib/components/toast/store";
 
   export let form: SuperValidated<InviteUserFormSchema>;
   export let houses: House[];
 
   const options: FormOptions<InviteUserFormSchema> = {
     resetForm: true,
+    onResult: ({ result }) => {
+      addToast(
+        result.type === "success"
+          ? {
+              type: "success",
+              message: "Användaren har blivit inbjuden!",
+            }
+          : { type: "error", message: "Misslyckades att bjuda in användaren!" },
+      );
+    },
+    onError: () => {
+      addToast({ type: "error", message: "Misslyckades att bjuda in användaren!" });
+    },
   };
 </script>
 
