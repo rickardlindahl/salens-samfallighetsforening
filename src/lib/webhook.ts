@@ -1,7 +1,7 @@
 import { z } from "zod";
-import type { PostSchema } from "./zod-schema";
+import type { PostSchema, DocumentSchema } from "./zod-schema";
 
-export const webhookPayloadSchema = <T extends PostSchema>({
+export const webhookPayloadSchema = <T extends PostSchema | DocumentSchema>({
   record,
   table,
   type,
