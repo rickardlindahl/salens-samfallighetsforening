@@ -65,7 +65,7 @@ function shouldSendEmailNotification(post: Post) {
 }
 
 export const POST: RequestHandler = async ({ fetch, request, locals: { supabase } }) => {
-  console.log("/api/webhooks/posts/");
+  console.log("/api/webhooks/posts-update");
   const secret = request.headers.get("X-Webhook-Secret");
   if (secret !== SUPABASE_WEBHOOK_SECRET) {
     console.error("ERROR!! secrets does not match", secret, SUPABASE_WEBHOOK_SECRET);
