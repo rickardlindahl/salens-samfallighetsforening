@@ -35,6 +35,9 @@ dependencies:
   '@tiptap/starter-kit':
     specifier: ^2.1.8
     version: 2.1.8(@tiptap/pm@2.1.8)
+  '@vercel/analytics':
+    specifier: ^1.0.2
+    version: 1.0.2
   bits-ui:
     specifier: ^0.5.7
     version: 0.5.7(svelte@4.2.0)
@@ -1034,6 +1037,10 @@ packages:
       '@typescript-eslint/types': 5.62.0
       eslint-visitor-keys: 3.4.3
     dev: true
+
+  /@vercel/analytics@1.0.2:
+    resolution: {integrity: sha512-BZFxVrv24VbNNl5xMxqUojQIegEeXMI6rX3rg1uVLYUEXsuKNBSAEQf4BWEcjQDp/8aYJOj6m8V4PUA3x/cxgg==}
+    dev: false
 
   /acorn-jsx@5.3.2(acorn@8.10.0):
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
