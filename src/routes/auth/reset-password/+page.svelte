@@ -39,31 +39,31 @@
 
     <div class="grid gap-6">
       <Form.Root form={data.form} schema={resetPasswordFormSchema} let:config>
+        <div class="grid gap-2">
+          <Form.Field {config} name="password">
+            <Form.Item>
+              <Form.Label>Lösenord</Form.Label>
+              <Form.Input type="password" />
+              <Form.Validation />
+            </Form.Item>
+          </Form.Field>
+
+          <div class="grid gap-1">
+            <Form.Button>Uppdatera lösenord</Form.Button>
+          </div>
+        </div>
+
         <Form.Field {config} name="accessToken" let:value let:setValue>
-          <Form.Item>
-            <InputValueBinder {setValue} value={accessToken} />
-            <Form.Input type="hidden" {value} />
-            <Form.Validation />
-          </Form.Item>
+          <InputValueBinder {setValue} value={accessToken} />
+          <Form.Input type="hidden" {value} />
+          <Form.Validation />
         </Form.Field>
 
         <Form.Field {config} name="refreshToken" let:value let:setValue>
-          <Form.Item>
-            <InputValueBinder {setValue} value={refreshToken} />
-            <Form.Input type="hidden" {value} />
-            <Form.Validation />
-          </Form.Item>
+          <InputValueBinder {setValue} value={refreshToken} />
+          <Form.Input type="hidden" {value} />
+          <Form.Validation />
         </Form.Field>
-
-        <Form.Field {config} name="password">
-          <Form.Item>
-            <Form.Label>Lösenord</Form.Label>
-            <Form.Input type="password" />
-            <Form.Validation />
-          </Form.Item>
-        </Form.Field>
-
-        <Form.Button>Uppdatera lösenord</Form.Button>
       </Form.Root>
     </div>
   </div>
