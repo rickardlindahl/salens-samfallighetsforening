@@ -4,8 +4,12 @@
   import { onMount } from "svelte";
   import { setInitialClassState } from "$lib/components/light-switch/light-switch";
   import Toasts from "$lib/components/toast/toasts.svelte";
+  import { dev } from "$app/environment";
+  import { inject } from "@vercel/analytics";
 
   export let data;
+
+  inject({ mode: dev ? "development" : "production" });
 
   let { supabase, session } = data;
   $: ({ supabase, session } = data);
