@@ -19,18 +19,14 @@
       <div class="divide-y divide-border rounded-md border">
         {#each houses as house}
           <div class="flex items-center justify-between p-4">
-            <div class="grid gap-1">
-              <div>
-                <h2 class="text-md font-bold text-muted-foreground mb-4">
-                  {house.street_address}
-                  {house.house_number}
-                </h2>
-                {#each house.household_members as household_member}
-                  <div class="space-y-8">
-                    <HouseholdMember profile={household_member} />
-                  </div>
-                {/each}
-              </div>
+            <div class="grid gap-4">
+              <h2 class="text-md font-bold text-muted-foreground">
+                {house.street_address}
+                {house.house_number}
+              </h2>
+              {#each house.household_members as household_member}
+                <HouseholdMember profile={household_member} />
+              {/each}
             </div>
           </div>
         {/each}

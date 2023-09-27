@@ -107,21 +107,35 @@
               </DropdownMenu.Trigger>
               <DropdownMenu.Content>
                 <DropdownMenu.Item>
-                  <a href={`/editor/${post.id}`} class="flex w-full"> Redigera </a>
+                  <a href={`/editor/${post.id}`} class="flex items-center w-full">
+                    <Icons.edit class="w-4 h-4 mr-2" />
+                    Redigera
+                  </a>
                 </DropdownMenu.Item>
                 <DropdownMenu.Separator />
                 <DropdownMenu.Item
                   class="flex cursor-pointer items-center text-destructive focus:text-destructive"
                 >
-                  <form action="?/deletePost" method="post" use:enhance={handleDelete}>
+                  <form
+                    action="?/deletePost"
+                    method="post"
+                    use:enhance={handleDelete}
+                    class="w-full"
+                  >
                     <input type="hidden" name="postId" value={post.id} />
-                    <input
+                    <button
                       id={`delete-${post.id}`}
                       type="submit"
-                      value="Ta bort"
                       disabled={isLoading}
-                      class="appearance-none cursor-pointer"
-                    />
+                      class="flex items-center w-full"
+                    >
+                      {#if isLoading}
+                        <Icons.spinner class="w-4 h-4 mr-2 animate-spin" />
+                      {:else}
+                        <Icons.delete class="w-4 h-4 mr-2" />
+                      {/if}
+                      Ta bort</button
+                    >
                   </form>
                 </DropdownMenu.Item>
               </DropdownMenu.Content>
