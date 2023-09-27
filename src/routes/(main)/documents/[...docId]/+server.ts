@@ -6,7 +6,7 @@ export const GET: RequestHandler<{ docId: string }> = async ({
 }) => {
   const session = await getSession();
   if (!session) {
-    throw error(401, "Unauthorized");
+    throw error(401, { status: 401, message: "Unauthorized" });
   }
 
   const { data: doc, error: postgrestError } = await supabase
@@ -16,7 +16,7 @@ export const GET: RequestHandler<{ docId: string }> = async ({
     .single();
 
   if (postgrestError) {
-    throw error(500, "Internal Server Error");
+    throw error(500, { status: 500, message: "Internal Server Error" });
   }
 
   const { data: blob, error: storageError } = await supabase.storage
@@ -24,7 +24,7 @@ export const GET: RequestHandler<{ docId: string }> = async ({
     .download(doc.storage_path);
 
   if (storageError) {
-    throw error(500, "Internal Server Error");
+    throw error(500, { status: 500, message: "Internal Server Error" });
   }
 
   return new Response(blob, {

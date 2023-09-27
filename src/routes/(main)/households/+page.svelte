@@ -5,8 +5,8 @@
 
   export let data: PageData;
 
-  let { houses, supabase } = data;
-  $: ({ houses, supabase } = data);
+  let { houses } = data;
+  $: ({ houses } = data);
 </script>
 
 <svelte:head>

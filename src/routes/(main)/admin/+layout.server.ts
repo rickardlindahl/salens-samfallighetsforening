@@ -21,7 +21,7 @@ export const load: LayoutServerLoad = async ({ url, parent, locals: { supabase }
   const { data: profiles, error: profilesSelectError } = await supabase.from("profiles").select();
 
   if (profilesSelectError) {
-    throw error(500, "Internal Server Error");
+    throw error(500, { status: 500, message: "Internal Server Error" });
   }
 
   return {

@@ -17,7 +17,10 @@ export const load: PageServerLoad = async ({ locals: { getSession, supabase } })
     .eq("user_id", session?.user.id);
 
   if (selectError) {
-    throw error(500, selectError);
+    throw error(500, {
+      status: 500,
+      message: "Misslyckades att hämta inlägg. Vänligen försök igen senare",
+    });
   }
 
   return {
@@ -46,7 +49,7 @@ export const actions: Actions = {
       .single();
 
     if (insertError) {
-      throw error(500, "Något gick fel. Var god försök igen senare");
+      return fail(500, { success: false, message: "Något gick fel. Var god försök igen senare" });
     }
 
     throw redirect(303, `/editor/${post.id}`);
@@ -73,7 +76,10 @@ export const actions: Actions = {
       .eq("id", result.data.postId);
 
     if (postgrestError) {
-      throw error(500, "Kunde ej ta bort inlägget. Var god försök igen senare.");
+      throw error(500, {
+        status: 500,
+        message: "Kunde ej ta bort inlägget. Vänligen försök igen senare.",
+      });
     }
 
     return {
