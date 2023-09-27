@@ -7,6 +7,7 @@
   import { loginFormSchema } from "$lib/schema";
   import { page } from "$app/stores";
   import type { PageData } from "./$types";
+  import { Separator } from "$lib/components/ui/separator";
 
   export let data: PageData;
 
@@ -74,6 +75,11 @@
           </div>
         </div>
       </Form.Root>
+
+      <Separator />
+      <a href="/auth/forgot-password" class={cn(buttonVariants({ variant: "link" }))}
+        >Glömt lösenord?</a
+      >
     </div>
   </div>
 </div>
