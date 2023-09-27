@@ -14,8 +14,7 @@ export const load: PageServerLoad = async ({ locals: { getSession, supabase } })
       `*,
        profiles(full_name, email)`,
     )
-    .order("created_at", { ascending: false })
-    .eq("user_id", session?.user.id);
+    .order("created_at", { ascending: false });
 
   if (documentsError) {
     throw error(500, {
