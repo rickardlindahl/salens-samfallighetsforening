@@ -7,7 +7,7 @@ export const load: PageServerLoad = async ({ locals: { supabase } }) => {
   const { data: houses, error: housesError } = await supabase.from("houses").select();
 
   if (housesError) {
-    throw error(500, "Internal Server Error");
+    throw error(500, { status: 500, message: "Internal Server Error" });
   }
 
   return {

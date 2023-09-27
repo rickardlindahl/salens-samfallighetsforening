@@ -1,8 +1,8 @@
 import type { PageServerLoad } from "./$types";
-import { error as svelteKitError } from "@sveltejs/kit";
+import { error } from "@sveltejs/kit";
 
 export const load: PageServerLoad = async ({ locals: { supabase } }) => {
-  const { data: posts, error } = await supabase
+  const { data: posts, error: postsError } = await supabase
     .from("posts")
     .select(
       `*,
@@ -12,8 +12,11 @@ export const load: PageServerLoad = async ({ locals: { supabase } }) => {
     .eq("draft", false)
     .order("publish_date", { ascending: false });
 
-  if (error) {
-    throw svelteKitError(500, error);
+  if (postsError) {
+    throw error(500, {
+      status: 500,
+      message: "Misslyckades att hämta inlägg. Vänligen försök igen senare.",
+    });
   }
 
   return {

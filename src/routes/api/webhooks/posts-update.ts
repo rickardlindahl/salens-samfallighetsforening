@@ -69,7 +69,7 @@ export const POST: RequestHandler = async ({ fetch, request, locals: { supabase 
   const secret = request.headers.get("X-Webhook-Secret");
   if (secret !== SUPABASE_WEBHOOK_SECRET) {
     console.error("ERROR!! secrets does not match", secret, SUPABASE_WEBHOOK_SECRET);
-    throw error(401, "Unauthorized");
+    throw error(401, { status: 401, message: "Unauthorized" });
   }
 
   const body = await request.json();
@@ -96,6 +96,6 @@ export const POST: RequestHandler = async ({ fetch, request, locals: { supabase 
     return json({ message: "Post update handled successfully!" }, { status: 200 });
   } catch (err) {
     console.error(err);
-    throw error(400, "Bad request");
+    throw error(400, { status: 400, message: "Bad request" });
   }
 };

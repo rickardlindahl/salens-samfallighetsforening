@@ -15,7 +15,10 @@ export const load: PageServerLoad = async ({ locals: { getSession, supabase } })
     .order("house_number", { ascending: true });
 
   if (selectError) {
-    throw error(500, "Internal Server Error");
+    throw error(500, {
+      status: 500,
+      message: "Misslyckades att hämta hushåll. Vänligen försök igen senare.",
+    });
   }
 
   return {

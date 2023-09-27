@@ -30,7 +30,7 @@ export const actions: Actions = {
     });
 
     if (sessionError) {
-      throw error(500, new Error("Unable to set session"));
+      throw error(500, { status: 500, message: "Unable to set session" });
     }
 
     const { error: updateError } = await supabase.auth.updateUser({

@@ -1,4 +1,4 @@
-import { error as svelteKitError, redirect } from "@sveltejs/kit";
+import { error, redirect } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ locals: { getSession, supabase } }) => {
@@ -8,7 +8,7 @@ export const load: PageServerLoad = async ({ locals: { getSession, supabase } })
     throw redirect(303, "/auth/login");
   }
 
-  const { data: documents, error } = await supabase
+  const { data: documents, error: documentsError } = await supabase
     .from("documents")
     .select(
       `*,
@@ -17,8 +17,11 @@ export const load: PageServerLoad = async ({ locals: { getSession, supabase } })
     .order("created_at", { ascending: false })
     .eq("user_id", session?.user.id);
 
-  if (error) {
-    throw svelteKitError(500, error);
+  if (documentsError) {
+    throw error(500, {
+      status: 500,
+      message: "Misslyckades att hämta dokument. Vänligen försök igen senare.",
+    });
   }
 
   return {

@@ -1,4 +1,4 @@
-import { error as svelteKitError, fail, type Actions, redirect } from "@sveltejs/kit";
+import { error, fail, type Actions, redirect } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 import { setError, superValidate } from "sveltekit-superforms/server";
 import { deleteDocumentSchema, fileSchema, uploadDocumentSchema } from "$lib/schema";
@@ -10,14 +10,17 @@ export const load: PageServerLoad = async ({ locals: { getSession, supabase } })
     throw redirect(303, "/auth/login");
   }
 
-  const { data: documents, error } = await supabase
+  const { data: documents, error: documentsError } = await supabase
     .from("documents")
     .select()
     .order("created_at", { ascending: false })
     .eq("user_id", session?.user.id);
 
-  if (error) {
-    throw svelteKitError(500, error);
+  if (documentsError) {
+    throw error(500, {
+      status: 500,
+      message: "Misslyckades att hämta dokument. Vänligen försök igen senare.",
+    });
   }
 
   return {
@@ -57,10 +60,10 @@ export const actions: Actions = {
       .upload(storagePath, file);
 
     if (storageError) {
-      throw svelteKitError(500, "Något gick fel. Var god försök igen senare.");
+      throw error(500, { status: 500, message: "Något gick fel. Var god försök igen senare." });
     }
 
-    const { error } = await supabase.from("documents").insert({
+    const { error: documentsError } = await supabase.from("documents").insert({
       created_at: new Date().toISOString(),
       description: uploadForm.data.description,
       user_id: session.user.id,
@@ -70,8 +73,11 @@ export const actions: Actions = {
       file_size: file.size,
     });
 
-    if (error) {
-      throw svelteKitError(500, "Kunde ej skapa dokument. Var god försök igen senare.");
+    if (documentsError) {
+      throw error(500, {
+        status: 500,
+        message: "Kunde ej skapa dokument. Var god försök igen senare.",
+      });
     }
 
     return {
@@ -102,7 +108,10 @@ export const actions: Actions = {
       .single();
 
     if (postgrestError) {
-      throw svelteKitError(500, "Kunde ej ta bort dokumentet. Var god försök igen senare.");
+      throw error(500, {
+        status: 500,
+        message: "Kunde ej ta bort dokumentet. Var god försök igen senare.",
+      });
     }
 
     const { error: storageError } = await supabase.storage
@@ -110,7 +119,10 @@ export const actions: Actions = {
       .remove([doc.storage_path]);
 
     if (storageError) {
-      throw svelteKitError(500, "Kunde ej ta bort dokumentet. Var god försök igen senare.");
+      throw error(500, {
+        status: 500,
+        message: "Kunde ej ta bort dokumentet. Var god försök igen senare.",
+      });
     }
 
     return {

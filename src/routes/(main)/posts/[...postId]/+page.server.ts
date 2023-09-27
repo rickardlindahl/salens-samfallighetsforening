@@ -1,18 +1,21 @@
+import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
-import { error as sveltekitError } from "@sveltejs/kit";
 
 export const load: PageServerLoad = async ({ params, locals: { supabase } }) => {
-  const { data: post, error } = await supabase
+  const { data: post, error: postsError } = await supabase
     .from("posts")
     .select(`*, profiles(full_name, email)`)
     .eq("id", params.postId)
     .single();
 
-  if (error) {
-    if (error.code === "PGRST116") {
-      throw sveltekitError(404, "Not found");
+  if (postsError) {
+    if (postsError.code === "PGRST116") {
+      throw error(404, {
+        status: 404,
+        message: "Inlägget finns ej.",
+      });
     } else {
-      throw sveltekitError(500, "Unexpected error");
+      throw error(500, { status: 500, message: "Ett oväntat fel har uppstått." });
     }
   }
 
