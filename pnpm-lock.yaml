@@ -18,13 +18,13 @@ dependencies:
     specifier: ^0.5.0
     version: 0.5.0(astro@4.5.4)
   '@astrolib/seo':
-    specifier: ^1.0.0-beta.5
+    specifier: 1.0.0-beta.5
     version: 1.0.0-beta.5(astro@4.5.4)
   '@fontsource-variable/inter':
-    specifier: ^5.0.16
+    specifier: ^5.0.17
     version: 5.0.17
   astro:
-    specifier: ^4.4.9
+    specifier: ^4.5.4
     version: 4.5.4(typescript@5.4.2)
   astro-icon:
     specifier: ^1.1.0
@@ -39,15 +39,15 @@ dependencies:
     specifier: ^5.4.2
     version: 5.4.2
   typescript-esbuild:
-    specifier: ^0.3.10
-    version: 0.3.12
+    specifier: ^0.4.0
+    version: 0.4.0
   unpic:
-    specifier: ^3.17.0
+    specifier: ^3.18.0
     version: 3.18.0
 
 devDependencies:
   '@astrojs/mdx':
-    specifier: ^2.1.1
+    specifier: ^2.2.0
     version: 2.2.0(astro@4.5.4)
   '@astrojs/partytown':
     specifier: ^2.0.4
@@ -59,7 +59,7 @@ devDependencies:
     specifier: ^1.1.10
     version: 1.1.10
   '@iconify-json/tabler':
-    specifier: ^1.1.106
+    specifier: ^1.1.108
     version: 1.1.108
   '@tailwindcss/typography':
     specifier: ^0.5.10
@@ -71,14 +71,14 @@ devDependencies:
     specifier: ^4.6.9
     version: 4.6.9
   '@typescript-eslint/eslint-plugin':
-    specifier: ^7.1.0
+    specifier: ^7.2.0
     version: 7.2.0(@typescript-eslint/parser@7.2.0)(eslint@8.57.0)(typescript@5.4.2)
   '@typescript-eslint/parser':
-    specifier: ^7.1.0
+    specifier: ^7.2.0
     version: 7.2.0(eslint@8.57.0)(typescript@5.4.2)
   astro-compress:
-    specifier: 2.2.11
-    version: 2.2.11
+    specifier: 2.2.14
+    version: 2.2.14
   eslint:
     specifier: ^8.57.0
     version: 8.57.0
@@ -1573,17 +1573,10 @@ packages:
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
     dev: false
 
-  /@types/node@20.11.17:
-    resolution: {integrity: sha512-QmgQZGWu1Yw9TDyAP9ZzpFJKynYNeOvwMJmaxABfieQoVoiVOS6MN1WSpqpRcbeA5+RW82kraAVxCCJg+780Qw==}
-    dependencies:
-      undici-types: 5.26.5
-    dev: true
-
   /@types/node@20.11.25:
     resolution: {integrity: sha512-TBHyJxk2b7HceLVGFcpAUjsa5zIdsPWlR6XHfyGzd0SFu+/NFgQgMAl96MSDZgQDvJAvV6BKsFOrt6zIL09JDw==}
     dependencies:
       undici-types: 5.26.5
-    dev: false
 
   /@types/node@20.11.28:
     resolution: {integrity: sha512-M/GPWVS2wLkSkNHVeLkrF2fD5Lx5UC4PxA0uZcKc6QqbIQUJyW1jVjueJYi1z8n0I5PxYrtpnPnWglE+y9A0KA==}
@@ -2011,19 +2004,19 @@ packages:
     hasBin: true
     dev: true
 
-  /astro-compress@2.2.11:
-    resolution: {integrity: sha512-cXN8FI0txjhteYRQjcXJby1EVHQvPA6oqt2ep1Z0MUfXcrn+F0AQA59vFGEt/pTnzmqp0R6TgrBxK1ZRDAR6Hg==}
+  /astro-compress@2.2.14:
+    resolution: {integrity: sha512-zQvzsDHm3/Hco/uoIs32ZCykH2OdxijeQ306oKc6yJp17CRZClVMjBBc6pdWTua7FJuWNfV7TKt+dZyvOOMbBg==}
     dependencies:
       '@types/csso': 5.0.4
       '@types/html-minifier-terser': 7.0.2
       csso: 5.0.5
-      files-pipe: 2.1.8
+      files-pipe: 2.1.12
       html-minifier-terser: 7.2.0
       kleur: 4.1.5
       lightningcss: 1.24.0
       sharp: 0.33.2
       svgo: 3.2.0
-      terser: 5.28.1
+      terser: 5.29.1
     dev: true
 
   /astro-eslint-parser@0.16.3:
@@ -3285,10 +3278,10 @@ packages:
       flat-cache: 3.2.0
     dev: true
 
-  /files-pipe@2.1.8:
-    resolution: {integrity: sha512-2qebFhQ/Vnw7HygoeKpLjnd6ClzTt9y8qSNXjcP+5DHAFEwDq1T+d6sW8PLSkDujHMsN6Lq2ufFoWZCT8YraXw==}
+  /files-pipe@2.1.12:
+    resolution: {integrity: sha512-5yuP6+OfZ3EsarYxp64X6TofDjxUTJQFMzVOsX7HXClNoRD4+6uJr98alzs9VJg4ISgEXPU7HlWufdKnd26JsQ==}
     dependencies:
-      '@types/node': 20.11.17
+      '@types/node': 20.11.25
       deepmerge-ts: 5.1.0
       fast-glob: 3.3.2
     dev: true
@@ -3752,7 +3745,7 @@ packages:
       entities: 4.5.0
       param-case: 3.0.4
       relateurl: 0.2.7
-      terser: 5.28.1
+      terser: 5.29.1
     dev: true
 
   /html-void-elements@3.0.0:
@@ -6360,8 +6353,8 @@ packages:
       yallist: 4.0.0
     dev: false
 
-  /terser@5.28.1:
-    resolution: {integrity: sha512-wM+bZp54v/E9eRRGXb5ZFDvinrJIOaTapx3WUokyVGZu5ucVCK55zEgGd5Dl2fSr3jUo5sDiERErUWLY6QPFyA==}
+  /terser@5.29.1:
+    resolution: {integrity: sha512-lZQ/fyaIGxsbGxApKmoPTODIzELy3++mXhS5hOqaAWZjQtpq/hFHAc+rm29NND1rYRxRWKcjuARNwULNXa5RtQ==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
@@ -6500,58 +6493,58 @@ packages:
       possible-typed-array-names: 1.0.0
     dev: true
 
-  /typedoc-plugin-keywords@1.6.0(typedoc@0.25.11):
+  /typedoc-plugin-keywords@1.6.0(typedoc@0.25.12):
     resolution: {integrity: sha512-URyCIHw6+Lwil0ywy6lVb2TckfDVGjAWnRnTAiiSZaRaglI6vaaP1EhhwEipOIlHaJSnHZfdwpWe1t4mffTIpA==}
     peerDependencies:
       typedoc: ^0.25.4
     dependencies:
-      typedoc: 0.25.11(typescript@5.4.2)
+      typedoc: 0.25.12(typescript@5.4.2)
       typescript: 5.4.2
     dev: false
 
-  /typedoc-plugin-mdn-links@3.1.17(typedoc@0.25.11):
-    resolution: {integrity: sha512-DCkMuXna8qipSwfzXl6c1x7nBeZUW/qWCACoaaP/cUzUyy/1MXedUyteuVsfw6+Sod61gIAr9ccwH78nrdwu6A==}
+  /typedoc-plugin-mdn-links@3.1.18(typedoc@0.25.12):
+    resolution: {integrity: sha512-BGzSUEHT15o3g2Q1q/5tBQufAM+yqJNwU1aUmYZC9qbfCS1I5qyEkmoxZ9ks2Z3TwPTZ8PMfIKd2vq5/0nmLnw==}
     peerDependencies:
       typedoc: '>= 0.23.14 || 0.24.x || 0.25.x'
     dependencies:
-      typedoc: 0.25.11(typescript@5.4.2)
+      typedoc: 0.25.12(typescript@5.4.2)
     dev: false
 
-  /typedoc-plugin-merge-modules@5.1.0(typedoc@0.25.11):
+  /typedoc-plugin-merge-modules@5.1.0(typedoc@0.25.12):
     resolution: {integrity: sha512-jXH27L/wlxFjErgBXleh3opVgjVTXFEuBo68Yfl18S9Oh/IqxK6NV94jlEJ9hl4TXc9Zm2l7Rfk41CEkcCyvFQ==}
     peerDependencies:
       typedoc: 0.24.x || 0.25.x
     dependencies:
-      typedoc: 0.25.11(typescript@5.4.2)
+      typedoc: 0.25.12(typescript@5.4.2)
     dev: false
 
   /typedoc-plugin-remove-references@0.0.6:
     resolution: {integrity: sha512-QoyHpopznnJbWW/9JT2NHSK+eTmyShkPYebwe5ZnO8aohPLc5okk4puWUDXnNh2Tn7cJU8U3t1tEMO6ghbwE8Q==}
     dev: false
 
-  /typedoc-plugin-rename-defaults@0.7.0(typedoc@0.25.11):
+  /typedoc-plugin-rename-defaults@0.7.0(typedoc@0.25.12):
     resolution: {integrity: sha512-NudSQ1o/XLHNF9c4y7LzIZxfE9ltz09yCDklBPJpP5VMRvuBpYGIbQ0ZgmPz+EIV8vPx9Z/OyKwzp4HT2vDtfg==}
     peerDependencies:
       typedoc: 0.22.x || 0.23.x || 0.24.x || 0.25.x
     dependencies:
       camelcase: 8.0.0
-      typedoc: 0.25.11(typescript@5.4.2)
+      typedoc: 0.25.12(typescript@5.4.2)
     dev: false
 
-  /typedoc-plugin-zod@1.1.2(typedoc@0.25.11):
+  /typedoc-plugin-zod@1.1.2(typedoc@0.25.12):
     resolution: {integrity: sha512-jsmuYg1xsGjwKdhKN4tgRYORnbKpU7v5B1ZpsazMH5lUsI6ZLxBqAY5iiZ06oz/01gHOsAdhpABgWD97MOjKQA==}
     peerDependencies:
       typedoc: 0.23.x || 0.24.x || 0.25.x
     dependencies:
-      typedoc: 0.25.11(typescript@5.4.2)
+      typedoc: 0.25.12(typescript@5.4.2)
     dev: false
 
-  /typedoc@0.25.11(typescript@5.4.2):
-    resolution: {integrity: sha512-5MbI1W/FOG6oXsd8bdssQidSTeKh8Kt3xA5uKVzI+K99uzP8EGN45uPnPvQesyaWdD+89s4wCQdtWEd8QUbiRg==}
+  /typedoc@0.25.12(typescript@5.4.2):
+    resolution: {integrity: sha512-F+qhkK2VoTweDXd1c42GS/By2DvI2uDF4/EpG424dTexSHdtCH52C6IcAvMA6jR3DzAWZjHpUOW+E02kyPNUNw==}
     engines: {node: '>= 16'}
     hasBin: true
     peerDependencies:
-      typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x || 5.1.x || 5.2.x || 5.3.x
+      typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x || 5.1.x || 5.2.x || 5.3.x || 5.4.x
     dependencies:
       lunr: 2.3.9
       marked: 4.3.0
@@ -6570,8 +6563,8 @@ packages:
       semver: 7.6.0
     dev: false
 
-  /typescript-esbuild@0.3.12:
-    resolution: {integrity: sha512-gGcQqO+i9Z7sfMEHe3Q3m8JteiQKpTJb5oHkiRJgX/zVc0GIScX6KO50bGlFNetm3rrJI1GTZ9BZhFi/Q/figw==}
+  /typescript-esbuild@0.4.0:
+    resolution: {integrity: sha512-ZoX6Ffixp8rKI/XkR6Q/4Yl/RQjUF7ZVEDSmlyFxvYQrUwY9gUUu1MmMcMAiP0wFk4GvZblW5WCiwenGWrPJfA==}
     hasBin: true
     dependencies:
       '@types/node': 20.11.25
@@ -6580,13 +6573,13 @@ packages:
       esbuild: 0.20.1
       esbuild-plugin-copy: 2.1.1(esbuild@0.20.1)
       fast-glob: 3.3.2
-      typedoc: 0.25.11(typescript@5.4.2)
-      typedoc-plugin-keywords: 1.6.0(typedoc@0.25.11)
-      typedoc-plugin-mdn-links: 3.1.17(typedoc@0.25.11)
-      typedoc-plugin-merge-modules: 5.1.0(typedoc@0.25.11)
+      typedoc: 0.25.12(typescript@5.4.2)
+      typedoc-plugin-keywords: 1.6.0(typedoc@0.25.12)
+      typedoc-plugin-mdn-links: 3.1.18(typedoc@0.25.12)
+      typedoc-plugin-merge-modules: 5.1.0(typedoc@0.25.12)
       typedoc-plugin-remove-references: 0.0.6
-      typedoc-plugin-rename-defaults: 0.7.0(typedoc@0.25.11)
-      typedoc-plugin-zod: 1.1.2(typedoc@0.25.11)
+      typedoc-plugin-rename-defaults: 0.7.0(typedoc@0.25.12)
+      typedoc-plugin-zod: 1.1.2(typedoc@0.25.12)
       typescript: 5.4.2
     dev: false
 
