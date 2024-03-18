@@ -28,7 +28,7 @@ export async function action({ request }: ActionFunctionArgs) {
   // to be redirected to after a success or a failure
   return await authenticator.authenticate("user-pass", request, {
     successRedirect: "/edgestream",
-    failureRedirect: "/login",
+    throwOnError: true,
   });
 }
 
