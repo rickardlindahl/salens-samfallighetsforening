@@ -1,4 +1,4 @@
-name: 'Deploy'
+name: "Deploy"
 
 on:
   release:
@@ -13,7 +13,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    name: 'Deploy app & run sanity tests'
+    name: "Deploy app & run sanity tests"
 
     steps:
       - uses: actions/checkout@v3
@@ -22,7 +22,7 @@ jobs:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: '--scope=${{ secrets.VERCEL_SCOPE }}'
+          vercel-args: "--scope=${{ secrets.VERCEL_SCOPE }}"
           scope: ${{ secrets.VERCEL_ORG_ID }}
           alias-domains: |
             dnb-stack.vercel.app

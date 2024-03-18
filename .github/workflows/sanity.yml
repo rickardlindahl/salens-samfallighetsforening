@@ -1,4 +1,4 @@
-name: 'Sanity on Demand'
+name: "Sanity on Demand"
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    name: 'Run ALL Tests'
+    name: "Run ALL Tests"
 
     steps:
       - uses: actions/checkout@v3
@@ -15,7 +15,7 @@ jobs:
           version: 7
       - uses: actions/setup-node@v3
         with:
-          node-version: '16'
-          cache: 'pnpm'
+          node-version: "16"
+          cache: "pnpm"
       - name: Install dependencies
         run: pnpm install

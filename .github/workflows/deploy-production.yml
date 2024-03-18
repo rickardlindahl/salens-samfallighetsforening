@@ -1,4 +1,4 @@
-name: 'Deploy Production'
+name: "Deploy Production"
 
 on:
   release:
@@ -12,7 +12,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    name: 'Deploy Production'
+    name: "Deploy Production"
 
     steps:
       - uses: actions/checkout@v3
@@ -21,7 +21,7 @@ jobs:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: '--scope=${{ secrets.VERCEL_SCOPE }} --prod'
+          vercel-args: "--scope=${{ secrets.VERCEL_SCOPE }} --prod"
           scope: ${{ secrets.VERCEL_ORG_ID }}
           alias-domains: |
             dnb-stack.vercel.app
