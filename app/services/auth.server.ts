@@ -1,8 +1,10 @@
 import { Authenticator } from "remix-auth";
 import { sessionStorage } from "~/services/session.server";
 import { FormStrategy } from "remix-auth-form";
+import { eq } from "drizzle-orm";
+import { db } from "~/db";
+import { users, type User } from "~/db/schema";
 
-type User = { id: string; email: string; name: string; role: "user" | "admin" };
 // Create an instance of the authenticator, pass a generic with what
 // strategies will return and will store in the session
 export let authenticator = new Authenticator<User>(sessionStorage);
@@ -10,9 +12,10 @@ export let authenticator = new Authenticator<User>(sessionStorage);
 // Tell the Authenticator to use the form strategy
 authenticator.use(
   new FormStrategy(async ({ form }) => {
-    let email = form.get("email");
-    let password = form.get("password");
-    let user = await login(email as string, password as string);
+    const email = form.get("email");
+    const password = form.get("password");
+    const user = await login(email as string, password as string);
+
     // the type of this user must match the type you pass to the Authenticator
     // the strategy will automatically inherit the type if you instantiate
     // directly inside the `use` method
@@ -23,12 +26,19 @@ authenticator.use(
   "user-pass",
 );
 
-async function login(email: string, _password: string): Promise<User> {
-  // do your login logic here
-  return {
-    id: "1",
-    email,
-    name: "Ricardo",
-    role: "admin",
-  };
+async function login(email: string, password: string): Promise<User> {
+  const [user] = await db.select().from(users).where(eq(users.email, email)).limit(1);
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  const hash = await Bun.password.hash(password);
+
+  const isMatch = await Bun.password.verify(user.password, hash);
+  if (!isMatch) {
+    throw new Error("Invalid password");
+  }
+
+  return user;
 }

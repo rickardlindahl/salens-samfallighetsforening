@@ -24,3 +24,5 @@ api/index.js.map
 
 /coverage
 api/
+
+local.db*

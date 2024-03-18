@@ -7,6 +7,9 @@
   "type": "module",
   "scripts": {
     "build": "remix vite:build",
+    "db:generate": "drizzle-kit generate:sqlite",
+    "db:push": "drizzle-kit push:sqlite",
+    "db:studio": "drizzle-kit studio",
     "dev": "remix vite:dev",
     "format:check": "bun prettier --check app --cache --cache-strategy metadata",
     "format:write": "bun prettier --write app --cache --cache-strategy metadata",
