@@ -4,6 +4,7 @@ import { FormStrategy } from "remix-auth-form";
 import { eq } from "drizzle-orm";
 import { db } from "~/db";
 import { users, type User } from "~/db/schema";
+import { comparePasswords, hashPassword } from "~/lib/password";
 
 // Create an instance of the authenticator, pass a generic with what
 // strategies will return and will store in the session
@@ -33,9 +34,7 @@ async function login(email: string, password: string): Promise<User> {
     throw new Error("User not found");
   }
 
-  const hash = await Bun.password.hash(password);
-
-  const isMatch = await Bun.password.verify(user.password, hash);
+  const isMatch = await comparePasswords(password, user.password);
   if (!isMatch) {
     throw new Error("Invalid password");
   }
