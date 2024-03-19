@@ -15,3 +15,7 @@ export async function comparePasswords(plainPassword: string, hashedPassword: st
 
   return hashedPlainPassword === hashedPassword;
 }
+
+export function createTempPassword() {
+  return Math.random().toString(36).slice(-8);
+}
