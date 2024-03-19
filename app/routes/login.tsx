@@ -9,11 +9,11 @@ export default function Screen() {
     <Form method="post">
       <label>
         Email:
-        <input type="email" name="email" required />
+        <input type="email" name="email" required className="text-black" />
       </label>
       <label>
         Password:
-        <input type="password" name="password" autoComplete="current-password" required />
+        <input type="password" name="password" autoComplete="current-password" required className="text-black" />
       </label>
       <button>Sign In</button>
     </Form>
