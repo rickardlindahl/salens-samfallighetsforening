@@ -2,8 +2,7 @@
 # This part will be removed by `remix.init`
 package-lock.json
 yarn.lock
-pnpm-lock.yaml
-pnpm-lock.yml
+bun.lockb
 
 node_modules
 

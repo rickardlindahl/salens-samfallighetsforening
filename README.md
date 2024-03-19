@@ -29,13 +29,13 @@ Not a fan of bits of the stack? Fork it, change it, and use `npx create-remix --
 Make sure the dependencies are installed
 
 ```sh
-bun i
+pnpm install
 ```
 
 Afterwards, start the Remix development server like so:
 
 ```sh
-bun dev
+pnpm dev
 ```
 
 Open up [http://localhost:3000](http://localhost:3000) and you should be ready to go!
@@ -74,11 +74,11 @@ We use GitHub Actions for continuous integration and deployment. Anything that g
 
 For lower level tests of utilities and individual components, we use `vitest`. We have DOM-specific assertion helpers via [`@testing-library/jest-dom`](https://testing-library.com/jest-dom).
 
-You can run the tests with `bun run test` or `bun run vitest:coverage` to also show the coverage.
+You can run the tests with `pnpm run test` or `pnpm run vitest:coverage` to also show the coverage.
 
 ### Type Checking
 
-This project uses TypeScript. It's recommended to get TypeScript set up for your editor to get a really great in-editor experience with type checking and auto-complete. To run type checking across the whole project, run `bun lint`.
+This project uses TypeScript. It's recommended to get TypeScript set up for your editor to get a really great in-editor experience with type checking and auto-complete. To run type checking across the whole project, run `pnpm lint`.
 
 ### Linting
 
@@ -86,4 +86,4 @@ This project uses ESLint for linting. That is configured in `.eslintrc.js`.
 
 ### Formatting
 
-We use [Prettier](https://prettier.io/) for auto-formatting in this project. It's recommended to install an editor plugin (like the [VSCode Prettier plugin](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)) to get auto-formatting on save. There's also a `bun format:write` script you can run to format all files in the project.
+We use [Prettier](https://prettier.io/) for auto-formatting in this project. It's recommended to install an editor plugin (like the [VSCode Prettier plugin](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)) to get auto-formatting on save. There's also a `pnpm format:write` script you can run to format all files in the project.
