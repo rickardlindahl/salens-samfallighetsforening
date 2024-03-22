@@ -1,5 +1,6 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { Form } from "@remix-run/react";
+import { z } from "zod";
 import { db } from "~/db";
 import { User, users } from "~/db/schema";
 import { authenticator } from "~/services/auth.server";
@@ -41,11 +42,16 @@ export default function InviteUser() {
   );
 }
 
+const inviteUserSchema = z.object({
+  email: z.string().email(),
+  name: z.string(),
+  role: z.enum(["admin", "user"]),
+});
+
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
-  const email = formData.get("email");
-  const name = formData.get("name");
-  const role = formData.get("role");
+
+  const { email, name, role } = inviteUserSchema.parse(Object.fromEntries(formData));
 
   const hashedPassword = await hashPassword(createTempPassword());
 
