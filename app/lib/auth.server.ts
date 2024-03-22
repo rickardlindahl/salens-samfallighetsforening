@@ -1,11 +1,11 @@
 import { Authenticator } from "remix-auth";
-import { sessionStorage } from "~/services/session.server";
 import { FormStrategy } from "remix-auth-form";
 import { eq } from "drizzle-orm";
+import { z } from "zod";
 import { db } from "~/db";
 import { users, type User } from "~/db/schema";
 import { comparePasswords } from "~/lib/password";
-import { z } from "zod";
+import { sessionStorage } from "~/lib/session.server";
 
 // Create an instance of the authenticator, pass a generic with what
 // strategies will return and will store in the session

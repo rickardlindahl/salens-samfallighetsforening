@@ -3,7 +3,7 @@ import { Form } from "@remix-run/react";
 import { z } from "zod";
 import { db } from "~/db";
 import { User, users } from "~/db/schema";
-import { authenticator } from "~/services/auth.server";
+import { authenticator } from "~/lib/auth.server";
 import { hashPassword, createTempPassword } from "~/lib/password";
 
 export default function InviteUser() {
