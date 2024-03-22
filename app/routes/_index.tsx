@@ -33,6 +33,9 @@ const Index = () => (
     <Link className="underline" to="/nodestream">
       NodeJS Streaming Route
     </Link>
+    <Link className="underline" to="/login">
+      Login
+    </Link>
     <h2 className="pt-10" data-cy="test">
       The prettier config is opinionated and the structure of the project as well, feel free to change those.
     </h2>
