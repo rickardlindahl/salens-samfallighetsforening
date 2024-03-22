@@ -1,4 +1,4 @@
-import { Link } from "@remix-run/react";
+import { Form, Link } from "@remix-run/react";
 
 export const meta = () => [
   {
@@ -36,6 +36,9 @@ const Index = () => (
     <Link className="underline" to="/login">
       Login
     </Link>
+    <Form method="POST" action="/auth/logout">
+      <button type="submit">Logout</button>
+    </Form>
     <h2 className="pt-10" data-cy="test">
       The prettier config is opinionated and the structure of the project as well, feel free to change those.
     </h2>
