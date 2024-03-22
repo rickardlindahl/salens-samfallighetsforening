@@ -4,7 +4,7 @@ import { z } from "zod";
 import { db } from "~/db";
 import { User, users } from "~/db/schema";
 import { authenticator } from "~/lib/auth.server";
-import { hashPassword, createTempPassword } from "~/lib/password";
+import { hashString, createTempPassword } from "~/lib/password";
 
 export default function InviteUser() {
   return (
@@ -53,7 +53,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
   const { email, name, role } = inviteUserSchema.parse(Object.fromEntries(formData));
 
-  const hashedPassword = await hashPassword(createTempPassword());
+  const hashedPassword = await hashString(createTempPassword());
 
   await db.insert(users).values({
     email: email as string,
