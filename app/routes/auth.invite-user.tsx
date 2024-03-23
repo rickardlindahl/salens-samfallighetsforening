@@ -5,6 +5,7 @@ import { db } from "~/db";
 import { User, users } from "~/db/schema";
 import { hashString, createTempPassword } from "~/lib/auth-utils.server";
 import { authenticator } from "~/lib/auth.server";
+import { sendInviteEmail } from "~/lib/email.server";
 
 export default function InviteUser() {
   return (
@@ -62,10 +63,9 @@ export async function action({ request }: ActionFunctionArgs) {
     password: hashedPassword,
   });
 
-  return new Response(null, { status: 201 });
+  await sendInviteEmail(email as string);
 
-  // send email invite using mailgun rest api
-  // await mailgun.sendInvite(email as string);
+  return new Response(null, { status: 201 });
 }
 
 export async function loader({ request }: LoaderFunctionArgs) {
