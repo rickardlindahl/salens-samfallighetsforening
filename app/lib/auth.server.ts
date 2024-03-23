@@ -5,16 +5,12 @@ import { z } from "zod";
 import { db } from "~/db";
 import { users, type User } from "~/db/schema";
 import { comparePasswords } from "~/lib/auth-utils.server";
+import { loginSchema } from "~/lib/schemas";
 import { sessionStorage } from "~/lib/session.server";
 
 // Create an instance of the authenticator, pass a generic with what
 // strategies will return and will store in the session
 export let authenticator = new Authenticator<User>(sessionStorage);
-
-const loginSchema = z.object({
-  email: z.string().email(),
-  password: z.string(),
-});
 
 // Tell the Authenticator to use the form strategy
 authenticator.use(
