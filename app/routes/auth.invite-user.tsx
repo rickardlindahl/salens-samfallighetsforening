@@ -3,8 +3,8 @@ import { Form } from "@remix-run/react";
 import { z } from "zod";
 import { db } from "~/db";
 import { User, users } from "~/db/schema";
+import { hashString, createTempPassword } from "~/lib/auth-utils.server";
 import { authenticator } from "~/lib/auth.server";
-import { hashString, createTempPassword } from "~/lib/password";
 
 export default function InviteUser() {
   return (
@@ -69,7 +69,13 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  return await authenticator.isAuthenticated(request, {
+  const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/login",
   });
+
+  if (!user || user.role !== "admin") {
+    return new Response(null, { status: 401 });
+  }
+
+  return new Response(null, { status: 200 });
 }

@@ -4,7 +4,7 @@ import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { db } from "~/db";
 import { users, type User } from "~/db/schema";
-import { comparePasswords } from "~/lib/password";
+import { comparePasswords } from "~/lib/auth-utils.server";
 import { sessionStorage } from "~/lib/session.server";
 
 // Create an instance of the authenticator, pass a generic with what

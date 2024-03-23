@@ -2,11 +2,11 @@ import { Form, useActionData } from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
 import { ActionFunctionArgs } from "@vercel/remix";
 import { eq } from "drizzle-orm";
-import { TimeSpan, createDate, isWithinExpirationDate } from "oslo";
+import { isWithinExpirationDate } from "oslo";
 import { z } from "zod";
 import { db } from "~/db";
 import { passwordResetTokens, users } from "~/db/schema";
-import { hashString } from "~/lib/password";
+import { hashString } from "~/lib/auth-utils.server";
 
 export default function AuthResetPasswordToken() {
   const actionData = useActionData<typeof action>();

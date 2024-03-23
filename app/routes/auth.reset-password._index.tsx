@@ -6,7 +6,7 @@ import { TimeSpan, createDate } from "oslo";
 import { z } from "zod";
 import { db } from "~/db";
 import { passwordResetTokens, users } from "~/db/schema";
-import { hashString } from "~/lib/password";
+import { hashString } from "~/lib/auth-utils.server";
 
 export default function AuthResetPassword() {
   const actionData = useActionData<typeof action>();
