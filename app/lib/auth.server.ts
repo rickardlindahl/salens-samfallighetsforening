@@ -19,7 +19,7 @@ const loginSchema = z.object({
 // Tell the Authenticator to use the form strategy
 authenticator.use(
   new FormStrategy(async ({ form }) => {
-    const { email, password } = loginSchema.parse(form);
+    const { email, password } = loginSchema.parse(Object.fromEntries(form));
 
     const user = await login(email as string, password as string);
 

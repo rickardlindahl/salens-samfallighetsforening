@@ -88,7 +88,7 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   const verificationToken = await createPasswordResetToken(user.id);
-  const verificationLink = `http://localhost:3000/reset-password/${verificationToken}`;
+  const verificationLink = `http://localhost:3000/auth/reset-password/${verificationToken}`;
 
   await sendPasswordResetToken(email, verificationLink);
 

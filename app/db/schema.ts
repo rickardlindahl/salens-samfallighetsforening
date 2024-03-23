@@ -13,9 +13,9 @@ export const users = sqliteTable("users", {
 export type User = typeof users.$inferSelect;
 
 export const passwordResetTokens = sqliteTable("passwordResetTokens", {
-  token: text("token").unique(),
+  token: text("token").notNull().unique(),
   userId: integer("userId")
     .references(() => users.id)
     .notNull(),
-  expiresAt: integer("expiresAt", { mode: "timestamp" }), // Date
+  expiresAt: integer("expiresAt", { mode: "timestamp" }).notNull(), // Date
 });

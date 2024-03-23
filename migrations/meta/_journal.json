@@ -15,6 +15,13 @@
       "when": 1711223982285,
       "tag": "0001_amused_alex_power",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1711225803907,
+      "tag": "0002_brainy_micromacro",
+      "breakpoints": true
     }
   ]
 }
