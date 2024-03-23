@@ -7,7 +7,7 @@ import { z } from "zod";
 import { db } from "~/db";
 import { passwordResetTokens, users } from "~/db/schema";
 import { hashString } from "~/lib/auth-utils.server";
-import { sendPasswordResetToken } from "~/lib/email.server";
+import { sendPasswordResetTokenEmail } from "~/lib/email.server";
 
 export default function AuthResetPassword() {
   const actionData = useActionData<typeof action>();
@@ -91,7 +91,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const verificationToken = await createPasswordResetToken(user.id);
   const verificationLink = `http://localhost:3000/auth/reset-password/${verificationToken}`;
 
-  await sendPasswordResetToken(email, verificationLink);
+  await sendPasswordResetTokenEmail(email, verificationLink);
 
   return json(
     {
