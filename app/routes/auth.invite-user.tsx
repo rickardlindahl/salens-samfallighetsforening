@@ -1,41 +1,61 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { Form } from "@remix-run/react";
+import { Form, json } from "@remix-run/react";
+import { getValidatedFormData, useRemixForm } from "remix-hook-form";
 import { z } from "zod";
 import { db } from "~/db";
 import { User, users } from "~/db/schema";
 import { hashString, createTempPassword } from "~/lib/auth-utils.server";
 import { authenticator } from "~/lib/auth.server";
 import { sendInviteEmail } from "~/lib/email.server";
+import { inviteUserSchema } from "~/lib/schemas";
+
+type FormData = z.infer<typeof inviteUserSchema>;
+
+const resolver = zodResolver(inviteUserSchema);
 
 export default function InviteUser() {
+  const {
+    handleSubmit,
+    formState: { errors },
+    register,
+  } = useRemixForm<FormData>({
+    mode: "onSubmit",
+    resolver,
+    stringifyAllValues: false,
+  });
+
   return (
     <>
       <h1>Invite User</h1>
 
-      <Form method="post">
+      <Form method="post" onSubmit={handleSubmit}>
         <div>
           <label>
             Email:
-            <input type="email" name="email" required className="text-black" />
+            <input type="email" {...register("email", { required: true })} className="text-black" />
           </label>
+          {errors.email && <p>{errors.email.message}</p>}
         </div>
         <div>
           <label>
             Name:
-            <input type="text" name="name" required className="text-black" />
+            <input type="text" {...register("name", { required: true })} className="text-black" />
           </label>
+          {errors.name && <p>{errors.name.message}</p>}
         </div>
         <fieldset>
           <legend>Role</legend>
           <div>
-            <input type="radio" id="admin" name="role" value="admin" />
+            <input type="radio" {...register("role")} value="admin" />
             <label htmlFor="admin">Admin</label>
           </div>
           <div>
-            <input type="radio" id="user" name="role" value="user" defaultChecked />
+            <input type="radio" {...register("role")} value="user" defaultChecked />
             <label htmlFor="user">User</label>
           </div>
         </fieldset>
+        {errors.role && <p>{errors.role.message}</p>}
 
         <button>Invite User</button>
       </Form>
@@ -43,16 +63,13 @@ export default function InviteUser() {
   );
 }
 
-const inviteUserSchema = z.object({
-  email: z.string().email(),
-  name: z.string(),
-  role: z.enum(["admin", "user"]),
-});
-
 export async function action({ request }: ActionFunctionArgs) {
-  const formData = await request.formData();
+  const { errors, data, receivedValues: defaultValues } = await getValidatedFormData<FormData>(request, resolver);
+  if (errors) {
+    return json({ errors, defaultValues });
+  }
 
-  const { email, name, role } = inviteUserSchema.parse(Object.fromEntries(formData));
+  const { email, name, role } = data;
 
   const hashedPassword = await hashString(createTempPassword());
 
