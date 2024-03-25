@@ -10,3 +10,7 @@ export const inviteUserSchema = z.object({
   name: z.string().min(1),
   role: z.enum(["admin", "user"]),
 });
+
+export const resetPasswordSchema = z.object({
+  email: z.string().email().min(1),
+});

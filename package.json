@@ -48,6 +48,8 @@
     "remix-auth": "^3.6.0",
     "remix-auth-form": "^1.4.0",
     "remix-hook-form": "^4.2.0",
+    "remix-toast": "^1.2.0",
+    "sonner": "^1.4.41",
     "zod": "^3.22.4"
   },
   "devDependencies": {

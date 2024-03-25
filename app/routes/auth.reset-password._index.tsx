@@ -1,4 +1,4 @@
-import { Form, useActionData } from "@remix-run/react";
+import { Form, useActionData, useSearchParams } from "@remix-run/react";
 import { json } from "@remix-run/node";
 import { ActionFunctionArgs } from "@vercel/remix";
 import { eq } from "drizzle-orm";
@@ -8,23 +8,49 @@ import { db } from "~/db";
 import { passwordResetTokens, users } from "~/db/schema";
 import { hashString } from "~/lib/auth-utils.server";
 import { sendPasswordResetTokenEmail } from "~/lib/email.server";
+import { getValidatedFormData, useRemixForm } from "remix-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { resetPasswordSchema } from "~/lib/schemas";
+import { redirectWithSuccess } from "remix-toast";
+
+type FormData = z.infer<typeof resetPasswordSchema>;
+
+const resolver = zodResolver(resetPasswordSchema);
 
 export default function AuthResetPassword() {
-  const actionData = useActionData<typeof action>();
+  const {
+    handleSubmit,
+    formState: { errors },
+    register,
+  } = useRemixForm<FormData>({
+    mode: "onSubmit",
+    resolver,
+    stringifyAllValues: false,
+  });
+
+  const [searchParams] = useSearchParams();
+  const state = searchParams.get("state");
+  if (state === "success") {
+    return (
+      <>
+        <div role="alert" className="text-green-500">
+          Password reset successful
+        </div>
+        <div>Check your email for instructions on how to create your new password.</div>
+        <a href="/">Return to home</a>
+      </>
+    );
+  }
 
   return (
-    <Form method="post">
+    <Form method="post" onSubmit={handleSubmit} action="/auth/reset-password">
       <label>
         Email:
-        <input type="email" name="email" required className="text-black" />
+        <input type="email" {...register("email", { required: true })} className="text-black" />
       </label>
+      {errors.email && <p>{errors.email.message}</p>}
       <button>Reset Password</button>
-      {actionData?.status === "error" && (
-        <div role="alert" className="text-red-500">
-          Invalid email or user does not exist
-        </div>
-      )}
-      {actionData?.status === "success" && <div>Reset password email sent</div>}
+      {errors.root && <p>{errors.root.message}</p>}
     </Form>
   );
 }
@@ -54,24 +80,13 @@ async function createPasswordResetToken(userId: number): Promise<string> {
   return tokenId;
 }
 
-const resetPasswordSchema = z.object({
-  email: z.string().email(),
-});
-
 export async function action({ request }: ActionFunctionArgs) {
-  const formData = await request.formData();
-
-  const parseResult = resetPasswordSchema.safeParse(Object.fromEntries(formData));
-  if (!parseResult.success) {
-    return json(
-      {
-        status: "error" as const,
-      },
-      { status: 400 },
-    );
+  const { errors, data, receivedValues: defaultValues } = await getValidatedFormData<FormData>(request, resolver);
+  if (errors) {
+    return json({ errors, defaultValues }, { status: 400 });
   }
 
-  const { email } = parseResult.data;
+  const { email } = data;
 
   const [user] = await db
     .select({ id: users.id, email: users.email })
@@ -80,12 +95,8 @@ export async function action({ request }: ActionFunctionArgs) {
     .limit(1);
 
   if (!user) {
-    return json(
-      {
-        status: "error" as const,
-      },
-      { status: 400 },
-    );
+    // Don't reveal whether the email exists
+    return redirectWithSuccess("/auth/reset-password?state=success", `Reset password email sent to ${email}`);
   }
 
   const verificationToken = await createPasswordResetToken(user.id);
@@ -93,10 +104,5 @@ export async function action({ request }: ActionFunctionArgs) {
 
   await sendPasswordResetTokenEmail(email, verificationLink);
 
-  return json(
-    {
-      status: "success" as const,
-    },
-    { status: 200 },
-  );
+  return redirectWithSuccess("/auth/reset-password?state=success", `Reset password email sent to ${email}`);
 }
