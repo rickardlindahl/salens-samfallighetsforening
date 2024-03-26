@@ -1,11 +1,12 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { Form, json } from "@remix-run/react";
-import { useRemixForm, getValidatedFormData } from "remix-hook-form";
+import { useRemixForm } from "remix-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ZodError, z } from "zod";
 import { AuthorizationError } from "remix-auth";
 import { authenticator } from "~/lib/auth.server";
 import { loginSchema } from "~/lib/schemas";
+import { jsonWithError, redirectWithSuccess } from "remix-toast";
 
 type FormData = z.infer<typeof loginSchema>;
 
@@ -47,9 +48,13 @@ export default function Login() {
 
 export async function action({ request }: ActionFunctionArgs) {
   try {
-    return await authenticator.authenticate("user-pass", request, {
-      successRedirect: "/edgestream",
+    const user = await authenticator.authenticate("user-pass", request, {
       throwOnError: true,
+    });
+
+    return redirectWithSuccess("/edgestream", {
+      message: "Login successful",
+      description: `Welcome back, ${user.name}!`,
     });
   } catch (error) {
     // Because redirects work by throwing a Response, you need to check if the
@@ -57,11 +62,20 @@ export async function action({ request }: ActionFunctionArgs) {
     if (error instanceof Response) return error;
     if (error instanceof AuthorizationError) {
       // here the error is related to the authentication process
-      return json({ errors: { root: { message: "Invalid email or password" } } }, { status: 400 });
+      return jsonWithError(
+        { errors: { root: { message: "Invalid email or password" } } },
+        { message: "Login failed", description: "Please check your credentials and try again." },
+        { status: 400 },
+      );
     }
     if (error instanceof ZodError) {
       // here the error is related to the form validation
-      return json({ errors: error.formErrors.fieldErrors }, { status: 400 });
+      return json(
+        { errors: error.formErrors.fieldErrors },
+        {
+          status: 400,
+        },
+      );
     }
     // here the error is a generic error that another reason may throw
     return error;
