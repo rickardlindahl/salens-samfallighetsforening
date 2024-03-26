@@ -1,11 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { Form, json } from "@remix-run/react";
+import { eq } from "drizzle-orm";
 import { getValidatedFormData, useRemixForm } from "remix-hook-form";
+import { jsonWithError, jsonWithSuccess, redirectWithError } from "remix-toast";
 import { z } from "zod";
 import { db } from "~/db";
 import { User, users } from "~/db/schema";
-import { hashString, createTempPassword } from "~/lib/auth-utils.server";
+import { createTempPassword, hashString } from "~/lib/auth-utils.server";
 import { authenticator } from "~/lib/auth.server";
 import { sendInviteEmail } from "~/lib/email.server";
 import { inviteUserSchema } from "~/lib/schemas";
@@ -23,6 +25,9 @@ export default function InviteUser() {
     mode: "onSubmit",
     resolver,
     stringifyAllValues: false,
+    defaultValues: {
+      role: "user",
+    },
   });
 
   return (
@@ -51,7 +56,7 @@ export default function InviteUser() {
             <label htmlFor="admin">Admin</label>
           </div>
           <div>
-            <input type="radio" {...register("role")} value="user" defaultChecked />
+            <input type="radio" {...register("role")} value="user" />
             <label htmlFor="user">User</label>
           </div>
         </fieldset>
@@ -71,6 +76,15 @@ export async function action({ request }: ActionFunctionArgs) {
 
   const { email, name, role } = data;
 
+  const [existingUser] = await db.select().from(users).where(eq(users.email, email)).limit(1);
+  if (existingUser) {
+    return jsonWithError(
+      null,
+      { message: "User already exists", description: "Please use a different email address." },
+      { status: 400 },
+    );
+  }
+
   const hashedPassword = await hashString(createTempPassword());
 
   await db.insert(users).values({
@@ -82,17 +96,5 @@ export async function action({ request }: ActionFunctionArgs) {
 
   await sendInviteEmail(email as string);
 
-  return new Response(null, { status: 201 });
-}
-
-export async function loader({ request }: LoaderFunctionArgs) {
-  const user = await authenticator.isAuthenticated(request, {
-    failureRedirect: "/login",
-  });
-
-  if (!user || user.role !== "admin") {
-    return new Response(null, { status: 401 });
-  }
-
-  return new Response(null, { status: 200 });
+  return jsonWithSuccess(null, { message: "User invited", description: "The user has been invited." }, { status: 201 });
 }

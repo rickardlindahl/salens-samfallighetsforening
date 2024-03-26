@@ -7,6 +7,7 @@ import { AuthorizationError } from "remix-auth";
 import { authenticator } from "~/lib/auth.server";
 import { loginSchema } from "~/lib/schemas";
 import { jsonWithError, redirectWithSuccess } from "remix-toast";
+import { commitSession, getSession } from "~/lib/session.server";
 
 type FormData = z.infer<typeof loginSchema>;
 
@@ -52,10 +53,21 @@ export async function action({ request }: ActionFunctionArgs) {
       throwOnError: true,
     });
 
-    return redirectWithSuccess("/edgestream", {
-      message: "Login successful",
-      description: `Welcome back, ${user.name}!`,
-    });
+    // manually get the session
+    const session = await getSession(request.headers.get("cookie"));
+    // and store the user data
+    session.set(authenticator.sessionKey, user);
+    // commit the session
+    const headers = new Headers({ "Set-Cookie": await commitSession(session) });
+
+    return redirectWithSuccess(
+      "/edgestream",
+      {
+        message: "Login successful",
+        description: `Welcome back, ${user.name}!`,
+      },
+      { headers },
+    );
   } catch (error) {
     // Because redirects work by throwing a Response, you need to check if the
     // caught error is a response and return it or throw it again
