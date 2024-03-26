@@ -6,7 +6,7 @@ import { TimeSpan, createDate } from "oslo";
 import { z } from "zod";
 import { db } from "~/db";
 import { passwordResetTokens, users } from "~/db/schema";
-import { hashString } from "~/lib/auth-utils.server";
+import { generateRandomString, hashString } from "~/lib/auth-utils.server";
 import { sendPasswordResetTokenEmail } from "~/lib/email.server";
 import { getValidatedFormData, useRemixForm } from "remix-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -53,16 +53,6 @@ export default function AuthResetPassword() {
       {errors.root && <p>{errors.root.message}</p>}
     </Form>
   );
-}
-
-function generateRandomString(length: number) {
-  const randomBytes = new Uint8Array(length);
-  crypto.getRandomValues(randomBytes);
-
-  return Array.from(randomBytes)
-    .map(byte => byte.toString(16).padStart(2, "0"))
-    .join("")
-    .slice(0, length);
 }
 
 async function createPasswordResetToken(userId: number): Promise<string> {

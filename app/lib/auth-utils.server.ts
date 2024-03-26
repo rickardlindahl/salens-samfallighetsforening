@@ -19,3 +19,13 @@ export async function comparePasswords(plainPassword: string, hashedPassword: st
 export function createTempPassword() {
   return Math.random().toString(36).slice(-8);
 }
+
+export function generateRandomString(length: number) {
+  const randomBytes = new Uint8Array(length);
+  crypto.getRandomValues(randomBytes);
+
+  return Array.from(randomBytes)
+    .map(byte => byte.toString(16).padStart(2, "0"))
+    .join("")
+    .slice(0, length);
+}
