@@ -33,7 +33,8 @@ export default function App() {
 
   useEffect(() => {
     if (toast) {
-      notify[toast.type](toast.message);
+      const { type, message, ...rest } = toast;
+      notify[toast.type](toast.message, { ...rest });
     }
   }, [toast]);
 
