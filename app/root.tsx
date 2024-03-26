@@ -47,7 +47,7 @@ export default function App() {
         <Outlet />
         <ScrollRestoration />
         <Scripts />
-        <Toaster />
+        <Toaster richColors />
       </body>
     </html>
   );
