@@ -1,5 +1,5 @@
-import { Form, useActionData } from "@remix-run/react";
-import { json, redirect } from "@remix-run/node";
+import { Form } from "@remix-run/react";
+import { json } from "@remix-run/node";
 import { ActionFunctionArgs } from "@vercel/remix";
 import { eq } from "drizzle-orm";
 import { isWithinExpirationDate } from "oslo";
@@ -7,22 +7,35 @@ import { z } from "zod";
 import { db } from "~/db";
 import { passwordResetTokens, users } from "~/db/schema";
 import { hashString } from "~/lib/auth-utils.server";
+import { getValidatedFormData, useRemixForm } from "remix-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { resetPasswordTokenSchema } from "~/lib/schemas";
+import { redirectWithError, redirectWithSuccess } from "remix-toast";
+
+type FormData = z.infer<typeof resetPasswordTokenSchema>;
+
+const resolver = zodResolver(resetPasswordTokenSchema);
 
 export default function AuthResetPasswordToken() {
-  const actionData = useActionData<typeof action>();
+  const {
+    handleSubmit,
+    formState: { errors },
+    register,
+  } = useRemixForm<FormData>({
+    mode: "onSubmit",
+    resolver,
+    stringifyAllValues: false,
+  });
 
   return (
-    <Form method="post">
+    <Form method="post" onSubmit={handleSubmit}>
       <label>
         New Password:
-        <input type="password" name="password" required className="text-black" />
+        <input type="password" {...register("password", { required: true })} className="text-black" />
+        {errors.password && <p>{errors.password.message}</p>}
       </label>
       <button>Update Password</button>
-      {actionData?.status === "error" && (
-        <div role="alert" className="text-red-500">
-          Invalid password/token or token does not exist
-        </div>
-      )}
+      {errors.root && <p>{errors.root.message}</p>}
     </Form>
   );
 }
@@ -36,24 +49,11 @@ export async function loader() {
   });
 }
 
-const resetPasswordTokenSchema = z.object({
-  password: z.string().min(1),
-});
-
 export async function action({ request, params }: ActionFunctionArgs) {
-  const formData = await request.formData();
-
-  const parseResult = resetPasswordTokenSchema.safeParse(Object.fromEntries(formData));
-  if (!parseResult.success) {
-    return json(
-      {
-        status: "error" as const,
-      },
-      { status: 400 },
-    );
+  const { errors, data, receivedValues: defaultValues } = await getValidatedFormData<FormData>(request, resolver);
+  if (errors) {
+    return json({ errors, defaultValues }, { status: 400 });
   }
-
-  const { password } = parseResult.data;
 
   const verificationToken = params.token as string;
   const tokenHash = await hashString(verificationToken);
@@ -64,16 +64,17 @@ export async function action({ request, params }: ActionFunctionArgs) {
   }
 
   if (!token || !isWithinExpirationDate(token.expiresAt)) {
-    return json(
-      {
-        status: "error" as const,
-      },
-      { status: 400 },
-    );
+    return redirectWithError("/auth/reset-password", {
+      message: "Invalid token",
+      description: "The token is invalid or has expired. Please reset your password again.",
+    });
   }
 
-  const hashedPassword = await hashString(password);
+  const hashedPassword = await hashString(data.password);
   await db.update(users).set({ password: hashedPassword }).where(eq(users.id, token.userId));
 
-  return redirect("/login");
+  return redirectWithSuccess("/login", {
+    message: "Password updated",
+    description: "You can now log in with your new password.",
+  });
 }
