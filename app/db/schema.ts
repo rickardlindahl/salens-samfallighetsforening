@@ -19,3 +19,15 @@ export const passwordResetTokens = sqliteTable("passwordResetTokens", {
     .notNull(),
   expiresAt: integer("expiresAt", { mode: "timestamp" }).notNull(), // Date
 });
+
+export const posts = sqliteTable("posts", {
+  id: integer("id").primaryKey(),
+  title: text("title").notNull(),
+  body: text("body").notNull(),
+  userId: integer("userId")
+    .references(() => users.id)
+    .notNull(),
+  createdAt: integer("createdAt", { mode: "timestamp" }).notNull(), // Date
+});
+
+export type Post = typeof posts.$inferSelect;
