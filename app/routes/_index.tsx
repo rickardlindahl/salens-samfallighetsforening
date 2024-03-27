@@ -21,17 +21,8 @@ const Index = () => (
       In the the following routes you will find an example of a loader. This stack works great with both your own api's
       or a separate 3rd api.
     </h2>
-    <Link className="underline" to="/edgestream">
-      Vercel Edge Route with Streaming
-    </Link>
-    <Link className="underline" to="/edge">
-      Vercel Edge Route
-    </Link>
-    <Link className="underline" to="/node">
-      NodeJS Route
-    </Link>
-    <Link className="underline" to="/nodestream">
-      NodeJS Streaming Route
+    <Link className="underline" to="/posts">
+      Posts
     </Link>
     <Link className="underline" to="/login">
       Login

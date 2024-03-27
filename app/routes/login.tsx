@@ -61,7 +61,7 @@ export async function action({ request }: ActionFunctionArgs) {
     const headers = new Headers({ "Set-Cookie": await commitSession(session) });
 
     return redirectWithSuccess(
-      "/edgestream",
+      "/posts",
       {
         message: "Login successful",
         description: `Welcome back, ${user.name}!`,
@@ -96,6 +96,6 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export async function loader({ request }: LoaderFunctionArgs) {
   return await authenticator.isAuthenticated(request, {
-    successRedirect: "/edgestream",
+    successRedirect: "/posts",
   });
 }
