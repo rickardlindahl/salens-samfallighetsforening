@@ -13,7 +13,7 @@ export const links: LinksFunction = () => [
   { rel: "stylesheet", href: globalStyles },
 ];
 
-//export const config = { runtime: "edge" };
+export const config = { runtime: "edge" };
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { toast, headers: toastHeaders } = await getToast(request);

@@ -4,8 +4,6 @@ import { Suspense } from "react";
 import { db } from "~/db";
 import { posts as postsTable } from "~/db/schema";
 
-export const config = { runtime: "edge" };
-
 export const meta = () => [
   {
     title: "Remix DnB Stack | Books Edge Streaming",
