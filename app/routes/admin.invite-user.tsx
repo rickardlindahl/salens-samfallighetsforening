@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { ActionFunctionArgs } from "@remix-run/node";
 import { Form, json } from "@remix-run/react";
+import type { ActionFunctionArgs } from "@vercel/remix";
 import { eq } from "drizzle-orm";
 import { getValidatedFormData, useRemixForm } from "remix-hook-form";
 import { jsonWithError, jsonWithSuccess } from "remix-toast";

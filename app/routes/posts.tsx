@@ -1,5 +1,5 @@
 import { Await, useLoaderData } from "@remix-run/react";
-import { defer } from "@vercel/remix";
+import { LoaderFunctionArgs, defer } from "@vercel/remix";
 import { Suspense } from "react";
 import { db } from "~/db";
 import { posts as postsTable } from "~/db/schema";
@@ -20,11 +20,11 @@ function getPosts() {
   return db.select().from(postsTable).all();
 }
 
-export const loader = async () => {
+export async function loader({ request }: LoaderFunctionArgs) {
   return defer({
     posts: getPosts(),
   });
-};
+}
 
 export default function Posts() {
   const { posts } = useLoaderData<typeof loader>();

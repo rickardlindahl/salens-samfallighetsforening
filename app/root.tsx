@@ -1,5 +1,5 @@
-import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, json, useLoaderData } from "@remix-run/react";
+import type { LinksFunction, LoaderFunctionArgs } from "@vercel/remix";
 import { Toaster } from "sonner";
 
 import { useEffect } from "react";

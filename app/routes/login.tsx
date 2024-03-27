@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { Form, json } from "@remix-run/react";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "@vercel/remix";
 import { AuthorizationError } from "remix-auth";
 import { useRemixForm } from "remix-hook-form";
 import { jsonWithError, redirectWithSuccess } from "remix-toast";

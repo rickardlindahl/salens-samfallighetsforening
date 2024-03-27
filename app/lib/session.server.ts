@@ -1,4 +1,4 @@
-import { createCookieSessionStorage } from "@remix-run/node";
+import { createCookieSessionStorage } from "@vercel/remix";
 import { env } from "~/env";
 
 // export the whole sessionStorage object
