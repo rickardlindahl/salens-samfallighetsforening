@@ -3,6 +3,7 @@ import { LoaderFunctionArgs, defer } from "@vercel/remix";
 import { Suspense } from "react";
 import { db } from "~/db";
 import { posts as postsTable } from "~/db/schema";
+import { authenticator } from "~/lib/auth.server";
 
 export const meta = () => [
   {
@@ -21,6 +22,10 @@ function getPosts() {
 }
 
 export async function loader({ request }: LoaderFunctionArgs) {
+  await authenticator.isAuthenticated(request, {
+    failureRedirect: "/login",
+  });
+
   return defer({
     posts: getPosts(),
   });
