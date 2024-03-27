@@ -1,12 +1,12 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { Form, json } from "@remix-run/react";
-import { useRemixForm } from "remix-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { ZodError, z } from "zod";
 import { AuthorizationError } from "remix-auth";
+import { useRemixForm } from "remix-hook-form";
+import { jsonWithError, redirectWithSuccess } from "remix-toast";
+import { ZodError, z } from "zod";
 import { authenticator } from "~/lib/auth.server";
 import { loginSchema } from "~/lib/schemas";
-import { jsonWithError, redirectWithSuccess } from "remix-toast";
 import { commitSession, getSession } from "~/lib/session.server";
 
 type FormData = z.infer<typeof loginSchema>;

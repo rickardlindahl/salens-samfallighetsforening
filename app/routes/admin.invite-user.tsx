@@ -1,14 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+import type { ActionFunctionArgs } from "@remix-run/node";
 import { Form, json } from "@remix-run/react";
 import { eq } from "drizzle-orm";
 import { getValidatedFormData, useRemixForm } from "remix-hook-form";
-import { jsonWithError, jsonWithSuccess, redirectWithError } from "remix-toast";
+import { jsonWithError, jsonWithSuccess } from "remix-toast";
 import { z } from "zod";
 import { db } from "~/db";
 import { User, users } from "~/db/schema";
 import { createTempPassword, hashString } from "~/lib/auth-utils.server";
-import { authenticator } from "~/lib/auth.server";
 import { sendInviteEmail } from "~/lib/email.server";
 import { inviteUserSchema } from "~/lib/schemas";
 

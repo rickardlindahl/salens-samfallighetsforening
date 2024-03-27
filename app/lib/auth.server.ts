@@ -1,7 +1,6 @@
+import { eq } from "drizzle-orm";
 import { Authenticator } from "remix-auth";
 import { FormStrategy } from "remix-auth-form";
-import { eq } from "drizzle-orm";
-import { z } from "zod";
 import { db } from "~/db";
 import { users, type User } from "~/db/schema";
 import { comparePasswords } from "~/lib/auth-utils.server";

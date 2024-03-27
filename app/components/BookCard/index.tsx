@@ -1,4 +1,4 @@
-import type { ReactElement, FC } from "react";
+import type { FC, ReactElement } from "react";
 
 import type { Book } from "~/interfaces/books";
 

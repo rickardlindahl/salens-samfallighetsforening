@@ -1,12 +1,12 @@
 import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, json, useLoaderData } from "@remix-run/react";
-import { Toaster, type toast as Toast } from "sonner";
+import { Toaster } from "sonner";
 
-import styles from "./tailwind.css?url";
-import globalStyles from "./styles/globals.css?url";
-import { getToast } from "remix-toast";
 import { useEffect } from "react";
+import { getToast } from "remix-toast";
 import { toast as notify } from "sonner";
+import globalStyles from "./styles/globals.css?url";
+import styles from "./tailwind.css?url";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
