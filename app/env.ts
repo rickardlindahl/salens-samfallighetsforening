@@ -7,6 +7,8 @@ export const env = createEnv({
     DATABASE_AUTH_TOKEN: z.string().min(1),
     SESSION_SECRET: z.string().min(1),
     NODE_ENV: z.enum(["development", "production", "test"]),
+    UPLOADTHING_APP_ID: z.string().min(1),
+    UPLOADTHING_SECRET: z.string().min(1),
   },
 
   /**

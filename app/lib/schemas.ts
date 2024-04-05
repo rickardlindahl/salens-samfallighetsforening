@@ -21,3 +21,10 @@ export const resetPasswordSchema = z.object({
 export const resetPasswordTokenSchema = z.object({
   password,
 });
+
+export const uploadDocumentSchema = z.object({
+  description: z.string().min(1),
+  file: z.custom<FileList>(v => v instanceof FileList && v.length > 0, {
+    message: "File is required",
+  }),
+});
