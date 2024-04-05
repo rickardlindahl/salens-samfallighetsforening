@@ -2,6 +2,8 @@ import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
 import { z } from "zod";
 import { authenticator } from "./auth.server";
+import { documents, NewDocument } from "~/db/schema";
+import { db } from "~/db";
 
 const f = createUploadthing();
 
@@ -12,7 +14,6 @@ export const ourFileRouter = {
     .input(
       z.object({
         description: z.string().min(1),
-        size: z.number().gte(0),
       }),
     )
     // Set permissions and file types for this FileRoute
@@ -29,20 +30,16 @@ export const ourFileRouter = {
       return {
         userId: user.id,
         description: input.description,
-        size: input.size,
       };
     })
     .onUploadComplete(async ({ metadata, file }) => {
       // This code RUNS ON YOUR SERVER after upload
-      /*const newDocument: NewDocument = {
+      const newDocument: NewDocument = {
         ...metadata,
         ...file,
       };
-*/
-      console.log("Upload complete for userId:", metadata.userId);
-      /*
-      await db.insert(document).values(newDocument);
-      */
+
+      await db.insert(documents).values(newDocument);
     }),
 } satisfies FileRouter;
 

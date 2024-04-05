@@ -64,19 +64,16 @@ export default function Documents() {
     stringifyAllValues: false,
     submitHandlers: {
       onValid: async data => {
-        console.log("onValid", data);
         const file = data.file.item(0);
         if (!file) {
           return;
         }
-        console.log("SUBMITTING TO UPLOAD THING", { description: data.description, size: file.size });
-        await startUpload([file], { description: data.description, size: file.size });
+
+        await startUpload([file], { description: data.description });
         reset();
       },
     },
   });
-
-  console.log("watch('file')", watch("file"));
 
   const allowedTypes = permittedFileInfo?.config ? Object.keys(permittedFileInfo?.config) : [];
 
@@ -104,50 +101,6 @@ export default function Documents() {
           Upload
         </button>
       </form>
-      {/*
-      <div className="ut-flex ut-flex-col ut-gap-1 ut-items-center ut-justify-center">
-        <input
-          className="ut-rounded-md ut-w-96 ut-h-10 ut-p-3 ut-border-gray-300 ut-border ut-border-solid text-black"
-          type="text"
-          placeholder="Description"
-          value={description}
-          onChange={e => setDescription(e.target.value)}
-        />
-        <label className="ut-bg-blue-600 ut-rounded-md ut-w-36 ut-h-10 ut-flex ut-items-center ut-justify-center ut-cursor-pointer">
-          <input
-            className="ut-hidden"
-            type="file"
-            multiple={false}
-            disabled={description === "" || isUploading}
-            accept={generateMimeTypes(allowedTypes ?? [])?.join(", ")}
-            onChange={e => {
-              if (!e.target.files) {
-                return;
-              }
-              setFile(e.target.files[0]);
-            }}
-          />
-        </label>
-        <div className="ut-h-[1.25rem]">
-          {allowedTypes && (
-            <p className="ut-text-xs ut-leading-5 ut-text-gray-600">Allowed file types: {allowedTypes.join(", ")}</p>
-          )}
-        </div>
-        <button
-          type="submit"
-          disabled={!Boolean(file) || isUploading}
-          className="ut-bg-blue-600 ut-rounded-md ut-w-36 ut-h-10 ut-text-white"
-          onClick={() => {
-            console.log("Button onClick", file);
-            if (!file) {
-              return;
-            }
-            void startUpload([file], { description, size: file.size });
-          }}>
-          {isUploading ? "Uploading file..." : "Upload"}
-        </button>
-      </div>
-        */}
       <Suspense fallback={<h1 className="mb-10 mt-5 text-center text-3xl font-bold">Loading books ...</h1>}>
         <Await resolve={documents}>
           {documents => (

@@ -1,3 +1,4 @@
+import { sql } from "drizzle-orm";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const users = sqliteTable("users", {
@@ -27,7 +28,27 @@ export const posts = sqliteTable("posts", {
   userId: integer("userId")
     .references(() => users.id)
     .notNull(),
-  createdAt: integer("createdAt", { mode: "timestamp" }).notNull(), // Date
+  createdAt: integer("createdAt", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
 });
 
 export type Post = typeof posts.$inferSelect;
+
+export const documents = sqliteTable("documents", {
+  id: integer("id").primaryKey(),
+  description: text("description").notNull(),
+  userId: integer("userId")
+    .references(() => users.id)
+    .notNull(),
+  createdAt: integer("createdAt", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+  size: integer("size").notNull(),
+  url: text("url").notNull(),
+  name: text("name").notNull(),
+  type: text("type").notNull(),
+});
+
+export type Document = typeof documents.$inferSelect;
+export type NewDocument = typeof documents.$inferInsert;
