@@ -34,6 +34,7 @@ export const posts = sqliteTable("posts", {
 });
 
 export type Post = typeof posts.$inferSelect;
+export type NewPost = typeof posts.$inferInsert;
 
 export const documents = sqliteTable("documents", {
   id: integer("id").primaryKey(),

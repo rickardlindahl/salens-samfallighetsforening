@@ -40,6 +40,8 @@ export const ourFileRouter = {
       };
 
       await db.insert(documents).values(newDocument);
+
+      //await sendNewDocumentEmail(newDocument);
     }),
 } satisfies FileRouter;
 
