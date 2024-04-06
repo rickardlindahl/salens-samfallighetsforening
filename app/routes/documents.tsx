@@ -5,6 +5,8 @@ import { Suspense, useState } from "react";
 import { useRemixForm } from "remix-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import { db } from "~/db";
+import { documents } from "~/db/schema";
 import { authenticator } from "~/lib/auth.server";
 import { uploadDocumentSchema } from "~/lib/schemas";
 import { generateMimeTypes, useUploadThing } from "~/lib/uploadthing";
@@ -22,7 +24,7 @@ export const meta = () => [
 ];
 
 async function getDocuments() {
-  return [];
+  return db.select().from(documents).all();
 }
 
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -105,14 +107,15 @@ export default function Documents() {
         <Await resolve={documents}>
           {documents => (
             <div>
-              {/*
-              documents.map(doc => (
+              {documents.map(doc => (
                 <div key={doc.id} className="mb-5">
-                  <h2 className="text-2xl font-bold">{doc.title}</h2>
-                  <p>{doc.body}</p>
+                  <h2 className="text-2xl font-bold">{doc.name}</h2>
+                  <h3 className="text-xl font-bold">{doc.description}</h3>
+                  <a href={doc.url} download target="_blank">
+                    {doc.url}
+                  </a>
                 </div>
-              ))
-              */}
+              ))}
             </div>
           )}
         </Await>
