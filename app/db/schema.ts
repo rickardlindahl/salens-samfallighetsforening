@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { integer, sqliteTable, text, unique } from "drizzle-orm/sqlite-core";
 
 export const users = sqliteTable("users", {
   id: integer("id").primaryKey(),
@@ -53,3 +53,30 @@ export const documents = sqliteTable("documents", {
 
 export type Document = typeof documents.$inferSelect;
 export type NewDocument = typeof documents.$inferInsert;
+
+export const households = sqliteTable(
+  "households",
+  {
+    id: integer("id").primaryKey(),
+    streetName: text("streetName").notNull(),
+    houseNumber: integer("houseNumber").notNull(),
+  },
+  t => ({
+    unq: unique("address").on(t.streetName, t.houseNumber),
+  }),
+);
+
+export const householdMembers = sqliteTable(
+  "householdMembers",
+  {
+    userId: integer("userId")
+      .references(() => users.id)
+      .notNull(),
+    householdId: integer("householdId")
+      .references(() => households.id)
+      .notNull(),
+  },
+  t => ({
+    unq: unique("member").on(t.userId, t.householdId),
+  }),
+);
