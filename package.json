@@ -11,12 +11,14 @@
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
-    "generate:types": "payload generate:types"
+    "generate:types": "payload generate:types",
+    "format": "pnpx @biomejs/biome format --write ./src"
   },
   "engines": {
     "node": ">=18.19.0"
   },
   "dependencies": {
+    "@biomejs/biome": "^1.7.0",
     "@payloadcms/db-postgres": "3.0.0-beta.10",
     "@payloadcms/next": "beta",
     "@payloadcms/plugin-cloud": "beta",
