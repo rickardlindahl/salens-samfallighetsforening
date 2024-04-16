@@ -53,3 +53,5 @@ test-timings.json
 *.tsbuildinfo
 .swc/
 .turbo
+
+.env
