@@ -25,9 +25,9 @@ export interface Config {
  */
 export interface User {
 	id: number;
-	firstName: string;
-	lastName: string;
-	roles: ("admin" | "user")[];
+	firstName?: string | null;
+	lastName?: string | null;
+	roles?: ("admin" | "user")[] | null;
 	updatedAt: string;
 	createdAt: string;
 	email: string;

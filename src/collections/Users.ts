@@ -2,6 +2,7 @@ import type { CollectionConfig } from "payload/types";
 import { admins } from "./access/admins";
 import { adminsAndUser } from "./access/adminsAndUser";
 import { checkRole } from "./access/checkRole";
+import { ensureFirstUserIsAdmin } from "./hooks/ensureFirstUserIsAdmin";
 import { protectRoles } from "./hooks/protectRoles";
 
 export const Users: CollectionConfig = {
@@ -28,12 +29,10 @@ export const Users: CollectionConfig = {
 		{
 			name: "firstName",
 			type: "text",
-			required: true,
 		},
 		{
 			name: "lastName",
 			type: "text",
-			required: true,
 		},
 		{
 			name: "roles",
@@ -41,9 +40,9 @@ export const Users: CollectionConfig = {
 			hasMany: true,
 			saveToJWT: true,
 			hooks: {
-				beforeChange: [protectRoles],
+				beforeChange: [ensureFirstUserIsAdmin, protectRoles],
 			},
-			required: true,
+			defaultValue: ["user"],
 			options: [
 				{
 					label: "Admin",

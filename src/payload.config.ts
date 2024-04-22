@@ -5,8 +5,11 @@ import path from "path";
 import { buildConfig } from "payload/config";
 // import sharp from 'sharp'
 import { fileURLToPath } from "url";
+import { en } from "payload/i18n/en";
+import { sv } from "payload/i18n/sv";
 
-import { Users } from "./collections/Users";
+import { Users } from "@/collections/Users";
+import { Posts } from "@/collections/Posts";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -15,7 +18,7 @@ export default buildConfig({
 	admin: {
 		user: Users.slug,
 	},
-	collections: [Users],
+	collections: [Users, Posts],
 	editor: lexicalEditor({}),
 	// plugins: [payloadCloud()], // TODO: Re-enable when cloud supports 3.0
 	secret: process.env.PAYLOAD_SECRET || "",
@@ -27,6 +30,10 @@ export default buildConfig({
 			connectionString: process.env.DATABASE_URI || "",
 		},
 	}),
+	i18n: {
+		supportedLanguages: { en, sv },
+		fallbackLanguage: "en",
+	},
 	// Sharp is now an optional dependency -
 	// if you want to resize images, crop, set focal point, etc.
 	// make sure to install it and pass it to the config.
@@ -35,4 +42,61 @@ export default buildConfig({
 	// for this before reaching 3.0 stable
 
 	// sharp,
+	//
+	onInit: async (payload) => {
+		if (process.env.NODE_ENV === "development") {
+			console.log("onInit");
+
+			const numberOfUsers = (
+				await payload.find<"users">({ collection: "users", limit: 2 })
+			).totalDocs;
+
+			if (numberOfUsers === 0) {
+				console.log("Creating user with admin role");
+				await payload.create({
+					collection: "users",
+					data: {
+						email: "admin@salen.com",
+						password: "password",
+						roles: ["admin"],
+						firstName: "Admin",
+						lastName: "Adminsson",
+					},
+				});
+
+				console.log("Creating user with user role");
+				await payload.create({
+					collection: "users",
+					data: {
+						email: "user@salen.com",
+						password: "password",
+						roles: ["user"],
+						firstName: "User",
+						lastName: "Usersson",
+					},
+				});
+			}
+		}
+		/*
+    await mapAsync([...Array(11)], async () => {
+      await payload.create({
+        collection: "posts",
+        data: {
+          title: 'title',
+
+          description: 'description',
+        },
+      });
+    });
+  */
+	},
 });
+
+/*
+async function mapAsync<T, U>(
+  arr: T[],
+  callbackfn: (item: T, index: number, array: T[]) => Promise<U>,
+): Promise<U[]> {
+  return Promise.all(arr.map(callbackfn));
+}
+*/
