@@ -4,11 +4,17 @@ export const checkRole = (
 	allRoles: User["roles"] = [],
 	user: User | null,
 ): boolean => {
-	if (!user) {
-		return false;
+	if (user) {
+		if (
+			allRoles?.some((role) => {
+				return user?.roles?.some((individualRole) => {
+					return individualRole === role;
+				});
+			})
+		) {
+			return true;
+		}
 	}
 
-	return allRoles.some((role) =>
-		user?.roles?.some((individualRole) => individualRole === role),
-	);
+	return false;
 };
