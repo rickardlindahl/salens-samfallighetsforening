@@ -5,7 +5,7 @@ import { LoginForm } from "./login-form";
 
 export default async function Login() {
 	await getMeUser({
-		validUserRedirect: `/account?message=${encodeURIComponent(
+		validUserRedirect: `/dashboard?message=${encodeURIComponent(
 			"You are already logged in.",
 		)}`,
 	});

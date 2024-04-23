@@ -44,7 +44,7 @@ export const LoginForm = () => {
 			try {
 				await login(data);
 				if (redirect?.current) router.push(redirect.current as string);
-				else router.push("/account");
+				else router.push("/dashboard");
 			} catch (err) {
 				console.error(err);
 
@@ -86,11 +86,7 @@ export const LoginForm = () => {
 			</button>
 			{error && <p>{error}</p>}
 			<div>
-				<Link href={`/create-account${allParams}`}>Create an account</Link>
-				<br />
-				<Link href={`/recover-password${allParams}`}>
-					Recover your password
-				</Link>
+				<Link href={`/forgot-password${allParams}`}>Forgot password?</Link>
 			</div>
 		</form>
 	);
