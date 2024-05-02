@@ -23,6 +23,7 @@
     "@payloadcms/db-postgres": "3.0.0-beta.22",
     "@payloadcms/next": "3.0.0-beta.22",
     "@payloadcms/richtext-lexical": "3.0.0-beta.22",
+    "@payloadcms/storage-vercel-blob": "3.0.0-beta.22",
     "cross-env": "^7.0.3",
     "next": "14.3.0-canary.30",
     "payload": "3.0.0-beta.22",
