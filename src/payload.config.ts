@@ -11,6 +11,7 @@ import { sv } from "payload/i18n/sv";
 import { Users } from "@/collections/Users";
 import { Posts } from "@/collections/Posts";
 import { Media } from "@/collections/Media";
+import { Documents } from "./collections/Documents";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -19,7 +20,7 @@ export default buildConfig({
   admin: {
     user: Users.slug,
   },
-  collections: [Users, Posts, Media],
+  collections: [Users, Posts, Media, Documents],
   editor: lexicalEditor({}),
   plugins: [
     vercelBlobStorage({
