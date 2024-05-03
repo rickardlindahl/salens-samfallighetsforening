@@ -48,6 +48,7 @@ export interface User {
 export interface Post {
   id: number;
   title: string;
+  image?: number | Media | null;
   content: {
     root: {
       type: string;
