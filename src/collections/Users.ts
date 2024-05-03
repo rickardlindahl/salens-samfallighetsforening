@@ -6,53 +6,75 @@ import { ensureFirstUserIsAdmin } from "./hooks/ensureFirstUserIsAdmin";
 import { protectRoles } from "./hooks/protectRoles";
 
 export const Users: CollectionConfig = {
-	slug: "users",
-	auth: {
-		tokenExpiration: 28800, // 8 hours
-		cookies: {
-			sameSite: "None",
-			secure: true,
-			domain: process.env.COOKIE_DOMAIN,
-		},
-	},
-	admin: {
-		useAsTitle: "email",
-	},
-	access: {
-		read: adminsAndUser,
-		create: admins,
-		update: adminsAndUser,
-		delete: admins,
-		admin: ({ req: { user } }) => checkRole(["admin"], user),
-	},
-	fields: [
-		{
-			name: "firstName",
-			type: "text",
-		},
-		{
-			name: "lastName",
-			type: "text",
-		},
-		{
-			name: "roles",
-			type: "select",
-			hasMany: true,
-			saveToJWT: true,
-			hooks: {
-				beforeChange: [ensureFirstUserIsAdmin, protectRoles],
-			},
-			defaultValue: ["user"],
-			options: [
-				{
-					label: "Admin",
-					value: "admin",
-				},
-				{
-					label: "User",
-					value: "user",
-				},
-			],
-		},
-	],
+  slug: "users",
+  auth: {
+    tokenExpiration: 28800, // 8 hours
+    cookies: {
+      sameSite: "None",
+      secure: true,
+      domain: process.env.COOKIE_DOMAIN,
+    },
+  },
+  admin: {
+    useAsTitle: "email",
+  },
+  access: {
+    read: adminsAndUser,
+    create: admins,
+    update: adminsAndUser,
+    delete: admins,
+    admin: ({ req: { user } }) => checkRole(["admin"], user),
+  },
+  labels: {
+    singular: {
+      en: "User",
+      sv: "Användare",
+    },
+    plural: {
+      en: "Users",
+      sv: "Användare",
+    },
+  },
+  fields: [
+    {
+      name: "firstName",
+      type: "text",
+      label: {
+        en: "First name",
+        sv: "Förnamn",
+      },
+    },
+    {
+      name: "lastName",
+      type: "text",
+      label: {
+        en: "Last name",
+        sv: "Efternamn",
+      },
+    },
+    {
+      name: "roles",
+      type: "select",
+      hasMany: true,
+      saveToJWT: true,
+      hooks: {
+        beforeChange: [ensureFirstUserIsAdmin, protectRoles],
+      },
+      defaultValue: ["user"],
+      options: [
+        {
+          label: "Admin",
+          value: "admin",
+        },
+        {
+          label: "User",
+          value: "user",
+        },
+      ],
+      label: {
+        en: "Roles",
+        sv: "Roller",
+      },
+    },
+  ],
 };

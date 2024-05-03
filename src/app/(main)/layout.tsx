@@ -5,20 +5,18 @@ import React from "react";
 import { AuthProvider } from "@/lib/providers/Auth";
 
 const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
+	subsets: ["latin"],
+	variable: "--font-sans",
 });
 
-
 export default function RootLayout({
-  children,
+	children,
 }: { children: React.ReactNode }) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable}`}>
-        <AuthProvider api="rest">{children}</AuthProvider>
-      </body>
-    </html>
-  );
+	return (
+		<html lang="en" suppressHydrationWarning>
+			<body className={`${inter.variable}`}>
+				<AuthProvider api="rest">{children}</AuthProvider>
+			</body>
+		</html>
+	);
 }
-
