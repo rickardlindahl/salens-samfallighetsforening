@@ -1,0 +1,29 @@
+services:
+  payload:
+    image: node:20-alpine
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/home/node/app
+    working_dir: /home/node/app/
+    command: sh -c "pnpm install && pnpm start"
+    depends_on:
+      - postgres
+    env_file:
+      - .env.local
+
+  postgres:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    volumes:
+      - data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:?POSTGRES_USER variable not set}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?POSTGRES_PASSWORD variable not set}
+      - POSTGRES_DB=${POSTGRES_DB:?POSTGRES_DB variable not set}
+    env_file:
+      - .env.local
+
+volumes:
+  data:
