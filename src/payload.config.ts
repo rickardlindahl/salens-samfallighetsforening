@@ -1,6 +1,9 @@
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
-import { lexicalEditor } from "@payloadcms/richtext-lexical";
+import {
+	lexicalEditor,
+	FixedToolbarFeature,
+} from "@payloadcms/richtext-lexical";
 import nodemailer from "nodemailer";
 import { MailgunTransport } from "@rebase-agency/nodemailer-mailgun-transport-ts";
 import path from "path";
@@ -23,7 +26,12 @@ export default buildConfig({
 		user: Users.slug,
 	},
 	collections: [Users, Posts, Media, Documents],
-	editor: lexicalEditor({}),
+	editor: lexicalEditor({
+		features: ({ defaultFeatures }) => [
+			...defaultFeatures,
+			FixedToolbarFeature(),
+		],
+	}),
 	plugins: [
 		vercelBlobStorage({
 			collections: {
