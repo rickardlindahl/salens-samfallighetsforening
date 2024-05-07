@@ -1,15 +1,25 @@
-import { Suspense } from "react";
-import { Posts } from "./posts";
+import { getPayload } from "payload";
+import configPromise from "@payload-config";
+import { Post } from "./post";
 
-export const dynamic = "force-dynamic";
+export async function getPosts() {
+	const payload = await getPayload({
+		config: configPromise,
+	});
 
+	return payload.find({
+		collection: "posts",
+	});
+}
 export default async function PostsPage() {
+	const posts = await getPosts();
+
 	return (
 		<div>
 			<h1>Posts</h1>
-			<Suspense>
-				<Posts />
-			</Suspense>
+			{posts.docs.map((post) => (
+				<Post key={post.id} post={post} />
+			))}
 		</div>
 	);
 }

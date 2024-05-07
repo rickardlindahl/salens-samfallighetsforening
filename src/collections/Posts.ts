@@ -1,9 +1,18 @@
+import { revalidatePath } from "next/cache";
 import type { CollectionConfig } from "payload/types";
 
 export const Posts: CollectionConfig = {
 	slug: "posts",
 	admin: {
 		useAsTitle: "title",
+	},
+	hooks: {
+		afterChange: [
+			({ doc }) => {
+				revalidatePath("/posts", "page");
+				return doc;
+			},
+		],
 	},
 	labels: {
 		singular: {
