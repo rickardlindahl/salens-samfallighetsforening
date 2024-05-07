@@ -2,7 +2,7 @@ import { postgresAdapter } from "@payloadcms/db-postgres";
 import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
 import { lexicalEditor } from "@payloadcms/richtext-lexical"; // editor-import
 import nodemailer from "nodemailer";
-import mg from "nodemailer-mailgun-transport";
+import { MailgunTransport } from "@rebase-agency/nodemailer-mailgun-transport-ts";
 import path from "path";
 import { buildConfig } from "payload/config";
 // import sharp from 'sharp'
@@ -96,11 +96,12 @@ export default buildConfig({
 		}
 		if (process.env.NODE_ENV === "production") {
 			const nodemailerMailgun = nodemailer.createTransport(
-				mg({
+				new MailgunTransport({
 					auth: {
 						api_key: process.env.MAILGUN_API_KEY ?? "",
 						domain: "salenssamfallighetsforening.se",
 					},
+					host: "api.eu.mailgun.net",
 				}),
 			);
 

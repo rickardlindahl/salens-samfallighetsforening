@@ -26,6 +26,9 @@ importers:
       '@payloadcms/storage-vercel-blob':
         specifier: 3.0.0-beta.24
         version: 3.0.0-beta.24(payload@3.0.0-beta.24(@swc/core@1.4.14(@swc/helpers@0.5.11))(@swc/types@0.1.6)(graphql@16.8.1)(typescript@5.4.5))
+      '@rebase-agency/nodemailer-mailgun-transport-ts':
+        specifier: ^1.0.0
+        version: 1.0.0(lodash@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@vercel/speed-insights':
         specifier: ^1.0.10
         version: 1.0.10(next@14.3.0-canary.30(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.76.0))(react@18.3.1)
@@ -38,9 +41,6 @@ importers:
       nodemailer:
         specifier: ^6.9.13
         version: 6.9.13
-      nodemailer-mailgun-transport:
-        specifier: ^2.1.5
-        version: 2.1.5(lodash@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       payload:
         specifier: 3.0.0-beta.24
         version: 3.0.0-beta.24(@swc/core@1.4.14(@swc/helpers@0.5.11))(@swc/types@0.1.6)(graphql@16.8.1)(typescript@5.4.5)
@@ -1008,6 +1008,10 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
 
+  '@rebase-agency/nodemailer-mailgun-transport-ts@1.0.0':
+    resolution: {integrity: sha512-pD0HfrkB3S+TxMUNlYCe9LSnOATVxXxquqY2QTZFRu3mkIxn1WaWxcGTiuqnUVFkhyWorgeNd60dlwNzsxaLAQ==}
+    engines: {node: '>=12.0'}
+
   '@sideway/address@4.1.5':
     resolution: {integrity: sha512-IqO/DUQHUkPeixNQ8n0JA6102hT9CmaljNTPmQ1u8MEhBo/R4Q8eKLN/vGZxuebwOroDB4cbpjheD4+/sKFK4Q==}
 
@@ -1108,8 +1112,14 @@ packages:
   '@tokenizer/token@0.3.0':
     resolution: {integrity: sha512-OvjF+z51L3ov0OyAU0duzsYuvO01PH7x4t6DJx+guahgTnBHkhJdG7soQeTSFLWN3efnHyibZ4Z8l2EuWwJN3A==}
 
+  '@types/bluebird@3.5.42':
+    resolution: {integrity: sha512-Jhy+MWRlro6UjVi578V/4ZGNfeCOcNCp0YaFNIUGFKlImowqwb1O/22wDVk3FDGMLqxdpOV3qQHD5fPEH4hK6A==}
+
   '@types/busboy@1.5.4':
     resolution: {integrity: sha512-kG7WrUuAKK0NoyxfQHsVE6j1m01s6kMma64E+OZenQABMQyTJop1DumUWcLwAQ2JzpefU7PDYoRDKl8uZosFjw==}
+
+  '@types/consolidate@0.14.4':
+    resolution: {integrity: sha512-rOrLjFOuN+IQHTwwGITW/01Ho1KoaoUBPGRi57NFkwzxFff8S9Mk66TU1au1O9O8N5nJENWx6o0n6W/35Ebfxg==}
 
   '@types/glob@7.2.0':
     resolution: {integrity: sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA==}
@@ -1282,9 +1292,6 @@ packages:
     resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
     engines: {node: '>=8'}
 
-  bluebird@3.7.2:
-    resolution: {integrity: sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==}
-
   body-scroll-lock@3.1.5:
     resolution: {integrity: sha512-Yi1Xaml0EvNA0OYWxXiYNqY24AfWkbA6w5vxE7GWxtKfzIbZM+Qw+aSmkgsbWzbHiy/RCSkUZBplVxTA+E4jJg==}
 
@@ -1432,14 +1439,13 @@ packages:
   console-table-printer@2.11.2:
     resolution: {integrity: sha512-uuUHie0sfPP542TKGzPFal0W1wo1beuKAqIZdaavcONx8OoqdnJRKjkinbRTOta4FaCa1RcIL+7mMJWX3pQGVg==}
 
-  consolidate@0.15.1:
-    resolution: {integrity: sha512-DW46nrsMJgy9kqAbPt5rKaCr7uFtpo4mSUvLHIUbJEjm0vo+aY5QLwBUq3FK4tRnJr/X0Psc0C4jf/h+HtXSMw==}
-    engines: {node: '>= 0.10.0'}
-    deprecated: Please upgrade to consolidate v1.0.0+ as it has been modernized with several long-awaited fixes implemented. Maintenance is supported by Forward Email at https://forwardemail.net ; follow/watch https://github.com/ladjs/consolidate for updates and release changelog
+  consolidate@1.0.3:
+    resolution: {integrity: sha512-gxeWOO+IvYrJ3Wv/6RYQhTeBm0/lqXW+mzn86ziZf2CwPnIz/7Z5oL3lPKXm24ntiXyX9byBzMEOA14mVgWG8A==}
+    engines: {node: '>=14'}
     peerDependencies:
+      '@babel/core': ^7.22.5
       arc-templates: ^0.5.3
       atpl: '>=0.7.6'
-      babel-core: ^6.26.3
       bracket-template: ^1.1.5
       coffee-script: ^1.12.7
       dot: ^1.1.3
@@ -1455,31 +1461,26 @@ packages:
       handlebars: ^4.7.6
       hogan.js: ^3.0.2
       htmling: ^0.0.8
-      jade: ^1.11.0
       jazz: ^0.0.18
       jqtpl: ~1.1.0
       just: ^0.1.8
       liquid-node: ^3.0.1
       liquor: ^0.0.5
       lodash: ^4.17.20
-      marko: ^3.14.4
       mote: ^0.2.0
-      mustache: ^3.0.0
+      mustache: ^4.0.1
       nunjucks: ^3.2.2
       plates: ~0.4.11
       pug: ^3.0.0
       qejs: ^3.0.5
       ractive: ^1.3.12
-      razor-tmpl: ^1.3.1
-      react: ^16.13.1
-      react-dom: ^16.13.1
+      react: '>=16.13.1'
+      react-dom: '>=16.13.1'
       slm: ^2.0.0
-      squirrelly: ^5.1.0
       swig: ^1.4.2
       swig-templates: ^2.0.3
       teacup: ^2.0.0
       templayed: '>=0.2.3'
-      then-jade: '*'
       then-pug: '*'
       tinyliquid: ^0.2.34
       toffee: ^0.3.6
@@ -1491,11 +1492,11 @@ packages:
       walrus: ^0.10.1
       whiskers: ^0.4.0
     peerDependenciesMeta:
+      '@babel/core':
+        optional: true
       arc-templates:
         optional: true
       atpl:
-        optional: true
-      babel-core:
         optional: true
       bracket-template:
         optional: true
@@ -1527,8 +1528,6 @@ packages:
         optional: true
       htmling:
         optional: true
-      jade:
-        optional: true
       jazz:
         optional: true
       jqtpl:
@@ -1540,8 +1539,6 @@ packages:
       liquor:
         optional: true
       lodash:
-        optional: true
-      marko:
         optional: true
       mote:
         optional: true
@@ -1557,15 +1554,11 @@ packages:
         optional: true
       ractive:
         optional: true
-      razor-tmpl:
-        optional: true
       react:
         optional: true
       react-dom:
         optional: true
       slm:
-        optional: true
-      squirrelly:
         optional: true
       swig:
         optional: true
@@ -1574,8 +1567,6 @@ packages:
       teacup:
         optional: true
       templayed:
-        optional: true
-      then-jade:
         optional: true
       then-pug:
         optional: true
@@ -2382,8 +2373,8 @@ packages:
   lru-queue@0.1.0:
     resolution: {integrity: sha512-BpdYkt9EvGl8OfWHDQPISVpcl5xZthb+XPsbELj5AQXxIC8IriDZIQYjBJPEm5rS420sjZ0TLEzRcq5KdBhYrQ==}
 
-  mailgun.js@8.2.2:
-    resolution: {integrity: sha512-po/KtofzrTuKhHLenbmliDsVVOFANwcfDFUGnggwnyZJmZz7JgBlV6nzK9o2Fk+OK2SiBmJTK25RbkAj57Hd+Q==}
+  mailgun.js@9.4.1:
+    resolution: {integrity: sha512-PUXZvSR6MImDHIf/EhF7uajkv2pP0fbwVfKnRCQ2xDO8uR731U6pWkGHscUxebDkU8tsLb+0zCH5t1+KP6cX3g==}
 
   md5@2.3.0:
     resolution: {integrity: sha512-T1GITYmFaKuO91vxyoQMFETst+O71VUPEU3ze5GNzDm0OWdP8v1ziTaAEPUr/3kLsY3Sftgz242A1SetQiDL7g==}
@@ -2505,9 +2496,6 @@ packages:
   node-fetch@3.3.2:
     resolution: {integrity: sha512-dRB78srN/l6gqWulah9SrxeYnxeddIG30+GOqK/9OlLVyLg3HPnr6SqOWTWOXKRwC2eGYCkZ59NNuSgvSrpgOA==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
-
-  nodemailer-mailgun-transport@2.1.5:
-    resolution: {integrity: sha512-hF7POkaxFgMvYEd5aHLaQJI2511ld+aQlQi7JH6bGjhjlZ33cIbTB9PimlIrLu5XC3z76Kde6e65OIwL9lOdTA==}
 
   nodemailer@6.9.13:
     resolution: {integrity: sha512-7o38Yogx6krdoBf3jCAqnIN4oSQFx+fMa0I7dK1D+me9kBxx12D+/33wSb+fhOCtIxvYJ+4x4IMEhmhCKfAiOA==}
@@ -4267,6 +4255,65 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
+  '@rebase-agency/nodemailer-mailgun-transport-ts@1.0.0(lodash@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@types/consolidate': 0.14.4
+      '@types/nodemailer': 6.4.15
+      consolidate: 1.0.3(lodash@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      form-data: 4.0.0
+      mailgun.js: 9.4.1
+      nodemailer: 6.9.13
+    transitivePeerDependencies:
+      - '@babel/core'
+      - arc-templates
+      - atpl
+      - bracket-template
+      - coffee-script
+      - debug
+      - dot
+      - dust
+      - dustjs-helpers
+      - dustjs-linkedin
+      - eco
+      - ect
+      - ejs
+      - haml-coffee
+      - hamlet
+      - hamljs
+      - handlebars
+      - hogan.js
+      - htmling
+      - jazz
+      - jqtpl
+      - just
+      - liquid-node
+      - liquor
+      - lodash
+      - mote
+      - mustache
+      - nunjucks
+      - plates
+      - pug
+      - qejs
+      - ractive
+      - react
+      - react-dom
+      - slm
+      - swig
+      - swig-templates
+      - teacup
+      - templayed
+      - then-pug
+      - tinyliquid
+      - toffee
+      - twig
+      - twing
+      - underscore
+      - vash
+      - velocityjs
+      - walrus
+      - whiskers
+
   '@sideway/address@4.1.5':
     dependencies:
       '@hapi/hoek': 9.3.0
@@ -4344,8 +4391,15 @@ snapshots:
 
   '@tokenizer/token@0.3.0': {}
 
+  '@types/bluebird@3.5.42': {}
+
   '@types/busboy@1.5.4':
     dependencies:
+      '@types/node': 20.12.7
+
+  '@types/consolidate@0.14.4':
+    dependencies:
+      '@types/bluebird': 3.5.42
       '@types/node': 20.12.7
 
   '@types/glob@7.2.0':
@@ -4503,8 +4557,6 @@ snapshots:
 
   binary-extensions@2.3.0: {}
 
-  bluebird@3.7.2: {}
-
   body-scroll-lock@3.1.5: {}
 
   body-scroll-lock@4.0.0-beta.0: {}
@@ -4652,9 +4704,7 @@ snapshots:
     dependencies:
       simple-wcswidth: 1.0.1
 
-  consolidate@0.15.1(lodash@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
-    dependencies:
-      bluebird: 3.7.2
+  consolidate@1.0.3(lodash@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     optionalDependencies:
       lodash: 4.17.21
       react: 18.3.1
@@ -5475,7 +5525,7 @@ snapshots:
     dependencies:
       es5-ext: 0.10.64
 
-  mailgun.js@8.2.2:
+  mailgun.js@9.4.1:
     dependencies:
       axios: 1.6.8
       base-64: 1.0.0
@@ -5599,67 +5649,6 @@ snapshots:
       data-uri-to-buffer: 4.0.1
       fetch-blob: 3.2.0
       formdata-polyfill: 4.0.10
-
-  nodemailer-mailgun-transport@2.1.5(lodash@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
-    dependencies:
-      consolidate: 0.15.1(lodash@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      form-data: 4.0.0
-      mailgun.js: 8.2.2
-    transitivePeerDependencies:
-      - arc-templates
-      - atpl
-      - babel-core
-      - bracket-template
-      - coffee-script
-      - debug
-      - dot
-      - dust
-      - dustjs-helpers
-      - dustjs-linkedin
-      - eco
-      - ect
-      - ejs
-      - haml-coffee
-      - hamlet
-      - hamljs
-      - handlebars
-      - hogan.js
-      - htmling
-      - jade
-      - jazz
-      - jqtpl
-      - just
-      - liquid-node
-      - liquor
-      - lodash
-      - marko
-      - mote
-      - mustache
-      - nunjucks
-      - plates
-      - pug
-      - qejs
-      - ractive
-      - razor-tmpl
-      - react
-      - react-dom
-      - slm
-      - squirrelly
-      - swig
-      - swig-templates
-      - teacup
-      - templayed
-      - then-jade
-      - then-pug
-      - tinyliquid
-      - toffee
-      - twig
-      - twing
-      - underscore
-      - vash
-      - velocityjs
-      - walrus
-      - whiskers
 
   nodemailer@6.9.13: {}
 
