@@ -1,5 +1,6 @@
 import { getPayload } from "payload";
 import configPromise from "@payload-config";
+import { Post } from "./post";
 
 export async function getPosts() {
 	const payload = await getPayload({
@@ -18,7 +19,7 @@ export async function Posts() {
 	return (
 		<>
 			{posts.docs.map((post) => (
-				<div key={post.id}>{post.title}</div>
+				<Post key={post.id} post={post} />
 			))}
 		</>
 	);
