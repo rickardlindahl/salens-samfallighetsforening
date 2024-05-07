@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 
 import { Inter } from "next/font/google";
 import React from "react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AuthProvider } from "@/lib/providers/Auth";
 
 const inter = Inter({
@@ -16,6 +17,7 @@ export default function RootLayout({
 		<html lang="en" suppressHydrationWarning>
 			<body className={`${inter.variable}`}>
 				<AuthProvider api="rest">{children}</AuthProvider>
+				<SpeedInsights />
 			</body>
 		</html>
 	);
