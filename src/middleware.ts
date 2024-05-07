@@ -2,8 +2,12 @@ import { getMeUser } from "@/lib/utilities/getMeUser";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
+const protectedPaths = ["/posts"];
+
 export async function middleware(request: NextRequest) {
-	if (request.nextUrl.pathname.startsWith("/dashboard")) {
+	if (
+		protectedPaths.some((path) => request.nextUrl.pathname.startsWith(path))
+	) {
 		const { user } = await getMeUser();
 
 		if (!user) {
@@ -11,8 +15,8 @@ export async function middleware(request: NextRequest) {
 				`${
 					process.env.NEXT_PUBLIC_PAYLOAD_URL
 				}/login?error=${encodeURIComponent(
-					"You must be logged in to access the dashboard.",
-				)}&redirect=${encodeURIComponent("/dashboard")}`,
+					"You must be logged in to access the page.",
+				)}&redirect=${encodeURIComponent(request.nextUrl.pathname)}`,
 			);
 		}
 
