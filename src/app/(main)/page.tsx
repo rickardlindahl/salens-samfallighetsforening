@@ -1,3 +1,3 @@
 export default function StartPage() {
-	return <h1>Welcome</h1>;
+	return <h1>Salens Samfällighetsförening</h1>;
 }
