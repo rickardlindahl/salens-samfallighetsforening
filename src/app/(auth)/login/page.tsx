@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 
 import { getMeUser } from "@/lib/utilities/getMeUser";
 import { LoginForm } from "./login-form";
@@ -13,7 +13,9 @@ export default async function Login() {
 	return (
 		<>
 			<h1>Log in</h1>
-			<LoginForm />
+			<Suspense>
+				<LoginForm />
+			</Suspense>
 		</>
 	);
 }
