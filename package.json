@@ -20,7 +20,7 @@
     "node": ">=18.19.0"
   },
   "dependencies": {
-    "@biomejs/biome": "^1.7.1",
+    "@biomejs/biome": "^1.7.3",
     "@hookform/resolvers": "^3.3.4",
     "@payloadcms/db-postgres": "3.0.0-beta.25",
     "@payloadcms/next": "3.0.0-beta.25",
@@ -35,21 +35,21 @@
     "escape-html": "^1.0.3",
     "lexical": "^0.14.5",
     "lucide-react": "^0.378.0",
-    "next": "14.3.0-canary.30",
+    "next": "14.3.0-canary.44",
     "nodemailer": "^6.9.13",
     "payload": "3.0.0-beta.25",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-hook-form": "^7.51.3",
+    "react-hook-form": "^7.51.4",
     "sharp": "0.33.3",
     "slugify": "^1.6.6",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
-    "zod": "^3.23.4"
+    "zod": "^3.23.6"
   },
   "devDependencies": {
     "@types/escape-html": "^1.0.4",
-    "@types/node": "^20.11.25",
+    "@types/node": "^20.12.7",
     "@types/nodemailer": "^6.4.15",
     "@types/nodemailer-mailgun-transport": "^1.4.6",
     "@types/react": "^18.3.1",
