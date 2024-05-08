@@ -6,10 +6,10 @@ import {
 } from "@payloadcms/richtext-lexical";
 import nodemailer from "nodemailer";
 import { MailgunTransport } from "@rebase-agency/nodemailer-mailgun-transport-ts";
-import path from "path";
+import path from "node:path";
 import { buildConfig } from "payload/config";
 // import sharp from 'sharp'
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 import { en } from "payload/i18n/en";
 import { sv } from "payload/i18n/sv";
 
