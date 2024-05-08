@@ -2,7 +2,7 @@ import { getPayload } from "payload";
 import configPromise from "@payload-config";
 import { Post } from "./post";
 
-export async function getPosts() {
+async function getPosts() {
 	const payload = await getPayload({
 		config: configPromise,
 	});
@@ -11,6 +11,7 @@ export async function getPosts() {
 		collection: "posts",
 	});
 }
+
 export default async function PostsPage() {
 	const posts = await getPosts();
 
