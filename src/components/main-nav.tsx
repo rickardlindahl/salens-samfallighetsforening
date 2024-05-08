@@ -7,7 +7,9 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import * as Icons from "./icons";
 
-export function MainNav() {
+export function MainNav({
+	routeLinks,
+}: { routeLinks: { title: string; href: string }[] }) {
 	const pathname = usePathname();
 
 	return (
@@ -17,37 +19,20 @@ export function MainNav() {
 				<span className="hidden font-bold sm:inline-block">Salen</span>
 			</Link>
 			<nav className="flex items-center gap-4 text-sm lg:gap-6">
-				<Link
-					href="/docs"
-					className={cn(
-						"transition-colors hover:text-foreground/80",
-						pathname === "/docs" ? "text-foreground" : "text-foreground/60",
-					)}
-				>
-					Docs
-				</Link>
-				<Link
-					href="/docs/components"
-					className={cn(
-						"transition-colors hover:text-foreground/80",
-						pathname?.startsWith("/docs/components")
-							? "text-foreground"
-							: "text-foreground/60",
-					)}
-				>
-					Components
-				</Link>
-				<Link
-					href="/themes"
-					className={cn(
-						"transition-colors hover:text-foreground/80",
-						pathname?.startsWith("/themes")
-							? "text-foreground"
-							: "text-foreground/60",
-					)}
-				>
-					Themes
-				</Link>
+				{routeLinks.map(({ href, title }) => (
+					<Link
+						key={href}
+						href={href}
+						className={cn(
+							"transition-colors hover:text-foreground/80",
+							pathname.startsWith(href)
+								? "text-foreground"
+								: "text-foreground/60",
+						)}
+					>
+						{title}
+					</Link>
+				))}
 			</nav>
 		</div>
 	);
