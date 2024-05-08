@@ -1,10 +1,10 @@
 import "@/styles/globals.css";
 
 import { Inter } from "next/font/google";
-import React from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AuthProvider } from "@/lib/providers/Auth";
 import { cn } from "@/lib/utils";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({
 	subsets: ["latin"],
@@ -22,8 +22,10 @@ export default function RootLayout({
 					inter.variable,
 				)}
 			>
-				<AuthProvider api="rest">{children}</AuthProvider>
-				<SpeedInsights />
+				<ThemeProvider>
+					<AuthProvider api="rest">{children}</AuthProvider>
+					<SpeedInsights />
+				</ThemeProvider>
 			</body>
 		</html>
 	);
