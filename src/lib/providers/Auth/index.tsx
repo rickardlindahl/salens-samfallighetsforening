@@ -1,6 +1,6 @@
 "use client";
 
-import React, {
+import {
 	createContext,
 	useCallback,
 	useContext,
@@ -8,10 +8,10 @@ import React, {
 	useState,
 } from "react";
 
-import { User } from "@/payload-types";
+import type { User } from "@/payload-types";
 import { gql, USER } from "./gql";
 import { rest } from "./rest";
-import {
+import type {
 	AuthContext,
 	Create,
 	ForgotPassword,
@@ -22,10 +22,10 @@ import {
 
 const Context = createContext({} as AuthContext);
 
-export const AuthProvider: React.FC<{
-	children: React.ReactNode;
-	api?: "rest" | "gql";
-}> = ({ children, api = "rest" }) => {
+export const AuthProvider = ({
+	children,
+	api = "rest",
+}: React.PropsWithChildren<{ api?: "rest" | "gql" }>) => {
 	const [user, setUser] = useState<User | null>();
 
 	const create = useCallback<Create>(
@@ -194,6 +194,4 @@ export const AuthProvider: React.FC<{
 	);
 };
 
-type UseAuth<T = User> = () => AuthContext; // eslint-disable-line no-unused-vars
-
-export const useAuth: UseAuth = () => useContext(Context);
+export const useAuth = () => useContext(Context);
