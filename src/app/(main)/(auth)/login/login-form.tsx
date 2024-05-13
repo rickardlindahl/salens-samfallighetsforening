@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import * as Icons from "@/components/icons";
+import { toast } from "sonner";
 
 export const loginFormSchema = z.object({
 	email: z.string().email().min(1),
@@ -26,7 +27,6 @@ export const LoginForm = () => {
 	const redirect = useRef(searchParams.get("redirect"));
 	const { login } = useAuth();
 	const router = useRouter();
-	const [error, setError] = React.useState<string | null>(null);
 
 	const {
 		register,
@@ -47,9 +47,7 @@ export const LoginForm = () => {
 				if (redirect?.current) router.push(redirect.current as string);
 				else router.push("/posts");
 			} catch (err) {
-				console.error(err);
-
-				setError(
+				toast.error(
 					"There was an error with the credentials provided. Please try again.",
 				);
 			}
@@ -108,7 +106,6 @@ export const LoginForm = () => {
 						)}
 						Sign In
 					</button>
-					{error && <p className="px-1 text-xs text-red-600">{error}</p>}
 				</div>
 			</form>
 		</div>
