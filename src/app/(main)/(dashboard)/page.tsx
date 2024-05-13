@@ -1,4 +1,6 @@
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 export default function StartPage() {
 	return (
@@ -24,7 +26,9 @@ export default function StartPage() {
 				</p>
 
 				<div className="space-y-4 md:space-y-0 md:space-x-4">
-					<Button size="lg">Login</Button>
+					<Link href="/login" className={cn(buttonVariants({ size: "lg" }))}>
+						Login
+					</Link>
 				</div>
 			</div>
 
