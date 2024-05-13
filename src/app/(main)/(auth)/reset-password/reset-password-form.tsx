@@ -8,6 +8,11 @@ import { useAuth } from "@/lib/providers/Auth";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import * as Icons from "@/components/icons";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 const resetPasswordFormSchema = z.object({
 	password: z.string().min(1),
@@ -24,7 +29,7 @@ export function ResetPasswordForm() {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors, isLoading },
 		reset,
 	} = useForm<ResetPasswordFormData>({
 		resolver: zodResolver(resetPasswordFormSchema),
@@ -67,14 +72,38 @@ export function ResetPasswordForm() {
 	}, [reset, token]);
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
-			<label>
-				New Password
-				<input {...register("password", { required: true })} type="password" />
-			</label>
-			{errors.password && <p>{errors.password.message}</p>}
-			<input type="hidden" {...register("token")} />
-			<button type="submit">Reset Password</button>
-		</form>
+		<div className="grid gap-6">
+			<form onSubmit={handleSubmit(onSubmit)}>
+				<div className="grid gap-2">
+					<div className="grid gap-1">
+						<Label htmlFor="password">New Password</Label>
+						<Input
+							id="password"
+							type="password"
+							placeholder="********"
+							autoCorrect="off"
+							disabled={isLoading}
+							{...register("password")}
+						/>
+						{errors?.password && (
+							<p className="px-1 text-xs text-red-600">
+								{errors.password.message}
+							</p>
+						)}
+						<input type="hidden" {...register("token")} />
+					</div>
+					<button
+						type="submit"
+						className={cn(buttonVariants())}
+						disabled={isLoading}
+					>
+						{isLoading && (
+							<Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
+						)}
+						Reset Password
+					</button>
+				</div>
+			</form>
+		</div>
 	);
 }
