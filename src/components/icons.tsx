@@ -1,8 +1,9 @@
-import { CommandIcon, Moon, Sun } from "lucide-react";
+import { ChevronLeft, CommandIcon, Moon, Sun } from "lucide-react";
 
 export const Logo = CommandIcon;
 export const LightMode = Sun;
 export const DarkMode = Moon;
+export const ArrowLeft = ChevronLeft;
 
 export const Menu = () => (
 	<svg
