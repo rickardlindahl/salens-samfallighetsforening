@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AuthProvider } from "@/lib/providers/Auth";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({
 	subsets: ["latin"],
@@ -29,6 +30,7 @@ export default function RootLayout({
 					disableTransitionOnChange
 				>
 					<AuthProvider api="rest">{children}</AuthProvider>
+					<Toaster richColors />
 					<SpeedInsights />
 				</ThemeProvider>
 			</body>
