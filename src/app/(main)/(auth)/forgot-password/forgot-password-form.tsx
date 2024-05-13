@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import * as Icons from "@/components/icons";
+import { toast } from "sonner";
 
 const forgotPasswordFormSchema = z.object({
 	email: z.string().email().min(1),
@@ -18,7 +19,6 @@ const forgotPasswordFormSchema = z.object({
 type ForgotPasswordFormData = z.infer<typeof forgotPasswordFormSchema>;
 
 export function ForgotPasswordForm() {
-	const [error, setError] = useState("");
 	const router = useRouter();
 
 	const {
@@ -44,9 +44,8 @@ export function ForgotPasswordForm() {
 
 			if (response.ok) {
 				router.push("/forgot-password/success");
-				setError("");
 			} else {
-				setError(
+				toast.error(
 					"There was a problem while attempting to send you a password reset email. Please try again.",
 				);
 			}
@@ -88,7 +87,6 @@ export function ForgotPasswordForm() {
 						)}
 						Sign In
 					</button>
-					{error && <p className="px-1 text-xs text-red-600">{error}</p>}
 				</div>
 			</form>
 		</div>
