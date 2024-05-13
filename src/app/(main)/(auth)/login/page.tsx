@@ -50,10 +50,10 @@ export default async function LoginPage() {
 				</Suspense>
 				<p className="px-8 text-center text-sm text-muted-foreground">
 					<Link
-						href="/register"
+						href="/forgot-password"
 						className="hover:text-brand underline underline-offset-4"
 					>
-						Don&apos;t have an account? Sign Up
+						Forgot password?
 					</Link>
 				</p>
 			</div>

@@ -2,13 +2,17 @@
 
 import React, { useCallback, useRef } from "react";
 import { useForm } from "react-hook-form";
-import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { useAuth } from "@/lib/providers/Auth";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import * as Icons from "@/components/icons";
 
 export const loginFormSchema = z.object({
 	email: z.string().email().min(1),
@@ -19,9 +23,6 @@ type LoginFormData = z.infer<typeof loginFormSchema>;
 
 export const LoginForm = () => {
 	const searchParams = useSearchParams();
-	const allParams = searchParams.toString()
-		? `?${searchParams.toString()}`
-		: "";
 	const redirect = useRef(searchParams.get("redirect"));
 	const { login } = useAuth();
 	const router = useRouter();
@@ -57,37 +58,59 @@ export const LoginForm = () => {
 	);
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
-			<p>
-				{"To log in, use the email "}
-				<b>user@salen.com</b>
-				{" with the password "}
-				<b>password</b>
-				{". To manage your users, "}
-				<Link
-					href={`${process.env.NEXT_PUBLIC_PAYLOAD_URL}/admin/collections/users`}
-				>
-					login to the admin dashboard
-				</Link>
-				.
-			</p>
-			<label>
-				Email
-				<input {...register("email", { required: true })} type="email" />
-				{errors.email && <p>{errors.email.message}</p>}
-			</label>
-			<label>
-				Password
-				<input {...register("password", { required: true })} type="password" />
-			</label>
-			{errors.password && <p>{errors.password.message}</p>}
-			<button type="submit" disabled={isLoading}>
-				{isLoading ? "Processing" : "Login"}
-			</button>
-			{error && <p>{error}</p>}
-			<div>
-				<Link href={`/forgot-password${allParams}`}>Forgot password?</Link>
-			</div>
-		</form>
+		<div className="grid gap-6">
+			<form onSubmit={handleSubmit(onSubmit)}>
+				<div className="grid gap-2">
+					<div className="grid gap-1">
+						<Label className="sr-only" htmlFor="email">
+							Email
+						</Label>
+						<Input
+							id="email"
+							placeholder="name@example.com"
+							type="email"
+							autoCapitalize="none"
+							autoComplete="email"
+							autoCorrect="off"
+							disabled={isLoading}
+							{...register("email")}
+						/>
+						{errors?.email && (
+							<p className="px-1 text-xs text-red-600">
+								{errors.email.message}
+							</p>
+						)}
+
+						<Label className="sr-only" htmlFor="password">
+							Password
+						</Label>
+						<Input
+							id="password"
+							placeholder="********"
+							type="password"
+							autoComplete="current-password"
+							disabled={isLoading}
+							{...register("password")}
+						/>
+						{errors?.password && (
+							<p className="px-1 text-xs text-red-600">
+								{errors.password.message}
+							</p>
+						)}
+					</div>
+					<button
+						type="submit"
+						className={cn(buttonVariants())}
+						disabled={isLoading}
+					>
+						{isLoading && (
+							<Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
+						)}
+						Sign In
+					</button>
+					{error && <p className="px-1 text-xs text-red-600">{error}</p>}
+				</div>
+			</form>
+		</div>
 	);
 };
