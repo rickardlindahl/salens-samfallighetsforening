@@ -14,7 +14,7 @@ export async function middleware(request: NextRequest) {
 			return NextResponse.redirect(
 				`${
 					process.env.NEXT_PUBLIC_PAYLOAD_URL
-				}/login?error=${encodeURIComponent(
+				}/login?message=${encodeURIComponent(
 					"You must be logged in to access the page.",
 				)}&redirect=${encodeURIComponent(request.nextUrl.pathname)}`,
 			);
