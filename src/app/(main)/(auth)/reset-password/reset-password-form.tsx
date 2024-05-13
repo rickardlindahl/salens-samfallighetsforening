@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { useAuth } from "@/lib/providers/Auth";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ResetPassword } from "@/lib/providers/Auth/types";
+import { toast } from "sonner";
 
 const resetPasswordFormSchema = z.object({
 	password: z.string().min(1),
@@ -16,7 +16,6 @@ const resetPasswordFormSchema = z.object({
 type ResetPasswordFormData = z.infer<typeof resetPasswordFormSchema>;
 
 export function ResetPasswordForm() {
-	const [error, setError] = useState("");
 	const { login } = useAuth();
 	const router = useRouter();
 	const searchParams = useSearchParams();
@@ -53,7 +52,7 @@ export function ResetPasswordForm() {
 				// Redirect them to `/account` with success message in URL
 				router.push("/account?success=Password reset successfully.");
 			} else {
-				setError(
+				toast.error(
 					"There was a problem while resetting your password. Please try again later.",
 				);
 			}
@@ -76,7 +75,6 @@ export function ResetPasswordForm() {
 			{errors.password && <p>{errors.password.message}</p>}
 			<input type="hidden" {...register("token")} />
 			<button type="submit">Reset Password</button>
-			{error && <p>{error}</p>}
 		</form>
 	);
 }
