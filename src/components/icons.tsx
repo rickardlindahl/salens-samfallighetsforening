@@ -1,16 +1,18 @@
 import {
 	ChevronLeft,
 	CommandIcon,
-	Moon,
 	LoaderCircle,
+	Moon,
 	Sun,
+	UserCircle,
 } from "lucide-react";
 
-export const Logo = CommandIcon;
-export const LightMode = Sun;
-export const DarkMode = Moon;
 export const ArrowLeft = ChevronLeft;
+export const DarkMode = Moon;
+export const LightMode = Sun;
+export const Logo = CommandIcon;
 export const Spinner = LoaderCircle;
+export const User = UserCircle;
 
 export const Menu = () => (
 	<svg

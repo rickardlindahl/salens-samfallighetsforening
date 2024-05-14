@@ -1,6 +1,7 @@
 import { ModeToggle } from "./mode-toggle";
 import { MobileNav } from "./mobile-nav";
 import { MainNav } from "./main-nav";
+import { UserNavbar } from "./user-navbar";
 
 const routeLinks = [
 	{
@@ -25,6 +26,7 @@ export function SiteHeader() {
 				<MobileNav routeLinks={routeLinks} />
 				<div className="flex flex-1 space-x-2 justify-end">
 					<ModeToggle />
+					<UserNavbar />
 				</div>
 			</div>
 		</header>
