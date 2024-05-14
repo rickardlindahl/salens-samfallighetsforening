@@ -8,6 +8,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Toaster } from "@/components/ui/sonner";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { ToastMessageListener } from "@/components/toast-message-listener";
+import { Suspense } from "react";
 
 const inter = Inter({
 	subsets: ["latin"],
@@ -33,7 +34,9 @@ export default function RootLayout({
 				>
 					<AuthProvider api="rest">{children}</AuthProvider>
 					<Toaster richColors />
-					<ToastMessageListener />
+					<Suspense>
+						<ToastMessageListener />
+					</Suspense>
 					<TailwindIndicator />
 					<SpeedInsights />
 				</ThemeProvider>
