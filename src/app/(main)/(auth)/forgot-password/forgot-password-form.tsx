@@ -71,7 +71,7 @@ export function ForgotPasswordForm() {
 									autoCapitalize="none"
 									autoComplete="email"
 									autoCorrect="off"
-									disabled={form.formState.isLoading}
+									disabled={form.formState.isSubmitting}
 									{...field}
 								/>
 							</FormControl>
@@ -79,8 +79,8 @@ export function ForgotPasswordForm() {
 						</FormItem>
 					)}
 				/>
-				<Button type="submit" disabled={form.formState.isLoading}>
-					{form.formState.isLoading && (
+				<Button type="submit" disabled={form.formState.isSubmitting}>
+					{form.formState.isSubmitting && (
 						<Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
 					)}
 					Submit

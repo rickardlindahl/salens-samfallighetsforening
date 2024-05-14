@@ -86,8 +86,8 @@ export function ResetPasswordForm() {
 						</FormControl>
 					)}
 				/>
-				<Button type="submit" disabled={form.formState.isLoading}>
-					{form.formState.isLoading && (
+				<Button type="submit" disabled={form.formState.isSubmitting}>
+					{form.formState.isSubmitting && (
 						<Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
 					)}
 					Reset Password
