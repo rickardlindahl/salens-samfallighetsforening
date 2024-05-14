@@ -5,21 +5,14 @@ import React, { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 import * as Icons from "@/components/icons";
+import { PasswordField } from "@/components/password-field";
 import { Button } from "@/components/ui/button";
-import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/lib/providers/Auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { z } from "zod";
-import { PasswordField } from "@/components/password-field";
 
 const resetPasswordFormSchema = z.object({
 	password: z.string().min(1),
@@ -75,7 +68,7 @@ export function ResetPasswordForm() {
 
 	return (
 		<Form {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
 				<PasswordField id="new-password" autoComplete="new-password" />
 				<FormField
 					control={form.control}

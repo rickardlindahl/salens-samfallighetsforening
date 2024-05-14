@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { useAuth } from "@/lib/providers/Auth";
 
 import * as Icons from "@/components/icons";
+import { PasswordField } from "@/components/password-field";
 import { Button } from "@/components/ui/button";
 import {
 	Form,
@@ -20,7 +21,6 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { z } from "zod";
-import { PasswordField } from "@/components/password-field";
 
 export const loginFormSchema = z.object({
 	email: z.string().email().min(1),
@@ -60,7 +60,7 @@ export const LoginForm = () => {
 
 	return (
 		<Form {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
 				<FormField
 					control={form.control}
 					name="email"
