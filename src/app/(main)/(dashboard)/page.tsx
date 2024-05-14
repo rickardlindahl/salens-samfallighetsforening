@@ -24,12 +24,6 @@ export default function StartPage() {
 				<p className="text-xl text-muted-foreground md:w-10/12 mx-auto">
 					Umeås bästa samfällighetsförening
 				</p>
-
-				<div className="space-y-4 md:space-y-0 md:space-x-4">
-					<Link href="/login" className={cn(buttonVariants({ size: "lg" }))}>
-						Login
-					</Link>
-				</div>
 			</div>
 
 			{/* Hero cards sections */}
