@@ -83,7 +83,11 @@ export const LoginForm = () => {
 					)}
 				/>
 				<PasswordField autoComplete="current-password" id="current-password" />
-				<Button type="submit" disabled={form.formState.isSubmitting}>
+				<Button
+					type="submit"
+					disabled={form.formState.isSubmitting}
+					className="w-full"
+				>
 					{form.formState.isSubmitting && (
 						<Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
 					)}

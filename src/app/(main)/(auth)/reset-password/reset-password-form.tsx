@@ -79,7 +79,11 @@ export function ResetPasswordForm() {
 						</FormControl>
 					)}
 				/>
-				<Button type="submit" disabled={form.formState.isSubmitting}>
+				<Button
+					type="submit"
+					disabled={form.formState.isSubmitting}
+					className="w-full"
+				>
 					{form.formState.isSubmitting && (
 						<Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
 					)}
