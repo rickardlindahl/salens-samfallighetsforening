@@ -19,6 +19,7 @@ import { useAuth } from "@/lib/providers/Auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { z } from "zod";
+import { PasswordField } from "@/components/password-field";
 
 const resetPasswordFormSchema = z.object({
 	password: z.string().min(1),
@@ -75,25 +76,7 @@ export function ResetPasswordForm() {
 	return (
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-				<FormField
-					control={form.control}
-					name="password"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Password</FormLabel>
-							<FormControl>
-								<Input
-									placeholder="********"
-									type="password"
-									autoCorrect="off"
-									disabled={form.formState.isLoading}
-									{...field}
-								/>
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
+				<PasswordField id="new-password" autoComplete="new-password" />
 				<FormField
 					control={form.control}
 					name="token"

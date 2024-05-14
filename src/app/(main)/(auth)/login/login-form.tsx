@@ -20,6 +20,7 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { z } from "zod";
+import { PasswordField } from "@/components/password-field";
 
 export const loginFormSchema = z.object({
 	email: z.string().email().min(1),
@@ -81,25 +82,7 @@ export const LoginForm = () => {
 						</FormItem>
 					)}
 				/>
-				<FormField
-					control={form.control}
-					name="password"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Password</FormLabel>
-							<FormControl>
-								<Input
-									placeholder="********"
-									type="password"
-									autoComplete="current-password"
-									disabled={form.formState.isLoading}
-									{...field}
-								/>
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
+				<PasswordField autoComplete="current-password" id="current-password" />
 				<Button type="submit" disabled={form.formState.isLoading}>
 					{form.formState.isLoading && (
 						<Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
