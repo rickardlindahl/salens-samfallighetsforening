@@ -1,18 +1,24 @@
 "use client";
 
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useRouter, useSearchParams } from "next/navigation";
 
+import * as Icons from "@/components/icons";
+import { Button } from "@/components/ui/button";
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { useAuth } from "@/lib/providers/Auth";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import * as Icons from "@/components/icons";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+import { z } from "zod";
 
 const resetPasswordFormSchema = z.object({
 	password: z.string().min(1),
@@ -26,12 +32,7 @@ export function ResetPasswordForm() {
 	const searchParams = useSearchParams();
 	const token = searchParams.get("token");
 
-	const {
-		register,
-		handleSubmit,
-		formState: { errors, isLoading },
-		reset,
-	} = useForm<ResetPasswordFormData>({
+	const form = useForm<ResetPasswordFormData>({
 		resolver: zodResolver(resetPasswordFormSchema),
 	});
 
@@ -68,42 +69,47 @@ export function ResetPasswordForm() {
 	// when Next.js populates token within router,
 	// reset form with new token value
 	useEffect(() => {
-		reset({ token: token || undefined });
-	}, [reset, token]);
+		form.reset({ token: token || undefined });
+	}, [form.reset, token]);
 
 	return (
-		<div className="grid gap-6">
-			<form onSubmit={handleSubmit(onSubmit)}>
-				<div className="grid gap-2">
-					<div className="grid gap-1">
-						<Label htmlFor="password">New Password</Label>
-						<Input
-							id="password"
-							type="password"
-							placeholder="********"
-							autoCorrect="off"
-							disabled={isLoading}
-							{...register("password")}
-						/>
-						{errors?.password && (
-							<p className="px-1 text-xs text-red-600">
-								{errors.password.message}
-							</p>
-						)}
-						<input type="hidden" {...register("token")} />
-					</div>
-					<button
-						type="submit"
-						className={cn(buttonVariants())}
-						disabled={isLoading}
-					>
-						{isLoading && (
-							<Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
-						)}
-						Reset Password
-					</button>
-				</div>
+		<Form {...form}>
+			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+				<FormField
+					control={form.control}
+					name="password"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Password</FormLabel>
+							<FormControl>
+								<Input
+									placeholder="********"
+									type="password"
+									autoCorrect="off"
+									disabled={form.formState.isLoading}
+									{...field}
+								/>
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<FormField
+					control={form.control}
+					name="token"
+					render={({ field }) => (
+						<FormControl>
+							<Input type="hidden" {...field} />
+						</FormControl>
+					)}
+				/>
+				<Button type="submit" disabled={form.formState.isLoading}>
+					{form.formState.isLoading && (
+						<Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
+					)}
+					Reset Password
+				</Button>
 			</form>
-		</div>
+		</Form>
 	);
 }
