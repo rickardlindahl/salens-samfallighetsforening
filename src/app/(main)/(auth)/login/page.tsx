@@ -2,7 +2,6 @@ import React, { Suspense } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { getMeUser } from "@/lib/utilities/getMeUser";
 import { LoginForm } from "./login-form";
 
 import * as Icons from "@/components/icons";
@@ -13,12 +12,6 @@ export const metadata: Metadata = {
 };
 
 export default async function LoginPage() {
-	await getMeUser({
-		validUserRedirect: `/posts?message=${encodeURIComponent(
-			"You are already logged in.",
-		)}`,
-	});
-
 	return (
 		<>
 			<div className="flex flex-col space-y-2 text-center">
