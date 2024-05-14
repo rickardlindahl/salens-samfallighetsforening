@@ -5,7 +5,10 @@ import Image from "next/image";
 
 export function Post({ post, priority }: { post: IPost; priority: boolean }) {
 	return (
-		<article key={post.id} className="group relative flex flex-col space-y-2">
+		<article
+			key={post.id}
+			className="group relative flex flex-col space-y-2 bg-muted/50 border rounded-lg p-4 sm:p-8"
+		>
 			<PostImage image={post.image} priority={priority} />
 			<h2 className="text-2xl font-extrabold">{post.title}</h2>
 			<p className="text-sm text-muted-foreground">
