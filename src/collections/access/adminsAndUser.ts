@@ -1,4 +1,4 @@
-import { Access } from "payload/types";
+import type { Access } from "payload/types";
 import { checkRole } from "./checkRole";
 
 export const adminsAndUser: Access = ({ req: { user } }) => {
@@ -11,6 +11,8 @@ export const adminsAndUser: Access = ({ req: { user } }) => {
 	}
 
 	return {
-		id: user.id,
+		id: {
+			equals: user.id,
+		},
 	};
 };
