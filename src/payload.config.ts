@@ -1,11 +1,12 @@
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
+import { nodemailerAdapter } from "@payloadcms/email-nodemailer";
 import {
 	lexicalEditor,
 	FixedToolbarFeature,
 } from "@payloadcms/richtext-lexical";
 import nodemailer from "nodemailer";
-import { MailgunTransport } from "@rebase-agency/nodemailer-mailgun-transport-ts";
+import { MailgunTransport } from "mailgun-nodemailer-transport";
 import path from "node:path";
 import { buildConfig } from "payload/config";
 // import sharp from 'sharp'
@@ -68,6 +69,19 @@ export default buildConfig({
 	// sharp,
 	//
 	//
+	email: nodemailerAdapter({
+		defaultFromName: "Admin",
+		defaultFromAddress: "admin@salenssamfallighetsforening.com",
+		transport: nodemailer.createTransport(
+			new MailgunTransport({
+				auth: {
+					apiKey: process.env.MAILGUN_API_KEY ?? "",
+					domain: "salenssamfallighetsforening.se",
+				},
+				hostname: "api.eu.mailgun.net",
+			}),
+		),
+	}),
 	onInit: async (payload) => {
 		if (process.env.NODE_ENV === "development") {
 			console.log("onInit");
@@ -101,24 +115,6 @@ export default buildConfig({
 					},
 				});
 			}
-		}
-		if (process.env.NODE_ENV === "production") {
-			const nodemailerMailgun = nodemailer.createTransport(
-				new MailgunTransport({
-					auth: {
-						api_key: process.env.MAILGUN_API_KEY ?? "",
-						domain: "salenssamfallighetsforening.se",
-					},
-					host: "api.eu.mailgun.net",
-				}),
-			);
-
-			payload.email = {
-				name: "Salens Samfällighetsförening",
-				defaultFromName: "Admin",
-				defaultFromAddress: "admin@salenssamfallighetsforening.com",
-				sendEmail: nodemailerMailgun.sendMail,
-			};
 		}
 		/*
     await mapAsync([...Array(11)], async () => {
