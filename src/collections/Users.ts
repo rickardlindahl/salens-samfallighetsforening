@@ -23,7 +23,7 @@ export const Users: CollectionConfig = {
 		create: admins,
 		update: adminsAndUser,
 		delete: admins,
-		admin: ({ req: { user } }) => checkRole(["admin"], user),
+		admin: ({ req: { user } }) => checkRole(user, ["admin"]),
 	},
 	labels: {
 		singular: {

@@ -6,7 +6,7 @@ export const adminsAndUser: Access = ({ req: { user } }) => {
 		return false;
 	}
 
-	if (checkRole(["admin"], user)) {
+	if (checkRole(user, ["admin"])) {
 		return true;
 	}
 

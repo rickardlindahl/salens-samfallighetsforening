@@ -1,8 +1,8 @@
-import { User } from "@/payload-types";
+import type { User } from "@/payload-types";
 
 export const checkRole = (
-	allRoles: User["roles"] = [],
 	user: User | null,
+	allRoles: User["roles"] = [],
 ): boolean => {
 	if (user) {
 		if (
