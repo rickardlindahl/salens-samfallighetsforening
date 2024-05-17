@@ -68,6 +68,11 @@ export function UserNavbar() {
 				<DropdownMenuItem asChild className="cursor-pointer" disabled>
 					<Link href="/account/settings">Settings</Link>
 				</DropdownMenuItem>
+				{user.roles?.includes("admin") && (
+					<DropdownMenuItem asChild className="cursor-pointer">
+						<Link href="/admin">Admin</Link>
+					</DropdownMenuItem>
+				)}
 				<DropdownMenuSeparator />
 				<DropdownMenuItem asChild className="cursor-pointer">
 					<Link href="/logout">Logout</Link>
