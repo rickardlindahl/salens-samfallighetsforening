@@ -5,13 +5,13 @@ import { useEffect } from "react";
 import { toast } from "sonner";
 
 export function ToastMessageListener() {
-	const searchParams = useSearchParams();
+  const searchParams = useSearchParams();
 
-	useEffect(() => {
-		if (searchParams?.get("message")) {
-			toast.info(searchParams.get("message"));
-		}
-	}, [searchParams]);
+  useEffect(() => {
+    if (searchParams?.get("message")) {
+      toast.info(searchParams.get("message"));
+    }
+  }, [searchParams]);
 
-	return null;
+  return null;
 }

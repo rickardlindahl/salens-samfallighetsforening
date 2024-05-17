@@ -1,7 +1,7 @@
 import { MigrateUpArgs, MigrateDownArgs, sql } from "@payloadcms/db-postgres";
 
 export async function up({ payload }: MigrateUpArgs): Promise<void> {
-	await payload.db.drizzle.execute(sql`
+  await payload.db.drizzle.execute(sql`
 
 DO $$ BEGIN
  CREATE TYPE "_locales" AS ENUM('en', 'sv');
@@ -172,7 +172,7 @@ END $$;
 }
 
 export async function down({ payload }: MigrateDownArgs): Promise<void> {
-	await payload.db.drizzle.execute(sql`
+  await payload.db.drizzle.execute(sql`
 
 DROP TABLE "users_roles";
 DROP TABLE "users";

@@ -11,36 +11,36 @@ import { ToastMessageListener } from "@/components/toast-message-listener";
 import { Suspense } from "react";
 
 const inter = Inter({
-	subsets: ["latin"],
-	variable: "--font-sans",
+  subsets: ["latin"],
+  variable: "--font-sans",
 });
 
 export default function RootLayout({
-	children,
+  children,
 }: { children: React.ReactNode }) {
-	return (
-		<html lang="en" suppressHydrationWarning>
-			<body
-				className={cn(
-					"min-h-screen bg-background font-sans antialiased",
-					inter.variable,
-				)}
-			>
-				<ThemeProvider
-					attribute="class"
-					defaultTheme="system"
-					enableSystem
-					disableTransitionOnChange
-				>
-					<AuthProvider api="rest">{children}</AuthProvider>
-					<Toaster richColors />
-					<Suspense>
-						<ToastMessageListener />
-					</Suspense>
-					<TailwindIndicator />
-					<SpeedInsights />
-				</ThemeProvider>
-			</body>
-		</html>
-	);
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          inter.variable,
+        )}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <AuthProvider api="rest">{children}</AuthProvider>
+          <Toaster richColors />
+          <Suspense>
+            <ToastMessageListener />
+          </Suspense>
+          <TailwindIndicator />
+          <SpeedInsights />
+        </ThemeProvider>
+      </body>
+    </html>
+  );
 }

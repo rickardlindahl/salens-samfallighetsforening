@@ -9,14 +9,14 @@ export const IS_SUPERSCRIPT = 1 << 6;
 export const IS_HIGHLIGHT = 1 << 7;
 
 export const IS_ALL_FORMATTING =
-	IS_BOLD |
-	IS_ITALIC |
-	IS_STRIKETHROUGH |
-	IS_UNDERLINE |
-	IS_CODE |
-	IS_SUBSCRIPT |
-	IS_SUPERSCRIPT |
-	IS_HIGHLIGHT;
+  IS_BOLD |
+  IS_ITALIC |
+  IS_STRIKETHROUGH |
+  IS_UNDERLINE |
+  IS_CODE |
+  IS_SUBSCRIPT |
+  IS_SUPERSCRIPT |
+  IS_HIGHLIGHT;
 
 // Element node formatting
 export const IS_ALIGN_LEFT = 1;

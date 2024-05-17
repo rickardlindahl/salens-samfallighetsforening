@@ -8,11 +8,11 @@ import React from "react";
 import "./custom.scss";
 
 type Args = {
-	children: React.ReactNode;
+  children: React.ReactNode;
 };
 
 const Layout = ({ children }: Args) => (
-	<RootLayout config={configPromise}>{children}</RootLayout>
+  <RootLayout config={configPromise}>{children}</RootLayout>
 );
 
 export default Layout;
