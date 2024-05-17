@@ -69,19 +69,23 @@ export default buildConfig({
 	// sharp,
 	//
 	//
-	email: nodemailerAdapter({
-		defaultFromName: "Admin",
-		defaultFromAddress: "admin@salenssamfallighetsforening.com",
-		transport: nodemailer.createTransport(
-			new MailgunTransport({
-				auth: {
-					apiKey: process.env.MAILGUN_API_KEY ?? "",
-					domain: "salenssamfallighetsforening.se",
-				},
-				hostname: "api.eu.mailgun.net",
-			}),
-		),
-	}),
+	email: nodemailerAdapter(
+		process.env.MAILGUN_API_KEY
+			? {
+					defaultFromName: "Admin",
+					defaultFromAddress: "admin@salenssamfallighetsforening.com",
+					transport: nodemailer.createTransport(
+						new MailgunTransport({
+							auth: {
+								apiKey: process.env.MAILGUN_API_KEY,
+								domain: "salenssamfallighetsforening.se",
+							},
+							hostname: "api.eu.mailgun.net",
+						}),
+					),
+				}
+			: undefined,
+	),
 	onInit: async (payload) => {
 		if (process.env.NODE_ENV === "development") {
 			console.log("onInit");
