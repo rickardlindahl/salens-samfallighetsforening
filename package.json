@@ -1,6 +1,6 @@
 {
-  "name": "salens-samfallighetsforening-payload-beta-10",
-  "description": "A blank template to get started with Payload 3.0",
+  "name": "salens-samfallighetsforening",
+  "description": "A simple blog-like website for a housing cooperative using Payload CMS v3",
   "version": "1.0.0",
   "license": "MIT",
   "type": "module",
