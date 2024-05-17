@@ -1,8 +1,6 @@
-import Image from "next/image";
 import { getPayload } from "payload";
 import configPromise from "@payload-config";
 import { Post } from "./post";
-import type { Media } from "@/payload-types";
 
 async function getPosts() {
 	const payload = await getPayload({
