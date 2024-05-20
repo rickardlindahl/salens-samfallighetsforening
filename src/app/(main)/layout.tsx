@@ -10,6 +10,9 @@ import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { ToastMessageListener } from "@/components/toast-message-listener";
 import { Suspense } from "react";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",

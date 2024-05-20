@@ -18,8 +18,8 @@ export default function LogoutPage() {
       } catch (_) {}
       toast.success("Logged out successfully");
 
-      router.push("/");
       router.refresh();
+      router.push("/");
     };
 
     performLogout();

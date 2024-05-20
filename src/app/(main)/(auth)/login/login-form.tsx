@@ -46,10 +46,14 @@ export const LoginForm = () => {
   const onSubmit = useCallback(
     async (data: LoginFormData) => {
       try {
-        await login(data);
+        const user = await login(data);
+        console.log("Login successful", user);
+        router.refresh();
         if (redirect?.current) router.push(redirect.current as string);
         else router.push("/posts");
       } catch (err) {
+        console.error("error logging in", err);
+
         toast.error(
           "There was an error with the credentials provided. Please try again.",
         );
