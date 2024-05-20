@@ -1,42 +1,36 @@
-# Payload Blank Template
+# Next.js + PostgreSQL Auth Starter
 
-A blank template for [Payload](https://github.com/payloadcms/payload) to help you get up and running quickly. This repo may have been created by running `npx create-payload-app@latest` and selecting the "blank" template or by cloning this template on [Payload Cloud](https://payloadcms.com/new/clone/blank).
+This is a [Next.js](https://nextjs.org/) starter kit that uses [NextAuth.js](https://next-auth.js.org/) for simple email + password login, [Drizzle](https://orm.drizzle.team) as the ORM, and a [Neon Postgres](https://vercel.com/postgres) database to persist the data.
 
-See the official [Examples Directory](https://github.com/payloadcms/payload/tree/main/examples) for details on how to use Payload in a variety of different ways.
+## Deploy Your Own
 
-## Development
+You can clone & deploy it to Vercel with one click:
 
-To spin up the project locally, follow these steps:
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?demo-title=Next.js%20Prisma%20PostgreSQL%20Auth%20Starter&demo-description=Simple%20Next.js%2013%20starter%20kit%20that%20uses%20Next-Auth%20for%20auth%20and%20Prisma%20PostgreSQL%20as%20a%20database.&demo-url=https%3A%2F%2Fnextjs-postgres-auth.vercel.app%2F&demo-image=%2F%2Fimages.ctfassets.net%2Fe5382hct74si%2F7rsVQ1ZBSiWe9JGO6FUeZZ%2F210cba91036ca912b2770e0bd5d6cc5d%2Fthumbnail.png&project-name=Next.js%%20Prisma%20PostgreSQL%20Auth%20Starter&repository-name=nextjs-postgres-auth-starter&repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnextjs-postgres-auth-starter&from=templates&skippable-integrations=1&env=AUTH_SECRET&envDescription=Generate%20a%20random%20secret%3A&envLink=https://generate-secret.vercel.app/&stores=%5B%7B"type"%3A"postgres"%7D%5D)
 
-1. First clone the repo
-1. Then `cd YOUR_PROJECT_REPO && cp .env.example .env`
-1. Next `yarn && yarn dev` (or `docker-compose up`, see [Docker](#docker))
-1. Now `open http://localhost:3000/admin` to access the admin panel
-1. Create your first admin user using the form on the page
+## Developing Locally
 
-That's it! Changes made in `./src` will be reflected in your app.
+You can clone & create this repo with the following command
 
-### Docker
+```bash
+npx create-next-app nextjs-typescript-starter --example "https://github.com/vercel/nextjs-postgres-auth-starter"
+```
 
-Alternatively, you can use [Docker](https://www.docker.com) to spin up this project locally. To do so, follow these steps:
+## Getting Started
 
-1. Follow [steps 1 and 2 from above](#development), the docker-compose file will automatically use the `.env` file in your project root
-1. Next run `docker-compose up`
-1. Follow [steps 4 and 5 from above](#development) to login and create your first admin user
+First, run the development server:
 
-That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams.
+```bash
+pnpm dev
+```
 
-## Production
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-To run Payload in production, you need to build and serve the Admin panel. To do so, follow these steps:
+## Learn More
 
-1. First invoke the `payload build` script by running `yarn build` or `npm run build` in your project root. This creates a `./build` directory with a production-ready admin bundle.
-1. Then run `yarn serve` or `npm run serve` to run Node in production and serve Payload from the `./build` directory.
+To learn more about Next.js, take a look at the following resources:
 
-### Deployment
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-The easiest way to deploy your project is to use [Payload Cloud](https://payloadcms.com/new/import), a one-click hosting solution to deploy production-ready instances of your Payload apps directly from your GitHub repo. You can also deploy your app manually, check out the [deployment documentation](https://payloadcms.com/docs/production/deployment) for full details.
-
-## Questions
-
-If you have any issues or questions, reach out to us on [Discord](https://discord.com/invite/payload) or start a [GitHub discussion](https://github.com/payloadcms/payload/discussions).
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!

@@ -35,7 +35,7 @@ export function PasswordField({
       name="password"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Password</FormLabel>
+          <FormLabel htmlFor={id}>Password</FormLabel>
           <FormControl>
             <div className="relative">
               <Input

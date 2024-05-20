@@ -1,29 +1,19 @@
 services:
-  payload:
-    image: node:20-alpine
+  postgres:
+    image: "postgres:latest"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
     ports:
-      - 3000:3000
-    volumes:
-      - .:/home/node/app
-    working_dir: /home/node/app/
-    command: sh -c "pnpm install && pnpm start"
+      - "5432:5432"
+  pg_proxy:
+    image: ghcr.io/neondatabase/wsproxy:latest
+    environment:
+      APPEND_PORT: "postgres:5432"
+      ALLOW_ADDR_REGEX: ".*"
+      LOG_TRAFFIC: "true"
+    ports:
+      - "5433:80"
     depends_on:
       - postgres
-    env_file:
-      - .env.local
-
-  postgres:
-    image: postgres:latest
-    ports:
-      - 5432:5432
-    volumes:
-      - data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER:?POSTGRES_USER variable not set}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?POSTGRES_PASSWORD variable not set}
-      - POSTGRES_DB=${POSTGRES_DB:?POSTGRES_DB variable not set}
-    env_file:
-      - .env.local
-
-volumes:
-  data:
