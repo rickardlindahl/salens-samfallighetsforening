@@ -31,6 +31,7 @@ export const LoginForm = () => {
 
   const onSubmit = useCallback(async (data: LoginFormData) => {
     const response = await login(data);
+
     if (response?.isError) {
       toast.error(
         response?.isInvalidLoginError

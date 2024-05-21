@@ -12,7 +12,7 @@ export default async function ResetPassword() {
           Reset password
         </h1>
         <p className="text-sm text-muted-foreground">
-          Please enter a new password below.
+          Enter your email below to request a password reset.
         </p>
       </div>
       <Suspense>

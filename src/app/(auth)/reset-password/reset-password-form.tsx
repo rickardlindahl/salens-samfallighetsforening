@@ -1,97 +1,100 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
-import React, { useCallback, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
+import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
 
 import * as Icons from "@/components/icons";
-import { PasswordField } from "@/components/password-field";
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import { z } from "zod";
-import { db } from "@/lib/db";
-import { passwordResetTokens } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
-
-const resetPasswordFormSchema = z.object({
-  password: z.string().min(1),
-  token: z.string().min(1),
-});
-type ResetPasswordFormData = z.infer<typeof resetPasswordFormSchema>;
-
-async function createPasswordResetToken(userId: string): Promise<string> {
-  await db
-    .delete(passwordResetTokens)
-    .where(eq(passwordResetTokens.userId, userId));
-
-  const tokenId = generateRandomString(40);
-  const tokenHash = await hashString(tokenId);
-
-  await db.insert(passwordResetTokens).values({
-    token: tokenHash,
-    userId,
-    expiresAt: createDate(new TimeSpan(2, "h")),
-  });
-
-  return tokenId;
-}
-
-async function resetPasswordAction(data: ResetPasswordFormData) {
-  "use server";
-
-  await resetPassword({});
-}
+import Link from "next/link";
+import { type ResetPasswordFormData, resetPasswordFormSchema } from "./schema";
+import { resetPasswordAction } from "./actions";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 export function ResetPasswordForm() {
-  const router = useRouter();
   const searchParams = useSearchParams();
-  const token = searchParams.get("token");
+  const state = searchParams.get("state");
 
   const form = useForm<ResetPasswordFormData>({
     resolver: zodResolver(resetPasswordFormSchema),
   });
 
-  const onSubmit = useCallback(
-    async (data: ResetPasswordFormData) => {
-      await resetPasswordAction(data);
+  const onSubmit = useCallback(async (data: ResetPasswordFormData) => {
+    const response = await resetPasswordAction(data);
 
-      if (response.ok) {
-        const json = await response.json();
+    if (response?.error) {
+      toast.error(
+        "There was a problem resetting your password. Please try again later.",
+      );
+    }
+  }, []);
 
-        // Automatically log the user in after they successfully reset password
-        await login({ email: json.user.email, password: data.password });
-
-        // Redirect them to `/account` with success message in URL
-        router.push("/account?success=Password reset successfully.");
-      } else {
-        toast.error(
-          "There was a problem while resetting your password. Please try again later.",
-        );
-      }
-    },
-    [router],
-  );
-
-  // when Next.js populates token within router,
-  // reset form with new token value
-  useEffect(() => {
-    form.reset({ token: token || undefined });
-  }, [form.reset, token]);
+  if (state === "success") {
+    return (
+      <AlertDialog open>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Password request submitted</AlertDialogTitle>
+            <AlertDialogDescription>
+              Check your email for instructions on how to create your new
+              password.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>
+              <Link href="/">Return to home</Link>
+            </AlertDialogCancel>
+            <AlertDialogAction>
+              <Link href="/login">Login</Link>
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    );
+  }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <PasswordField id="new-password" autoComplete="new-password" />
         <FormField
           control={form.control}
-          name="token"
+          name="email"
           render={({ field }) => (
-            <FormControl>
-              <Input type="hidden" {...field} />
-            </FormControl>
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="name@example.com"
+                  type="email"
+                  autoCapitalize="none"
+                  autoComplete="email"
+                  autoCorrect="off"
+                  disabled={form.formState.isSubmitting}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
           )}
         />
         <Button
