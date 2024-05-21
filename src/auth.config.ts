@@ -27,12 +27,12 @@ export const authConfig = {
         nextUrl.pathname.startsWith(path),
       );
       if (isOnAdminPath) {
-        if (isLoggedIn && user?.role === "admin") {
+        /*        if (isLoggedIn && user?.role === "admin") {
           return true;
         }
         return false;
+        */
       }
-
       const isOnProtectedPath = protectedPaths.some((path) =>
         nextUrl.pathname.startsWith(path),
       );
