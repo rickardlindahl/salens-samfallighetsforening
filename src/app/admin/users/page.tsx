@@ -1,73 +1,67 @@
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import AdminSubLayout from "../admin-sub-layout";
-import { routeLinks } from "./config";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { InviteUserForm } from "./invite-user-form";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { UsersTable, UsersTableLoading } from "./users-table";
+import { Suspense } from "react";
 
 export default async function AdminUsersPage() {
   return (
-    <AdminSubLayout routeLinks={routeLinks} title="Users">
+    <div className="container grid max-w-screen-2xl gap-8">
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/admin">Admin</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Users</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
       <Card x-chunk="dashboard-04-chunk-1">
         <CardHeader>
           <CardTitle>Users</CardTitle>
-          <CardDescription>
-            Used to identify your store in the marketplace.
-          </CardDescription>
+          <CardDescription>Manage your users</CardDescription>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead className="hidden sm:table-cell">Email</TableHead>
-                <TableHead className="text-right">Role</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {[
-                {
-                  id: "hej",
-                  name: "Admin Person",
-                  email: "tmp@example.com",
-                  role: "admin",
-                },
-                {
-                  id: "hej",
-                  name: "User Person",
-                  email: "tmp2@example.com",
-                  role: "role",
-                },
-              ].map((user) => (
-                <TableRow key={user.id} className="bg-accent">
-                  <TableCell>
-                    <div className="font-medium">{user.name}</div>
-                  </TableCell>
-                  <TableCell className="hidden sm:table-cell">
-                    <div className="hidden text-sm text-muted-foreground md:inline">
-                      {user.email}
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-right">{user.role}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+          <div className="grid gap-y-8">
+            <Accordion type="single" collapsible>
+              <AccordionItem value="item-1">
+                <AccordionTrigger>Invite user</AccordionTrigger>
+                <AccordionContent>
+                  <InviteUserForm />
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+            <Suspense fallback={<UsersTableLoading />}>
+              <UsersTable />
+            </Suspense>
+          </div>
         </CardContent>
       </Card>
-    </AdminSubLayout>
+    </div>
   );
 }

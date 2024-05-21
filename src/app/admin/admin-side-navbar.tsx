@@ -19,7 +19,7 @@ export function AdminSideNavbar({
           key={href}
           href={href}
           className={cn({
-            "font-semibold text-primary": pathname.startsWith(href),
+            "font-semibold text-primary": pathname === href,
           })}
         >
           {title}

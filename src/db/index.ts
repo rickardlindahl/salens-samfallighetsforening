@@ -1,4 +1,4 @@
-import { createTempPassword, hashString } from "@/lib/utils.server";
+import { hashString } from "@/lib/utils.server";
 import { neonConfig } from "@neondatabase/serverless";
 import { sql } from "@vercel/postgres";
 import { eq } from "drizzle-orm";
@@ -38,13 +38,25 @@ if (!process.env.VERCEL_ENV) {
 export const db = database;
 
 export async function getUser(email: string) {
-  console.log("Calling getUser", email);
-  return await database.select().from(users).where(eq(users.email, email));
+  return await database
+    .select()
+    .from(users)
+    .where(eq(users.email, email))
+    .limit(1);
 }
 
-export async function createUser(email: string, name: string, role: Role) {
-  const tempPassword = await createTempPassword();
-  const hashedPassword = await hashString(tempPassword);
+export async function createUser({
+  email,
+  name,
+  role,
+  passwordPlaintext,
+}: {
+  email: string;
+  name: string;
+  role: Role;
+  passwordPlaintext: string;
+}) {
+  const hashedPassword = await hashString(passwordPlaintext);
 
   return await database
     .insert(users)

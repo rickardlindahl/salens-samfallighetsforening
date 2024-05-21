@@ -1,4 +1,5 @@
 import { CredentialsSignin, type NextAuthConfig } from "next-auth";
+import { Role } from "./db/schema";
 
 const adminPaths = ["/admin"];
 const protectedPaths = ["/posts", "/documents", "/households"];
@@ -27,11 +28,10 @@ export const authConfig = {
         nextUrl.pathname.startsWith(path),
       );
       if (isOnAdminPath) {
-        /*        if (isLoggedIn && user?.role === "admin") {
+        if (isLoggedIn && user?.role === "admin") {
           return true;
         }
         return false;
-        */
       }
       const isOnProtectedPath = protectedPaths.some((path) =>
         nextUrl.pathname.startsWith(path),
@@ -44,6 +44,20 @@ export const authConfig = {
       }
 
       return true;
+    },
+    jwt({ token, user }) {
+      if (user) {
+        // User is available during sign-in
+        token.id = user.id;
+        token.role = user.role;
+      }
+      return token;
+    },
+    session({ session, token }) {
+      session.user.id = token.id as string;
+      session.user.role = token.role as Role;
+
+      return session;
     },
   },
 } satisfies NextAuthConfig;

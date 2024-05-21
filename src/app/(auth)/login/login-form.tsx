@@ -17,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import { login } from "./actions";
+import { loginAction } from "./actions";
 import { type LoginFormData, loginFormSchema } from "./schema";
 
 export const LoginForm = () => {
@@ -30,7 +30,8 @@ export const LoginForm = () => {
   });
 
   const onSubmit = useCallback(async (data: LoginFormData) => {
-    const response = await login(data);
+    const response = await loginAction(data);
+    console.log("login response", response);
 
     if (response?.isError) {
       toast.error(

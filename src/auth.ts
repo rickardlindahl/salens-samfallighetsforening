@@ -9,11 +9,7 @@ import {
 } from "@/db/schema";
 import { comparePasswords } from "@/lib/utils.server";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import NextAuth, {
-  AuthError,
-  CredentialsSignin,
-  type DefaultSession,
-} from "next-auth";
+import NextAuth, { type DefaultSession } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { InvalidLoginError, authConfig } from "./auth.config";
 
@@ -57,14 +53,12 @@ export const {
   providers: [
     Credentials({
       async authorize(credentials) {
-        console.log("AUTHORUIZE METHOD", credentials);
         const { email, password } = credentials as {
           email: string;
           password: string;
         };
 
         const [user] = await getUser(email);
-        console.log("user", user);
         if (!user) {
           throw new InvalidLoginError();
         }

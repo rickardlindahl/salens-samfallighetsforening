@@ -14,6 +14,7 @@ import {
 } from "./ui/dropdown-menu";
 import type { Session } from "next-auth";
 import { signOutAction } from "@/actions";
+import { cn } from "@/lib/utils";
 
 function renderInitials(user: Session["user"]) {
   const [a, b] = user.name?.split(" ") ?? ["", ""];
@@ -21,6 +22,7 @@ function renderInitials(user: Session["user"]) {
 }
 
 export function UserNavbar({ user }: { user: Session["user"] }) {
+  console.log({ user });
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -43,12 +45,12 @@ export function UserNavbar({ user }: { user: Session["user"] }) {
           <Link href="/account/settings">Settings</Link>
         </DropdownMenuItem>
         {user.role === "admin" && (
-          <DropdownMenuItem asChild className="cursor-pointer">
+          <DropdownMenuItem className="cursor-pointer">
             <Link href="/admin">Admin</Link>
           </DropdownMenuItem>
         )}
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild className="cursor-pointer">
+        <DropdownMenuItem className="cursor-pointer">
           <form action={signOutAction}>
             <Button type="submit" variant="link">
               Logout
