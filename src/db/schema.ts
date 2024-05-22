@@ -77,3 +77,24 @@ export const passwordResetTokens = pgTable("passwordResetToken", {
     .references(() => users.id, { onDelete: "cascade" }),
   expiresAt: timestamp("expiresAt").notNull(),
 });
+
+export const documents = pgTable("document", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  createdAt: timestamp("createdAt").notNull(),
+  updatedAt: timestamp("updatedAt").notNull(),
+  userId: text("userId")
+    .references(() => users.id)
+    .notNull(),
+
+  description: varchar("description", { length: 256 }).notNull(),
+  name: text("name").notNull(),
+  size: integer("size").notNull(),
+  type: text("type").notNull(),
+  url: text("url").notNull(),
+  key: text("key").notNull(),
+});
+
+export type Document = typeof documents.$inferSelect;
+export type NewDocument = typeof documents.$inferInsert;
