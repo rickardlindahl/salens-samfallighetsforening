@@ -23,7 +23,6 @@ import {
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import { uploadDocumentAction } from "./actions";
 import {
   type UploadDocumentFormData,
   uploadDocumentFormSchema,
@@ -160,19 +159,7 @@ export function UploadDocumentForm() {
           )}
         />
 
-        <Button
-          type="submit"
-          disabled={
-            isUploading
-            /*||
-            !form.watch("description") ||
-            !form.watch("file") ||
-            form.watch("file")?.length === 0 ||
-            !form.watch("createdAt"
-              )*/
-          }
-          className="w-full"
-        >
+        <Button type="submit" disabled={isUploading} className="w-full">
           {isUploading && (
             <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
           )}
