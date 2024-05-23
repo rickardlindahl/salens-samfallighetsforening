@@ -6,16 +6,13 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { AdminSideNavbar } from "./admin-side-navbar";
 
 type AdminSubLayoutProps = React.PropsWithChildren<{
-  routeLinks: { href: string; title: string }[];
   title: string;
 }>;
 
 export default function AdminSubLayout({
   children,
-  routeLinks,
   title,
 }: AdminSubLayoutProps) {
   return (
@@ -35,10 +32,7 @@ export default function AdminSubLayout({
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <div className="mx-auto grid w-full items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
-        <AdminSideNavbar routeLinks={routeLinks} />
-        <div className="grid gap-6">{children}</div>
-      </div>
+      {children}
     </div>
   );
 }

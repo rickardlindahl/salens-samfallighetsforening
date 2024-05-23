@@ -12,35 +12,13 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { InviteUserForm } from "./invite-user-form";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import { UsersTable, UsersTableLoading } from "./users-table";
 import { Suspense } from "react";
+import AdminSubLayout from "../admin-sub-layout";
 
 export default async function AdminUsersPage() {
   return (
-    <div className="container grid max-w-screen-2xl gap-8">
-      <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/">Home</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/admin">Admin</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>Users</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+    <AdminSubLayout title="Users">
       <Card x-chunk="dashboard-04-chunk-1">
         <CardHeader>
           <CardTitle>Users</CardTitle>
@@ -62,6 +40,6 @@ export default async function AdminUsersPage() {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </AdminSubLayout>
   );
 }
