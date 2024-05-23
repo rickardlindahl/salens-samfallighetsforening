@@ -1,5 +1,8 @@
+import type { JSONContent } from "@tiptap/react";
 import {
+  boolean,
   integer,
+  json,
   pgTable,
   primaryKey,
   text,
@@ -98,3 +101,21 @@ export const documents = pgTable("document", {
 
 export type Document = typeof documents.$inferSelect;
 export type NewDocument = typeof documents.$inferInsert;
+
+export const posts = pgTable("post", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  userId: text("userId")
+    .references(() => users.id)
+    .notNull(),
+  title: varchar("title", { length: 256 }).notNull(),
+  body: json("body").$type<JSONContent>().notNull(),
+  createdAt: timestamp("createdAt").notNull(),
+  updatedAt: timestamp("updatedAt"),
+  publishDate: timestamp("publishDate"),
+  draft: boolean("draft").notNull().default(true),
+});
+
+export type Post = typeof posts.$inferSelect;
+export type NewPost = typeof posts.$inferInsert;
