@@ -42,7 +42,7 @@ export function ResetPasswordForm() {
   const onSubmit = useCallback(async (data: ResetPasswordFormData) => {
     const response = await resetPasswordAction(data);
 
-    if (response?.error) {
+    if (response?.isError) {
       toast.error(
         "There was a problem resetting your password. Please try again later.",
       );

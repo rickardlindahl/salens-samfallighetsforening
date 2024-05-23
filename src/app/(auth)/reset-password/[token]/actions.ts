@@ -12,7 +12,6 @@ export async function resetPasswordTokenAction(
   data: ResetPasswordTokenFormData,
 ) {
   const { password, token: verificationToken } = data;
-  console.log("entry", data);
   const tokenHash = await hashString(verificationToken);
 
   const [token] = await db
@@ -20,7 +19,7 @@ export async function resetPasswordTokenAction(
     .from(passwordResetTokens)
     .where(eq(passwordResetTokens.token, tokenHash))
     .limit(1);
-  console.log("Token", token);
+
   if (token) {
     await db
       .delete(passwordResetTokens)
@@ -28,16 +27,13 @@ export async function resetPasswordTokenAction(
   }
 
   if (!token || !isWithinExpirationDate(token.expiresAt)) {
-    console.log("returning error");
     return {
-      error: true,
+      isError: true,
       isInvalidToken: true,
     };
   }
-  console.log("apparenttly all good");
 
   const hashedPassword = await hashString(password);
-  console.log("hashedPassword", hashedPassword);
   await db
     .update(users)
     .set({ password: hashedPassword })

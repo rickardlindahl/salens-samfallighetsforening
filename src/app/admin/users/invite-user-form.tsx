@@ -33,7 +33,7 @@ export function InviteUserForm() {
   const onSubmit = useCallback(async (data: InviteUserFormData) => {
     const response = await inviteUserAction(data);
 
-    if (response?.error) {
+    if (response?.isError) {
       toast.error(
         response?.isConflict
           ? "A user with that email already exists"

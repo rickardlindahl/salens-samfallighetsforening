@@ -51,7 +51,7 @@ export async function resetPasswordAction(data: ResetPasswordFormData) {
     return redirect("/reset-password?state=success");
   } catch (e) {
     return {
-      error: true,
+      isError: true,
     };
   }
 }

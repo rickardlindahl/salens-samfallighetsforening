@@ -29,7 +29,7 @@ export function ResetPasswordTokenForm({ token }: { token: string }) {
   const onSubmit = useCallback(async (data: ResetPasswordTokenFormData) => {
     const response = await resetPasswordTokenAction(data);
 
-    if (response?.error) {
+    if (response?.isError) {
       if (response.isInvalidToken) {
         toast.error("Invalid token", {
           description:

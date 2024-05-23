@@ -12,7 +12,7 @@ export async function inviteUserAction(data: InviteUserFormData) {
   const [existingUser] = await getUser(email);
   if (existingUser) {
     return {
-      error: true,
+      isError: true,
       isConflict: true,
     };
   }
