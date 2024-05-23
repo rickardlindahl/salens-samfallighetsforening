@@ -55,7 +55,7 @@ export async function DocumentsTable() {
                 </div>
               </TableCell>
               <TableCell className="text-right">
-                <a href={doc.downloadUrl} download>
+                <a href={doc.url} download>
                   <DownloadIcon className="w-4 h-4" />
                 </a>
               </TableCell>
