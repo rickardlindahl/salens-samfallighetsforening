@@ -29,11 +29,11 @@ const routeLinks = [
     title: "Households",
   },
 ];
-export default async function AdminLayout2({ children }: AdminLayoutProps) {
+export default async function AdminLayout({ children }: AdminLayoutProps) {
   const session = await auth();
 
   if (!session?.user) {
-    //    redirect("/login");
+    redirect("/login");
   }
 
   return (
