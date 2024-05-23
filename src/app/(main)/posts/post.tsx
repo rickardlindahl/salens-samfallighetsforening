@@ -1,7 +1,8 @@
-import { formatDate } from "@/lib/utils";
+import { formatRelative } from "@/lib/utils";
+import type { Post as IPost } from "@/db/schema";
 
 type PostProps = {
-  post: { id: string; title: string; createdAt: string };
+  post: IPost;
 };
 
 export function Post({ post }: PostProps) {
@@ -12,7 +13,9 @@ export function Post({ post }: PostProps) {
     >
       <h2 className="text-2xl font-extrabold">{post.title}</h2>
       <p className="text-sm text-muted-foreground">
-        <time dateTime={post.createdAt}>{formatDate(post.createdAt)}</time>
+        <time dateTime={post.createdAt.toISOString()}>
+          {formatRelative(post.createdAt)}
+        </time>
       </p>
     </article>
   );

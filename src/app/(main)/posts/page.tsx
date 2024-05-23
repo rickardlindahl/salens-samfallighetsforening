@@ -1,12 +1,7 @@
-import { Post } from "./post";
-
-async function getPosts() {
-  return [] as { id: string; title: string; createdAt: string }[];
-}
+import { Suspense } from "react";
+import { PostsWrapper } from "./posts-wrapper";
 
 export default async function PostsPage() {
-  const posts = await getPosts();
-
   return (
     <div className="container max-w-4xl py-6 lg:py-10">
       <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
@@ -22,15 +17,9 @@ export default async function PostsPage() {
 
       <hr className="my-8" />
 
-      {posts.length ? (
-        <div className="grid gap-10">
-          {posts.map((post) => (
-            <Post key={post.id} post={post} />
-          ))}
-        </div>
-      ) : (
-        <p>No posts published.</p>
-      )}
+      <Suspense>
+        <PostsWrapper />
+      </Suspense>
     </div>
   );
 }

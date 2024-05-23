@@ -8,6 +8,8 @@ import {
 import AdminSubLayout from "../admin-sub-layout";
 import { Button } from "@/components/ui/button";
 import { createPostAction } from "./actions";
+import { PostsTable, PostsTableLoading } from "./posts-table";
+import { Suspense } from "react";
 
 export default async function AdminPostsPage() {
   return (
@@ -21,7 +23,9 @@ export default async function AdminPostsPage() {
           <form action={createPostAction}>
             <Button type="submit">Create new post</Button>
           </form>
-          <div className="grid gap-y-8">Posts be here</div>
+          <Suspense fallback={<PostsTableLoading />}>
+            <PostsTable />
+          </Suspense>
         </CardContent>
       </Card>
     </AdminSubLayout>
