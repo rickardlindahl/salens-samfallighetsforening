@@ -80,24 +80,18 @@ export function DocumentsTableLoading() {
       </TableHeader>
       <TableBody>
         {[1, 2, 3, 4, 5].map((number) => (
-          <TableRow key={number} className="bg-accent">
+          <TableRow key={number}>
             <TableCell>
-              <div className="font-medium">
-                <Skeleton />
-              </div>
+              <Skeleton className="h-[20px]" />
             </TableCell>
             <TableCell>
-              <div className="font-medium">
-                <Skeleton />
-              </div>
+              <Skeleton className="h-[20px]" />
             </TableCell>
             <TableCell className="hidden sm:table-cell">
-              <div className="hidden text-sm text-muted-foreground md:inline">
-                <Skeleton />
-              </div>
+              <Skeleton className="h-[20px]" />
             </TableCell>
-            <TableCell className="text-right">
-              <Skeleton />
+            <TableCell>
+              <Skeleton className="h-[20px]" />
             </TableCell>
           </TableRow>
         ))}
