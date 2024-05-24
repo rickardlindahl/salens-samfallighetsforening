@@ -1,9 +1,14 @@
 import { db } from "@/db";
 import { posts } from "@/db/schema";
+import { desc, eq } from "drizzle-orm";
 import { Post } from "./post";
 
 async function getPosts() {
-  return await db.select().from(posts);
+  return await db
+    .select()
+    .from(posts)
+    .where(eq(posts.draft, false))
+    .orderBy(desc(posts.publishDate));
 }
 
 export async function PostsWrapper() {
