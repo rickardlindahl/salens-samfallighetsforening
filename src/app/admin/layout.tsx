@@ -1,11 +1,7 @@
 import { auth } from "@/auth";
-import { Icons } from "@/components/icons";
-import { MobileNav } from "@/components/mobile-nav";
-import { ModeToggle } from "@/components/mode-toggle";
-import { UserNavbar } from "@/components/user-navbar";
-import Link from "next/link";
 import { redirect } from "next/navigation";
-import { AdminNavbar } from "./admin-navbar";
+import { AdminNavbarMobile } from "./admin-navbar-mobile";
+import { AdminSidebar } from "./admin-sidebar";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -29,7 +25,8 @@ const routeLinks = [
     title: "Households",
   },
 ];
-export default async function AdminLayout({ children }: AdminLayoutProps) {
+
+export default async function AdminRootLayout({ children }: AdminLayoutProps) {
   const session = await auth();
 
   if (!session?.user) {
@@ -37,22 +34,14 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
   }
 
   return (
-    <div className="flex min-h-screen w-full flex-col">
-      <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-14 max-w-screen-2xl items-center">
-          <Link href="/" className="mr-6 flex items-center space-x-2">
-            <Icons.logo className="h-6 w-6" />
-            <span className="hidden font-bold sm:inline-block">Salen</span>
-          </Link>
-          <AdminNavbar routeLinks={routeLinks} />
-          <MobileNav routeLinks={routeLinks} />
-          <div className="flex flex-1 space-x-2 justify-end">
-            <ModeToggle />
-            {session?.user && <UserNavbar user={session.user} />}
-          </div>
-        </div>
-      </header>
-      {children}
+    <div className="flex min-h-screen w-full flex-col bg-muted/40">
+      <AdminSidebar />
+      <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
+        <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+          <AdminNavbarMobile />
+        </header>
+        {children}
+      </div>
     </div>
   );
 }

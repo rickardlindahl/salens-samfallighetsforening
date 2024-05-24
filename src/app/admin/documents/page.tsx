@@ -14,11 +14,11 @@ import {
 import { Suspense } from "react";
 import { DocumentsTable, DocumentsTableLoading } from "./documents-table";
 import { UploadDocumentForm } from "./upload-document-form";
-import AdminSubLayout from "../admin-sub-layout";
+import { AdminLayout } from "../admin-layout";
 
 export default async function AdminUsersPage() {
   return (
-    <AdminSubLayout title="Documents">
+    <AdminLayout title="Documents">
       <Card x-chunk="dashboard-04-chunk-1">
         <CardHeader>
           <CardTitle>Documents</CardTitle>
@@ -40,6 +40,6 @@ export default async function AdminUsersPage() {
           </div>
         </CardContent>
       </Card>
-    </AdminSubLayout>
+    </AdminLayout>
   );
 }

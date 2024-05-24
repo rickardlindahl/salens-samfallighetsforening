@@ -14,11 +14,11 @@ import {
 import { InviteUserForm } from "./invite-user-form";
 import { UsersTable, UsersTableLoading } from "./users-table";
 import { Suspense } from "react";
-import AdminSubLayout from "../admin-sub-layout";
+import { AdminLayout } from "../admin-layout";
 
 export default async function AdminUsersPage() {
   return (
-    <AdminSubLayout title="Users">
+    <AdminLayout title="Users">
       <Card x-chunk="dashboard-04-chunk-1">
         <CardHeader>
           <CardTitle>Users</CardTitle>
@@ -40,6 +40,6 @@ export default async function AdminUsersPage() {
           </div>
         </CardContent>
       </Card>
-    </AdminSubLayout>
+    </AdminLayout>
   );
 }

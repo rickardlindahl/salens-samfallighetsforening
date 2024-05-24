@@ -5,15 +5,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import AdminSubLayout from "../admin-sub-layout";
 import { Button } from "@/components/ui/button";
 import { createPostAction } from "./actions";
 import { PostsTable, PostsTableLoading } from "./posts-table";
 import { Suspense } from "react";
+import { AdminLayout } from "../admin-layout";
 
 export default async function AdminPostsPage() {
   return (
-    <AdminSubLayout title="Posts">
+    <AdminLayout title="Posts">
       <Card x-chunk="dashboard-04-chunk-1">
         <CardHeader>
           <CardTitle>Posts</CardTitle>
@@ -28,6 +28,6 @@ export default async function AdminPostsPage() {
           </Suspense>
         </CardContent>
       </Card>
-    </AdminSubLayout>
+    </AdminLayout>
   );
 }
