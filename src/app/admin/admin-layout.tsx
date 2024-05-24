@@ -12,7 +12,7 @@ type AdminContentProps = React.PropsWithChildren<{ title?: string }>;
 export function AdminLayout({ children, title }: AdminContentProps) {
   return (
     <>
-      <div className="p-4 sm:px-6 sm:py-0 max-w-screen-2xl">
+      <div className="container p-4 sm:px-6 sm:py-0 max-w-screen-2xl">
         <Breadcrumb className="hidden md:flex">
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -31,7 +31,9 @@ export function AdminLayout({ children, title }: AdminContentProps) {
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-      <main className="p-4 sm:px-6 sm:py-0 max-w-screen-2xl">{children}</main>
+      <main className="container p-4 sm:px-6 sm:py-0 max-w-screen-2xl">
+        {children}
+      </main>
     </>
   );
 }
