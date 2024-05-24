@@ -1,4 +1,4 @@
-import * as Icons from "./icons";
+import { Icons } from "./icons";
 
 export function SiteFooter() {
   return (
@@ -12,7 +12,7 @@ export function SiteFooter() {
             href="/"
             className="font-bold text-xl flex"
           >
-            <Icons.Logo />
+            <Icons.logo />
             Salen
           </a>
         </div>

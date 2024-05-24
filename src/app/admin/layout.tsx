@@ -1,11 +1,11 @@
-import Link from "next/link";
-import * as Icons from "@/components/icons";
-import { MobileNav } from "@/components/mobile-nav";
-import { AdminNavbar } from "./admin-navbar";
-import { UserNavbar } from "@/components/user-navbar";
 import { auth } from "@/auth";
-import { redirect } from "next/navigation";
+import { Icons } from "@/components/icons";
+import { MobileNav } from "@/components/mobile-nav";
 import { ModeToggle } from "@/components/mode-toggle";
+import { UserNavbar } from "@/components/user-navbar";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { AdminNavbar } from "./admin-navbar";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -41,7 +41,7 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-14 max-w-screen-2xl items-center">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <Icons.Logo className="h-6 w-6" />
+            <Icons.logo className="h-6 w-6" />
             <span className="hidden font-bold sm:inline-block">Salen</span>
           </Link>
           <AdminNavbar routeLinks={routeLinks} />

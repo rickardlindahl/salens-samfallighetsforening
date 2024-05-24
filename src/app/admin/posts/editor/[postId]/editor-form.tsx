@@ -1,6 +1,6 @@
 "use client";
 
-import * as Icons from "@/components/icons";
+import { Icons } from "@/components/icons";
 import { Editor } from "@/components/tiptap/editor";
 import { EditorContent } from "@/components/tiptap/editor-content";
 import { EditorContentLoading } from "@/components/tiptap/editor-content-loading";
@@ -146,7 +146,7 @@ export function EditorForm({ post }: { post: Post }) {
                   name="save"
                 >
                   {form.formState.isSubmitting && (
-                    <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
+                    <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                   )}
                   Save
                 </Button>
@@ -158,7 +158,7 @@ export function EditorForm({ post }: { post: Post }) {
                   name={post.draft ? "publish" : "unpublish"}
                 >
                   {form.formState.isSubmitting && (
-                    <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
+                    <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                   )}
                   {post.draft ? "Publish" : "Unpublish"}
                 </Button>

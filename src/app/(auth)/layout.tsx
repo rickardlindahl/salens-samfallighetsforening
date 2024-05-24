@@ -1,7 +1,7 @@
+import { Icons } from "@/components/icons";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import * as Icons from "@/components/icons";
 
 interface AuthLayoutProps {
   children: React.ReactNode;
@@ -19,7 +19,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
           )}
         >
           <>
-            <Icons.ArrowLeft className="mr-2 h-4 w-4" />
+            <Icons.arrowLeft className="mr-2 h-4 w-4" />
             Back
           </>
         </Link>

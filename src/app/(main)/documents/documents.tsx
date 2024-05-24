@@ -3,6 +3,7 @@ async function getDocuments() {
 }
 export default async function DocumentsPage() {
   const documents = await getDocuments();
+
   return (
     <div>
       {documents.length ? (

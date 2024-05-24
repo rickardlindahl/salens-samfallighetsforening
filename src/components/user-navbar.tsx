@@ -1,7 +1,9 @@
 "use client";
 
+import { signOutAction } from "@/actions";
+import type { Session } from "next-auth";
 import Link from "next/link";
-import * as Icons from "./icons";
+import { Icons } from "./icons";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { Button } from "./ui/button";
 import {
@@ -12,9 +14,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import type { Session } from "next-auth";
-import { signOutAction } from "@/actions";
-import { cn } from "@/lib/utils";
 
 function renderInitials(user: Session["user"]) {
   const [a, b] = user.name?.split(" ") ?? ["", ""];
@@ -33,7 +32,7 @@ export function UserNavbar({ user }: { user: Session["user"] }) {
         >
           <Avatar>
             <AvatarFallback>
-              {renderInitials(user) ?? <Icons.User />}
+              {renderInitials(user) ?? <Icons.user />}
             </AvatarFallback>
           </Avatar>
         </Button>

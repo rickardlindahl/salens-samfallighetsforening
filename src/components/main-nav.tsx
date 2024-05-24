@@ -1,11 +1,11 @@
 "use client";
 
-import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import * as Icons from "./icons";
+import { Icons } from "./icons";
 
 export function MainNav({
   routeLinks,
@@ -15,7 +15,7 @@ export function MainNav({
   return (
     <div className="mr-4 hidden md:flex">
       <Link href="/" className="mr-6 flex items-center space-x-2">
-        <Icons.Logo className="h-6 w-6" />
+        <Icons.logo className="h-6 w-6" />
         <span className="hidden font-bold sm:inline-block">Salen</span>
       </Link>
       <nav className="flex items-center gap-4 text-sm lg:gap-6">

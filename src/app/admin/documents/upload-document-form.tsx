@@ -1,10 +1,8 @@
 "use client";
 
-import React, { useCallback } from "react";
-import { useForm } from "react-hook-form";
-
-import * as Icons from "@/components/icons";
+import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Form,
   FormControl,
@@ -20,17 +18,17 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useUploadThing } from "@/lib/uploadthing";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { format } from "date-fns";
+import React, { useCallback } from "react";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import {
   type UploadDocumentFormData,
   uploadDocumentFormSchema,
 } from "./schema";
-import { CalendarIcon } from "lucide-react";
-import { Calendar } from "@/components/ui/calendar";
-import { format } from "date-fns";
-import { useUploadThing } from "@/lib/uploadthing";
 
 export function UploadDocumentForm() {
   const form = useForm<UploadDocumentFormData>({
@@ -137,7 +135,7 @@ export function UploadDocumentForm() {
                       ) : (
                         <span>Pick a date</span>
                       )}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                      <Icons.calendar className="ml-auto h-4 w-4 opacity-50" />
                     </Button>
                   </FormControl>
                 </PopoverTrigger>
@@ -161,7 +159,7 @@ export function UploadDocumentForm() {
 
         <Button type="submit" disabled={isUploading} className="w-full">
           {isUploading && (
-            <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
+            <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
           )}
           Upload
         </Button>

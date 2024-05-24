@@ -2,8 +2,6 @@
 
 import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
-
-import * as Icons from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -15,6 +13,7 @@ import {
 } from "./schema";
 import { resetPasswordTokenAction } from "./actions";
 import { PasswordField } from "@/components/password-field";
+import { Icons } from "@/components/icons";
 
 export function ResetPasswordTokenForm({ token }: { token: string }) {
   console.log("ResetPasswordTokenForm", token);
@@ -66,7 +65,7 @@ export function ResetPasswordTokenForm({ token }: { token: string }) {
           className="w-full"
         >
           {form.formState.isSubmitting && (
-            <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
+            <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
           )}
           Update password
         </Button>

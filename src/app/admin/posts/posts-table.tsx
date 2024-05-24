@@ -1,3 +1,4 @@
+import { Icons } from "@/components/icons";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
@@ -10,7 +11,6 @@ import {
 import { db } from "@/db";
 import { posts } from "@/db/schema";
 import { formatRelative } from "@/lib/utils";
-import { PencilIcon } from "lucide-react";
 import Link from "next/link";
 
 async function getPosts() {
@@ -71,7 +71,7 @@ export async function PostsTable() {
               </TableCell>
               <TableCell>
                 <Link href={`/admin/posts/editor/${post.id}`}>
-                  <PencilIcon className="w-4 h-4" />
+                  <Icons.edit className="w-4 h-4" />
                 </Link>
               </TableCell>
             </TableRow>

@@ -4,7 +4,17 @@ import { useSearchParams } from "next/navigation";
 import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
 
-import * as Icons from "@/components/icons";
+import { Icons } from "@/components/icons";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -16,20 +26,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "sonner";
 import Link from "next/link";
-import { type ResetPasswordFormData, resetPasswordFormSchema } from "./schema";
+import { toast } from "sonner";
 import { resetPasswordAction } from "./actions";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
+import { type ResetPasswordFormData, resetPasswordFormSchema } from "./schema";
 
 export function ResetPasswordForm() {
   const searchParams = useSearchParams();
@@ -103,7 +103,7 @@ export function ResetPasswordForm() {
           className="w-full"
         >
           {form.formState.isSubmitting && (
-            <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
+            <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
           )}
           Reset Password
         </Button>

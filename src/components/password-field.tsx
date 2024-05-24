@@ -1,4 +1,3 @@
-import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useFormContext } from "react-hook-form";
 import {
   FormControl,
@@ -14,6 +13,7 @@ import {
   createElement,
   useState,
 } from "react";
+import { Icons } from "./icons";
 
 type PasswordFieldProps = {
   description?: string | JSX.Element;
@@ -53,7 +53,7 @@ export function PasswordField({
                 onClick={() => setPasswordVisibility(!passwordVisibility)}
                 onKeyUp={() => setPasswordVisibility(!passwordVisibility)}
               >
-                {createElement(passwordVisibility ? EyeOffIcon : EyeIcon, {
+                {createElement(passwordVisibility ? Icons.eye : Icons.eyeOff, {
                   className: "h-6 w-6",
                 })}
               </div>

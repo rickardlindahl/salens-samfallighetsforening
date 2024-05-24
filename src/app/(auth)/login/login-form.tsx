@@ -3,7 +3,7 @@
 import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
 
-import * as Icons from "@/components/icons";
+import { Icons } from "@/components/icons";
 import { PasswordField } from "@/components/password-field";
 import { Button } from "@/components/ui/button";
 import {
@@ -75,7 +75,7 @@ export const LoginForm = () => {
           className="w-full"
         >
           {form.formState.isSubmitting && (
-            <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
+            <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
           )}
           Sign In
         </Button>

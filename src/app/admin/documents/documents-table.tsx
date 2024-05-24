@@ -1,3 +1,4 @@
+import { Icons } from "@/components/icons";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
@@ -9,7 +10,6 @@ import {
 } from "@/components/ui/table";
 import { db } from "@/db";
 import { documents } from "@/db/schema";
-import { DownloadIcon } from "lucide-react";
 
 async function getDocuments() {
   return await db.select().from(documents);
@@ -56,7 +56,7 @@ export async function DocumentsTable() {
               </TableCell>
               <TableCell className="text-right">
                 <a href={doc.url} download>
-                  <DownloadIcon className="w-4 h-4" />
+                  <Icons.download className="w-4 h-4" />
                 </a>
               </TableCell>
             </TableRow>

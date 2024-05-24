@@ -3,7 +3,7 @@
 import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
 
-import * as Icons from "@/components/icons";
+import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -14,11 +14,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import { type InviteUserFormData, inviteUserFormSchema } from "./schema";
 import { inviteUserAction } from "./actions";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { type InviteUserFormData, inviteUserFormSchema } from "./schema";
 
 export function InviteUserForm() {
   const form = useForm<InviteUserFormData>({
@@ -125,7 +125,7 @@ export function InviteUserForm() {
           className="w-full"
         >
           {form.formState.isSubmitting && (
-            <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
+            <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
           )}
           Invite
         </Button>

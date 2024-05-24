@@ -14,6 +14,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
 export default function AdminPage() {
   return (
     <div className="container grid max-w-screen-2xl gap-8">

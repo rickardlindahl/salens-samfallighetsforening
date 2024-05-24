@@ -15,10 +15,6 @@ const routeLinks = [
     title: "Documents",
     href: "/documents",
   },
-  {
-    title: "Households",
-    href: "/households",
-  },
 ];
 
 export async function SiteHeader({ session }: { session: Session | null }) {
