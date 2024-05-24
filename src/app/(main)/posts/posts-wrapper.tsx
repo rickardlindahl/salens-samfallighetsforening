@@ -1,12 +1,20 @@
 import { db } from "@/db";
-import { posts } from "@/db/schema";
+import { posts, users } from "@/db/schema";
 import { desc, eq } from "drizzle-orm";
 import { Post } from "./post";
 
 async function getPosts() {
   return await db
-    .select()
+    .select({
+      authorName: users.name,
+      authorEmail: users.email,
+      postId: posts.id,
+      postTitle: posts.title,
+      postBody: posts.body,
+      postPublishDate: posts.publishDate,
+    })
     .from(posts)
+    .leftJoin(users, eq(posts.userId, users.id))
     .where(eq(posts.draft, false))
     .orderBy(desc(posts.publishDate));
 }
@@ -19,8 +27,8 @@ export async function PostsWrapper() {
 
   return (
     <div className="grid gap-10">
-      {posts.map((post) => (
-        <Post key={post.id} post={post} />
+      {posts.map((data) => (
+        <Post key={data.postId} {...data} />
       ))}
     </div>
   );

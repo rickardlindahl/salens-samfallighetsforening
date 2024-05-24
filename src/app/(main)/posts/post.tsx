@@ -1,25 +1,47 @@
-import type { Post as IPost } from "@/db/schema";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { jsonToHTML } from "@/lib/tiptap-utils.server";
-import { formatRelative } from "@/lib/utils";
+import { cn, formatRelative } from "@/lib/utils";
+import type { JSONContent } from "@tiptap/react";
 
 type PostProps = {
-  post: IPost;
+  authorName: string | null;
+  authorEmail: string | null;
+  postId: string | null;
+  postTitle: string | null;
+  postPublishDate: Date | null;
+  postBody: JSONContent | null;
 };
 
-export function Post({ post }: PostProps) {
+export function Post(props: PostProps) {
   return (
     <article
-      key={post.id}
+      key={props.postId}
       className="group relative flex flex-col space-y-2 bg-muted/50 border rounded-lg p-4 sm:p-8"
     >
-      <h2 className="text-2xl font-extrabold">{post.title}</h2>
-      <p className="text-sm text-muted-foreground">
-        <time dateTime={post.createdAt.toISOString()}>
-          {formatRelative(post.createdAt)}
-        </time>
-      </p>
-      {/* biome-ignore lint/security/noDangerouslySetInnerHtml: Let's trust the input from tiptap */}
-      <div dangerouslySetInnerHTML={{ __html: jsonToHTML(post.body) }} />
+      <h2 className="text-2xl font-extrabold">{props.postTitle}</h2>
+      {props.postPublishDate && (
+        <p className="text-sm text-muted-foreground">
+          <time dateTime={props.postPublishDate.toISOString()}>
+            {formatRelative(props.postPublishDate)}
+          </time>
+        </p>
+      )}
+      {props.postBody && (
+        <div
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: Let's trust the input from tiptap
+          dangerouslySetInnerHTML={{ __html: jsonToHTML(props.postBody) }}
+        />
+      )}
+      {props.authorName && props.authorEmail && (
+        <div>
+          <a
+            className={cn(buttonVariants({ variant: "link" }), "px-0")}
+            href={`mailto:${props.authorEmail}`}
+          >
+            {props.authorName}
+          </a>
+        </div>
+      )}
     </article>
   );
 }
