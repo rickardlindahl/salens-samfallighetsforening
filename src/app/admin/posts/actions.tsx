@@ -3,7 +3,7 @@
 import { auth } from "@/auth";
 import { db } from "@/db";
 import { posts } from "@/db/schema";
-import { htmlToJSON } from "@/lib/editor.server";
+import { htmlToJSON } from "@/lib/tiptap-utils.server";
 import { redirect } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
 

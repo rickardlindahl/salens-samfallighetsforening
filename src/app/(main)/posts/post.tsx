@@ -1,5 +1,6 @@
-import { formatRelative } from "@/lib/utils";
 import type { Post as IPost } from "@/db/schema";
+import { jsonToHTML } from "@/lib/tiptap-utils.server";
+import { formatRelative } from "@/lib/utils";
 
 type PostProps = {
   post: IPost;
@@ -17,6 +18,8 @@ export function Post({ post }: PostProps) {
           {formatRelative(post.createdAt)}
         </time>
       </p>
+      {/* biome-ignore lint/security/noDangerouslySetInnerHtml: Let's trust the input from tiptap */}
+      <div dangerouslySetInnerHTML={{ __html: jsonToHTML(post.body) }} />
     </article>
   );
 }

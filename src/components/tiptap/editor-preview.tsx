@@ -1,7 +1,7 @@
 "use client";
 
 import Typography from "@tiptap/extension-typography";
-import { EditorContent, JSONContent, useEditor } from "@tiptap/react";
+import { EditorContent, type JSONContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 
 import { EditorContext } from "./editor-context";

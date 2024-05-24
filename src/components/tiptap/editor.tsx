@@ -1,8 +1,7 @@
 "use client";
 
-import Typography from "@tiptap/extension-typography";
+import { extensions } from "@/lib/tiptap-extensions";
 import { type Content, type JSONContent, useEditor } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
 import { EditorContext } from "./editor-context";
 
 interface RenderProps {
@@ -17,7 +16,7 @@ interface TipTapEditorProps {
 export function Editor(props: TipTapEditorProps) {
   const editor = useEditor({
     editable: true,
-    extensions: [StarterKit, Typography],
+    extensions,
     content: props.content,
   });
 
