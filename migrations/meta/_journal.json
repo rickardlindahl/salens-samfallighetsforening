@@ -1,0 +1,34 @@
+{
+  "version": "6",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1716212355498,
+      "tag": "0000_lyrical_gorgon",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1716320776506,
+      "tag": "0001_blue_dark_beast",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1716372050502,
+      "tag": "0002_complete_mauler",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1716457598046,
+      "tag": "0003_special_randall_flagg",
+      "breakpoints": true
+    }
+  ]
+}

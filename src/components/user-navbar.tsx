@@ -1,11 +1,11 @@
 "use client";
 
-import { useAuth } from "@/lib/providers/Auth";
-import type { User } from "@/payload-types";
+import { signOutAction } from "@/actions";
+import type { Session } from "next-auth";
 import Link from "next/link";
-import * as Icons from "./icons";
+import { Icons } from "./icons";
 import { Avatar, AvatarFallback } from "./ui/avatar";
-import { Button, buttonVariants } from "./ui/button";
+import { Button } from "./ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,37 +14,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { cn } from "@/lib/utils";
 
-function renderInitials(user: User | null | undefined) {
-  if (!user || !user.firstName || !user.lastName) {
-    return null;
-  }
-
-  return `${user.firstName.at(0)}${user.lastName.at(0)}`;
+function renderInitials(user: Session["user"]) {
+  const [a, b] = user.name?.split(" ") ?? ["", ""];
+  return `${a?.[0]}${b?.[0]}`;
 }
 
-export function UserNavbar() {
-  const { user } = useAuth();
-
-  if (!user) {
-    return (
-      <Link
-        href="/login"
-        className={cn(
-          buttonVariants({ variant: "outline", size: "icon" }),
-          "overflow-hidden rounded-full",
-        )}
-      >
-        <Avatar>
-          <AvatarFallback>
-            {renderInitials(user) ?? <Icons.User />}
-          </AvatarFallback>
-        </Avatar>
-      </Link>
-    );
-  }
-
+export function UserNavbar({ user }: { user: Session["user"] }) {
+  console.log({ user });
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -55,27 +32,29 @@ export function UserNavbar() {
         >
           <Avatar>
             <AvatarFallback>
-              {renderInitials(user) ?? <Icons.User />}
+              {renderInitials(user) ?? <Icons.user />}
             </AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel>
-          {user.firstName} {user.lastName}
-        </DropdownMenuLabel>
+        <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild className="cursor-pointer" disabled>
           <Link href="/account/settings">Settings</Link>
         </DropdownMenuItem>
-        {user.roles?.includes("admin") && (
-          <DropdownMenuItem asChild className="cursor-pointer">
+        {user.role === "admin" && (
+          <DropdownMenuItem className="cursor-pointer">
             <Link href="/admin">Admin</Link>
           </DropdownMenuItem>
         )}
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild className="cursor-pointer">
-          <Link href="/logout">Logout</Link>
+        <DropdownMenuItem className="cursor-pointer">
+          <form action={signOutAction}>
+            <Button type="submit" variant="link">
+              Logout
+            </Button>
+          </form>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -1,15 +1,15 @@
 "use client";
 
-import * as React from "react";
 import Link from "next/link";
 import type { LinkProps } from "next/link";
 import { useRouter } from "next/navigation";
+import * as React from "react";
 
-import { cn } from "@/lib/utils";
-import * as Icons from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
+import { Icons } from "./icons";
 
 export function MobileNav({
   routeLinks,
@@ -23,7 +23,7 @@ export function MobileNav({
           variant="ghost"
           className="mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
         >
-          <Icons.Menu />
+          <Icons.menu />
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
@@ -33,7 +33,7 @@ export function MobileNav({
           className="flex items-center"
           onOpenChange={setOpen}
         >
-          <Icons.Logo className="mr-2 h-4 w-4" />
+          <Icons.logo className="mr-2 h-4 w-4" />
           <span className="font-bold">Salen</span>
         </MobileLink>
         <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">
