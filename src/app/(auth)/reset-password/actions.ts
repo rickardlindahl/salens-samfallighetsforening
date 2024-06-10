@@ -40,7 +40,7 @@ export async function resetPasswordAction(data: ResetPasswordFormData) {
 
   if (!user) {
     // Don't reveal whether the email exists
-    return redirect("/reset-password?state=success");
+    redirect("/reset-password?state=success");
   }
 
   try {
@@ -48,11 +48,11 @@ export async function resetPasswordAction(data: ResetPasswordFormData) {
     const verificationLink = `${env.NEXTAUTH_URL}/reset-password/${verificationToken}`;
 
     await sendPasswordResetTokenEmail(email, verificationLink);
-
-    return redirect("/reset-password?state=success");
   } catch (e) {
     return {
       isError: true,
     };
   }
+
+  redirect("/reset-password?state=success");
 }

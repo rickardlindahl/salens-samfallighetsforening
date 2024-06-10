@@ -62,10 +62,10 @@ export function ResetPasswordForm() {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>
-              <Link href="/">Return to home</Link>
+              <Link href="/reset-password">Reset another password</Link>
             </AlertDialogCancel>
             <AlertDialogAction>
-              <Link href="/login">Login</Link>
+              <Link href="/">Home</Link>
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
