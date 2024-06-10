@@ -1,9 +1,6 @@
 import { hashString } from "@/lib/utils.server";
-import { neonConfig } from "@neondatabase/serverless";
-import { sql } from "@vercel/postgres";
 import { eq } from "drizzle-orm";
-import { drizzle as drizzleProd } from "drizzle-orm/vercel-postgres";
-import { drizzle as drizzleDev } from "drizzle-orm/postgres-js";
+import { drizzle } from "drizzle-orm/postgres-js";
 import { type Role, users } from "./schema";
 import postgres from "postgres";
 
@@ -12,37 +9,11 @@ if (!POSTGRES_URL) {
   throw new Error("Missing environment variable POSTGRES_URL");
 }
 
-let database: ReturnType<typeof drizzleDev> | ReturnType<typeof drizzleProd>;
-
-// if we're running locally
-if (!process.env.VERCEL_ENV) {
-  const client = postgres(POSTGRES_URL);
-  database = drizzleDev(client);
-
-  console.log("Setting up wsProxy for postgres");
-  // Set the WebSocket proxy to work with the local instance
-  neonConfig.wsProxy = (host) => {
-    console.log("wsProxy", { host });
-
-    return `${host}:5433/v1`;
-  };
-  // Disable all authentication and encryption
-  neonConfig.useSecureWebSocket = false;
-  neonConfig.pipelineTLS = false;
-  neonConfig.pipelineConnect = false;
-} else {
-  database = drizzleProd(sql);
-}
-
-//const client = postgres(`${POSTGRES_URL}?sslmode=require`);
-export const db = database;
+const client = postgres(POSTGRES_URL);
+export const db = drizzle(client);
 
 export async function getUser(email: string) {
-  return await database
-    .select()
-    .from(users)
-    .where(eq(users.email, email))
-    .limit(1);
+  return await db.select().from(users).where(eq(users.email, email)).limit(1);
 }
 
 export async function createUser({
@@ -58,7 +29,7 @@ export async function createUser({
 }) {
   const hashedPassword = await hashString(passwordPlaintext);
 
-  return await database
+  return await db
     .insert(users)
     .values({ email, password: hashedPassword, name, role });
 }

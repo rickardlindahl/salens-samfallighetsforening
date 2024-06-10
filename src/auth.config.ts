@@ -1,5 +1,5 @@
 import { CredentialsSignin, type NextAuthConfig } from "next-auth";
-import { Role } from "./db/schema";
+import type { Role } from "./db/schema";
 
 const adminPaths = ["/admin"];
 const protectedPaths = ["/posts", "/documents", "/households"];

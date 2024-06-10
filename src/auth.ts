@@ -35,6 +35,11 @@ declare module "next-auth" {
        */
     } & DefaultSession["user"];
   }
+
+  interface AdapterUser {
+    password: string;
+    role: Role;
+  }
 }
 
 export const {
