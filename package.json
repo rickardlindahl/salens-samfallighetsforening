@@ -11,7 +11,8 @@
     "lint": "next lint",
     "format": "pnpx @biomejs/biome format --write ./src *.json *.mjs *.cjs",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate"
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio"
   },
   "engines": {
     "node": ">=20",
