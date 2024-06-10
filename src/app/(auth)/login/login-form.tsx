@@ -27,7 +27,6 @@ export const LoginForm = () => {
 
   const onSubmit = useCallback(async (data: LoginFormData) => {
     const response = await loginAction(data);
-    console.log("login response", response);
 
     if (response?.isError) {
       toast.error(

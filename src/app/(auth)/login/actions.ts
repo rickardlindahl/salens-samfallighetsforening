@@ -7,7 +7,6 @@ import type { LoginFormData } from "./schema";
 import { isRedirectError } from "next/dist/client/components/redirect";
 
 export async function loginAction(credentials: LoginFormData) {
-  console.log("server action - login - ", credentials);
   try {
     await signIn("credentials", credentials);
   } catch (e) {
