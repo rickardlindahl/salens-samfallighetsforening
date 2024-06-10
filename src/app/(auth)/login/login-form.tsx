@@ -23,6 +23,10 @@ import { type LoginFormData, loginFormSchema } from "./schema";
 export const LoginForm = () => {
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginFormSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
 
   const onSubmit = useCallback(async (data: LoginFormData) => {
