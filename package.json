@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev --turbo",
-    "build": "next build",
+    "build": "pnpm run db:migrate && next build",
     "start": "next start",
     "lint": "next lint",
     "format": "pnpx @biomejs/biome format --write ./src *.json *.mjs *.cjs",
