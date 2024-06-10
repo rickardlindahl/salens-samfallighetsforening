@@ -14,7 +14,8 @@
     "db:migrate": "drizzle-kit migrate"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=20",
+    "pnpm": "8"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.1.0",
