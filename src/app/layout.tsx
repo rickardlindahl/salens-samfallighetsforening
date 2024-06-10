@@ -3,7 +3,6 @@ import "@/styles/globals.css";
 import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Toaster } from "@/components/ui/sonner";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { ToastMessageListener } from "@/components/toast-message-listener";
@@ -40,7 +39,6 @@ export default function RootLayout({
             <ToastMessageListener />
           </Suspense>
           <TailwindIndicator />
-          <SpeedInsights />
         </ThemeProvider>
       </body>
     </html>

@@ -86,9 +86,6 @@ dependencies:
   '@uploadthing/react':
     specifier: ^6.5.4
     version: 6.6.0(next@14.2.3)(react@18.3.1)(uploadthing@6.12.0)
-  '@vercel/speed-insights':
-    specifier: ^1.0.10
-    version: 1.0.11(next@14.2.3)(react@18.3.1)
   class-variance-authority:
     specifier: ^0.7.0
     version: 0.7.0
@@ -2712,34 +2709,6 @@ packages:
       '@uploadthing/mime-types': 0.2.10
       effect: 3.3.1
       std-env: 3.7.0
-    dev: false
-
-  /@vercel/speed-insights@1.0.11(next@14.2.3)(react@18.3.1):
-    resolution: {integrity: sha512-l9hzSNmJvb2Yqpgd/BzpiT0J0aQDdtqxOf3Xm+iW4PICxVvhY1ef7Otdx4GXI+88dVkws57qMzXiShz19gXzSQ==}
-    requiresBuild: true
-    peerDependencies:
-      '@sveltejs/kit': ^1 || ^2
-      next: '>= 13'
-      react: ^18 || ^19
-      svelte: ^4
-      vue: ^3
-      vue-router: ^4
-    peerDependenciesMeta:
-      '@sveltejs/kit':
-        optional: true
-      next:
-        optional: true
-      react:
-        optional: true
-      svelte:
-        optional: true
-      vue:
-        optional: true
-      vue-router:
-        optional: true
-    dependencies:
-      next: 14.2.3(react-dom@18.3.1)(react@18.3.1)
-      react: 18.3.1
     dev: false
 
   /ansi-regex@5.0.1:
