@@ -9,6 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import type { Document } from "@/db/schema";
+import { readableFileSize } from "@/lib/utils";
 
 export function DocumentsTable({ documents }: { documents: Document[] }) {
   return (
@@ -18,8 +19,8 @@ export function DocumentsTable({ documents }: { documents: Document[] }) {
           <TableRow>
             <TableHead>Namn</TableHead>
             <TableHead>Beskrivning</TableHead>
-            <TableHead className="hidden sm:table-cell">Storlek (kb)</TableHead>
-            <TableHead className="text-right">Ladda ner</TableHead>
+            <TableHead className="hidden sm:table-cell">Storlek</TableHead>
+            <TableHead className="text-center">Ladda ner</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -33,11 +34,11 @@ export function DocumentsTable({ documents }: { documents: Document[] }) {
               </TableCell>
               <TableCell className="hidden sm:table-cell">
                 <div className="hidden text-sm text-muted-foreground md:inline">
-                  {doc.size}
+                  {readableFileSize(doc.size)}
                 </div>
               </TableCell>
               <TableCell className="text-right">
-                <a href={doc.url} download>
+                <a href={doc.url} download className="flex justify-center">
                   <Icons.download className="w-4 h-4" />
                 </a>
               </TableCell>
@@ -56,8 +57,8 @@ export function DocumentsTableLoading() {
         <TableRow>
           <TableHead>Namn</TableHead>
           <TableHead>Beskrivning</TableHead>
-          <TableHead className="hidden sm:table-cell">Storlek (kb)</TableHead>
-          <TableHead className="text-right">Ladda ner</TableHead>
+          <TableHead className="hidden sm:table-cell">Storlek</TableHead>
+          <TableHead className="text-center">Ladda ner</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
