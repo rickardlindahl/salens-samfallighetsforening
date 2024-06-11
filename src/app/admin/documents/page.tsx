@@ -1,3 +1,4 @@
+import { DocumentsTableLoading } from "@/components/documents-table";
 import {
   Accordion,
   AccordionContent,
@@ -12,9 +13,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Suspense } from "react";
-import { DocumentsTable, DocumentsTableLoading } from "./documents-table";
-import { UploadDocumentForm } from "./upload-document-form";
 import { AdminLayout } from "../admin-layout";
+import { DocumentsWrapper } from "./documents";
+import { UploadDocumentForm } from "./upload-document-form";
 
 export default async function AdminUsersPage() {
   return (
@@ -35,7 +36,7 @@ export default async function AdminUsersPage() {
               </AccordionItem>
             </Accordion>
             <Suspense fallback={<DocumentsTableLoading />}>
-              <DocumentsTable />
+              <DocumentsWrapper />
             </Suspense>
           </div>
         </CardContent>

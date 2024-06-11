@@ -8,16 +8,20 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { db } from "@/db";
-import { documents } from "@/db/schema";
+import type { Document } from "@/db/schema";
 
-async function getDocuments() {
-  return await db.select().from(documents);
+export function NoDocuments() {
+  return (
+    <div className="flex flex-col items-center gap-1 text-center">
+      <h3 className="text-2xl font-bold tracking-tight">No documents yet</h3>
+      <p className="text-sm text-muted-foreground">
+        Use the form to upload documents.
+      </p>
+    </div>
+  );
 }
 
-export async function DocumentsTable() {
-  const documents = await getDocuments();
-
+export function DocumentsTable({ documents }: { documents: Document[] }) {
   if (documents.length === 0) {
     return (
       <div className="flex flex-col items-center gap-1 text-center">
