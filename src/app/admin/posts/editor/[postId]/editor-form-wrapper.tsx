@@ -13,7 +13,7 @@ async function getPost(postId: string) {
 
   if (!post) {
     redirect(
-      `/admin/posts?message=${encodeURIComponent("Post does not exist")}`,
+      `/admin/posts?message=${encodeURIComponent("Inlägget finns inte")}`,
     );
   }
 
