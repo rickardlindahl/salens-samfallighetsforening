@@ -30,18 +30,18 @@ export function ResetPasswordTokenForm({ token }: { token: string }) {
 
     if (response?.isError) {
       if (response.isInvalidToken) {
-        toast.error("Invalid token", {
+        toast.error("Felaktig kod", {
           description:
-            "The token is invalid or has expired. Please reset your password again.",
+            "Koden för att återställa lösenordet är felaktig eller har slutat gälla. Var god återställ ditt lösenord igen.",
         });
       } else {
         toast.error(
-          "There was a problem resetting your password. Please try again later.",
+          "Något gick fel när lösenordet skulle återställas. Var god försök igen senare.",
         );
       }
     } else {
-      toast.success("Password updated", {
-        description: "You can now log in with your new password.",
+      toast.success("Lösenord uppdaterat", {
+        description: "Du kan nu logga in med ditt nya lösenord.",
       });
     }
   }, []);
@@ -67,7 +67,7 @@ export function ResetPasswordTokenForm({ token }: { token: string }) {
           {form.formState.isSubmitting && (
             <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
           )}
-          Update password
+          Uppdatera lösenord
         </Button>
       </form>
     </Form>
