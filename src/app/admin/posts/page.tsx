@@ -16,12 +16,12 @@ export default async function AdminPostsPage() {
     <AdminLayout title="Posts">
       <Card x-chunk="dashboard-04-chunk-1">
         <CardHeader>
-          <CardTitle>Posts</CardTitle>
-          <CardDescription>Manage your posts</CardDescription>
+          <CardTitle>Inlägg</CardTitle>
+          <CardDescription>Hantera dina inlägg</CardDescription>
         </CardHeader>
         <CardContent>
           <form action={createPostAction}>
-            <Button type="submit">Create new post</Button>
+            <Button type="submit">Skapa nytt inlägg</Button>
           </form>
           <Suspense fallback={<PostsTableLoading />}>
             <PostsTable />

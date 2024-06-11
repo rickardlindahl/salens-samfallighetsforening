@@ -38,10 +38,9 @@ export function EditorForm({ post }: { post: Post }) {
 
   const onSubmit = useCallback(
     async (data: EditPostFormData, action: Action, json?: JSONContent) => {
-      console.log("onSubmit", { data, action, json });
       if (!json) {
-        return toast.error("Post content is required", {
-          description: "Please write something",
+        return toast.error("Innehåll krävs", {
+          description: "Var god skriv något",
         });
       }
 
@@ -49,10 +48,10 @@ export function EditorForm({ post }: { post: Post }) {
 
       if (response?.isError) {
         toast.error(
-          "There was a problem saving the post. Please try again later.",
+          "Något gick fel när inlägget skulle sparas. Var god försök igen senare.",
         );
       } else {
-        toast.success("Post updated!");
+        toast.success("Inlägg uppdaterat!");
       }
     },
     [],
@@ -61,18 +60,18 @@ export function EditorForm({ post }: { post: Post }) {
   return (
     <>
       <div>
-        <span>Status: {post.draft ? "Draft" : "Published"}</span>
+        <span>Status: {post.draft ? "Utkast" : "Publicerad"}</span>
       </div>
       <div>
         {!post.draft && post.publishDate && (
-          <span>Published: {formatRelative(post.publishDate)}</span>
+          <span>Publicerad: {formatRelative(post.publishDate)}</span>
         )}
       </div>
 
-      <div> Created: {formatRelative(post.createdAt)}</div>
+      <div>Skapad: {formatRelative(post.createdAt)}</div>
       <div>
         {post.updatedAt && (
-          <span>Updated: {formatRelative(post.updatedAt)}</span>
+          <span>Uppdaterad: {formatRelative(post.updatedAt)}</span>
         )}
       </div>
       <Editor content={post.body}>
@@ -82,9 +81,9 @@ export function EditorForm({ post }: { post: Post }) {
               <form
                 onSubmit={form.handleSubmit((values, e) => {
                   if (!(e?.nativeEvent instanceof SubmitEvent)) {
-                    toast.error("Please update your browser", {
+                    toast.error("Webbläsaren stöds ej.", {
                       description:
-                        "You seem to be using an outdated browser. Please use a modern browser, e.g. Google Chrome, and make sure you are using the latest version.",
+                        "Du verkar använda en webbläsare som inte stöds. Ladda ner en modern webbläsare, t.ex. Google Chrome.",
                     });
                     return;
                   }
@@ -119,7 +118,7 @@ export function EditorForm({ post }: { post: Post }) {
                   name="title"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Title</FormLabel>
+                      <FormLabel>Rubrik</FormLabel>
                       <FormControl>
                         <Input
                           type="text"
@@ -148,7 +147,7 @@ export function EditorForm({ post }: { post: Post }) {
                   {form.formState.isSubmitting && (
                     <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                   )}
-                  Save
+                  Spara
                 </Button>
 
                 <Button
@@ -160,7 +159,7 @@ export function EditorForm({ post }: { post: Post }) {
                   {form.formState.isSubmitting && (
                     <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                   )}
-                  {post.draft ? "Publish" : "Unpublish"}
+                  {post.draft ? "Publicera" : "Avpublicera"}
                 </Button>
               </form>
             </Form>

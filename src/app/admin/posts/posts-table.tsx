@@ -23,9 +23,11 @@ export async function PostsTable() {
   if (posts.length === 0) {
     return (
       <div className="flex flex-col items-center gap-1 text-center">
-        <h3 className="text-2xl font-bold tracking-tight">No posts yet</h3>
+        <h3 className="text-2xl font-bold tracking-tight">
+          Inga inlägg skapade än
+        </h3>
         <p className="text-sm text-muted-foreground">
-          Use the button to create the first post.
+          Använd knappen ovan för att skapa ett inlägg.
         </p>
       </div>
     );
@@ -36,11 +38,11 @@ export async function PostsTable() {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Title</TableHead>
-            <TableHead>Created</TableHead>
-            <TableHead className="hidden sm:table-cell">Updated</TableHead>
-            <TableHead>Publish date</TableHead>
-            <TableHead>Edit</TableHead>
+            <TableHead>Rubrik</TableHead>
+            <TableHead>Skapad</TableHead>
+            <TableHead className="hidden sm:table-cell">Uppdaterad</TableHead>
+            <TableHead>Publicerad</TableHead>
+            <TableHead>Redigera</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -87,11 +89,11 @@ export function PostsTableLoading() {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>Title</TableHead>
-          <TableHead>Created</TableHead>
-          <TableHead className="hidden sm:table-cell">Updated</TableHead>
-          <TableHead>Publish date</TableHead>
-          <TableHead>Edit</TableHead>
+          <TableHead>Rubrik</TableHead>
+          <TableHead>Skapad</TableHead>
+          <TableHead className="hidden sm:table-cell">Uppdaterad</TableHead>
+          <TableHead>Publicerad</TableHead>
+          <TableHead>Redigera</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
