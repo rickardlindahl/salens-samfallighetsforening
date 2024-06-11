@@ -8,11 +8,11 @@ import { UserNavbar } from "./user-navbar";
 
 const routeLinks = [
   {
-    title: "Posts",
+    title: "Inlägg",
     href: "/posts",
   },
   {
-    title: "Documents",
+    title: "Dokument",
     href: "/documents",
   },
 ];
