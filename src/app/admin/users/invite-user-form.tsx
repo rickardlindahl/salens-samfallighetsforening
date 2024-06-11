@@ -36,11 +36,11 @@ export function InviteUserForm() {
     if (response?.isError) {
       toast.error(
         response?.isConflict
-          ? "A user with that email already exists"
-          : "Something went wrong. Please try again.",
+          ? "En användare med den angivna eposten finns redan"
+          : "Något gick fel. Var god försök igen.",
       );
     } else {
-      toast.success("User invited!");
+      toast.success("Användaren inbjuden!");
     }
   }, []);
 
@@ -52,7 +52,7 @@ export function InviteUserForm() {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>Namn</FormLabel>
               <FormControl>
                 <Input
                   placeholder="John Doe"
@@ -73,7 +73,7 @@ export function InviteUserForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Epost</FormLabel>
               <FormControl>
                 <Input
                   placeholder="name@example.com"
@@ -94,7 +94,7 @@ export function InviteUserForm() {
           name="role"
           render={({ field }) => (
             <FormItem className="space-y-3">
-              <FormLabel>Role</FormLabel>
+              <FormLabel>Roll</FormLabel>
               <FormControl>
                 <RadioGroup
                   onValueChange={field.onChange}
@@ -105,13 +105,13 @@ export function InviteUserForm() {
                     <FormControl>
                       <RadioGroupItem value="user" />
                     </FormControl>
-                    <FormLabel className="font-normal">User</FormLabel>
+                    <FormLabel className="font-normal">Användare</FormLabel>
                   </FormItem>
                   <FormItem className="flex items-center space-x-3 space-y-0">
                     <FormControl>
                       <RadioGroupItem value="admin" />
                     </FormControl>
-                    <FormLabel className="font-normal">Admin</FormLabel>
+                    <FormLabel className="font-normal">Administratör</FormLabel>
                   </FormItem>
                 </RadioGroup>
               </FormControl>
@@ -127,7 +127,7 @@ export function InviteUserForm() {
           {form.formState.isSubmitting && (
             <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
           )}
-          Invite
+          Skicka inbjudan
         </Button>
       </form>
     </Form>
