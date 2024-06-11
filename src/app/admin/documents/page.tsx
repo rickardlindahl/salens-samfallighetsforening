@@ -22,14 +22,14 @@ export default async function AdminUsersPage() {
     <AdminLayout title="Documents">
       <Card x-chunk="dashboard-04-chunk-1">
         <CardHeader>
-          <CardTitle>Documents</CardTitle>
-          <CardDescription>Manage your documents</CardDescription>
+          <CardTitle>Dokument</CardTitle>
+          <CardDescription>Hantera dokument</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-y-8">
             <Accordion type="single" collapsible>
               <AccordionItem value="item-1">
-                <AccordionTrigger>Upload document</AccordionTrigger>
+                <AccordionTrigger>Ladda upp dokument</AccordionTrigger>
                 <AccordionContent>
                   <UploadDocumentForm />
                 </AccordionContent>
