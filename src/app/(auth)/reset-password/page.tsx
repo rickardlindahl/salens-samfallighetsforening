@@ -8,10 +8,10 @@ export default async function ResetPassword() {
       <div className="flex flex-col space-y-2 text-center">
         <Icons.logo className="mx-auto h-6 w-6" />
         <h1 className="text-2xl font-semibold tracking-tight">
-          Reset password
+          Återställ lösenord
         </h1>
         <p className="text-sm text-muted-foreground">
-          Enter your email below to request a password reset.
+          Fyll i din epost för att återställa ditt lösenord.
         </p>
       </div>
       <Suspense>

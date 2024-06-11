@@ -37,6 +37,9 @@ export function ResetPasswordForm() {
 
   const form = useForm<ResetPasswordFormData>({
     resolver: zodResolver(resetPasswordFormSchema),
+    defaultValues: {
+      email: "",
+    },
   });
 
   const onSubmit = useCallback(async (data: ResetPasswordFormData) => {
@@ -44,7 +47,7 @@ export function ResetPasswordForm() {
 
     if (response?.isError) {
       toast.error(
-        "There was a problem resetting your password. Please try again later.",
+        "Något gick fel när ditt lösenord skulle återställas. Var god försök igen senare.",
       );
     }
   }, []);
@@ -54,18 +57,17 @@ export function ResetPasswordForm() {
       <AlertDialog open>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Password request submitted</AlertDialogTitle>
+            <AlertDialogTitle>Lösenord återställt</AlertDialogTitle>
             <AlertDialogDescription>
-              Check your email for instructions on how to create your new
-              password.
+              Se din epost för instruktioner hur du kan uppdatera ditt lösenord.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>
-              <Link href="/reset-password">Reset another password</Link>
+              <Link href="/reset-password">Återställ ett annat lösenord</Link>
             </AlertDialogCancel>
             <AlertDialogAction>
-              <Link href="/">Home</Link>
+              <Link href="/">Hem</Link>
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -81,7 +83,7 @@ export function ResetPasswordForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Epost</FormLabel>
               <FormControl>
                 <Input
                   placeholder="name@example.com"
@@ -105,7 +107,7 @@ export function ResetPasswordForm() {
           {form.formState.isSubmitting && (
             <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
           )}
-          Reset Password
+          Återställ lösenord
         </Button>
       </form>
     </Form>
