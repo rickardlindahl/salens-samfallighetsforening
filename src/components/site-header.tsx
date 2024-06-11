@@ -27,7 +27,7 @@ export async function SiteHeader({ session }: { session: Session | null }) {
           <ModeToggle />
           {!session?.user && (
             <Button asChild variant="outline">
-              <Link href="/login">Login</Link>
+              <Link href="/login">Logga in</Link>
             </Button>
           )}
           {session?.user && <UserNavbar user={session.user} />}
