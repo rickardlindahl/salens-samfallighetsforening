@@ -21,8 +21,15 @@ async function getPosts() {
 
 export async function PostsWrapper() {
   const posts = await getPosts();
+
   if (posts.length === 0) {
-    return <p>No posts published.</p>;
+    return (
+      <div className="flex flex-col items-center gap-1 text-center">
+        <h3 className="text-2xl font-bold tracking-tight">
+          No posts published yet
+        </h3>
+      </div>
+    );
   }
 
   return (
