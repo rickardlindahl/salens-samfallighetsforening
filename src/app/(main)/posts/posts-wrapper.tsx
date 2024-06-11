@@ -26,7 +26,7 @@ export async function PostsWrapper() {
     return (
       <div className="flex flex-col items-center gap-1 text-center">
         <h3 className="text-2xl font-bold tracking-tight">
-          No posts published yet
+          Inga inlägg skapade ännu
         </h3>
       </div>
     );

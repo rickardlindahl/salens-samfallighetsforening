@@ -35,11 +35,11 @@ export const LoginForm = () => {
     if (response?.isError) {
       toast.error(
         response?.isInvalidLoginError
-          ? "Invalid email or password"
-          : "Something went wrong. Please try again.",
+          ? "Fel epost eller lösenord"
+          : "Något gick fel. Var god försök igen.",
       );
     } else {
-      toast.success("Successfully logged in!");
+      toast.success("Inloggningen lyckades!");
     }
   }, []);
 
@@ -51,7 +51,7 @@ export const LoginForm = () => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Epost</FormLabel>
               <FormControl>
                 <Input
                   placeholder="name@example.com"
@@ -76,7 +76,7 @@ export const LoginForm = () => {
           {form.formState.isSubmitting && (
             <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
           )}
-          Sign In
+          Logga in
         </Button>
       </form>
     </Form>

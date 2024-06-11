@@ -8,11 +8,11 @@ import { UserNavbar } from "./user-navbar";
 
 const routeLinks = [
   {
-    title: "Posts",
+    title: "Inlägg",
     href: "/posts",
   },
   {
-    title: "Documents",
+    title: "Dokument",
     href: "/documents",
   },
 ];
@@ -27,7 +27,7 @@ export async function SiteHeader({ session }: { session: Session | null }) {
           <ModeToggle />
           {!session?.user && (
             <Button asChild variant="outline">
-              <Link href="/login">Login</Link>
+              <Link href="/login">Logga in</Link>
             </Button>
           )}
           {session?.user && <UserNavbar user={session.user} />}

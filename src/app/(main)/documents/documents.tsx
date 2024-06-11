@@ -11,8 +11,10 @@ export async function Documents() {
 
   if (documents.length === 0) {
     return (
-      <div className="flex flex-col items-center gap-1 text-center">
-        <h3 className="text-2xl font-bold tracking-tight">No documents yet</h3>
+      <div>
+        <h3 className="text-xl font-bold tracking-tight">
+          Inga dokument uppladdade ännu
+        </h3>
       </div>
     );
   }

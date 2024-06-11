@@ -17,8 +17,10 @@ export default async function AdminPostsEditor({
     <AdminLayout title="Editor">
       <Card x-chunk="dashboard-04-chunk-1">
         <CardHeader>
-          <CardTitle>Editing post</CardTitle>
-          <CardDescription>Edit your posts</CardDescription>
+          <CardTitle>Redigera inlägg</CardTitle>
+          <CardDescription>
+            Ange rubrik, brödtext och klicka Publicera när du är klar.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <Suspense>

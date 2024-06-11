@@ -8,13 +8,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
-import {
-  LayoutDashboard,
-  Paperclip,
-  Settings,
-  SquarePen,
-  Users2,
-} from "lucide-react";
+import { LayoutDashboard, Paperclip, SquarePen, Users2 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -48,7 +42,7 @@ export function AdminSidebar() {
                 <span className="sr-only">Admin</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Dashboard</TooltipContent>
+            <TooltipContent side="right">Översikt</TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -65,10 +59,10 @@ export function AdminSidebar() {
                 )}
               >
                 <SquarePen className="h-5 w-5" />
-                <span className="sr-only">Posts</span>
+                <span className="sr-only">Inlägg</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Posts</TooltipContent>
+            <TooltipContent side="right">Inlägg</TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -85,10 +79,10 @@ export function AdminSidebar() {
                 )}
               >
                 <Paperclip className="h-5 w-5" />
-                <span className="sr-only">Documents</span>
+                <span className="sr-only">Dokument</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Documents</TooltipContent>
+            <TooltipContent side="right">Dokument</TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -105,13 +99,14 @@ export function AdminSidebar() {
                 )}
               >
                 <Users2 className="h-5 w-5" />
-                <span className="sr-only">Users</span>
+                <span className="sr-only">Användare</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Users</TooltipContent>
+            <TooltipContent side="right">Användare</TooltipContent>
           </Tooltip>
         </TooltipProvider>
       </nav>
+      {/*
       <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
         <TooltipProvider>
           <Tooltip>
@@ -121,13 +116,14 @@ export function AdminSidebar() {
                 className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
               >
                 <Settings className="h-5 w-5" />
-                <span className="sr-only">Settings</span>
+                <span className="sr-only">Inställningar</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Settings</TooltipContent>
+            <TooltipContent side="right">Inställningar</TooltipContent>
           </Tooltip>
         </TooltipProvider>
       </nav>
+      */}
     </aside>
   );
 }

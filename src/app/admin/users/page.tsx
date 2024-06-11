@@ -21,14 +21,14 @@ export default async function AdminUsersPage() {
     <AdminLayout title="Users">
       <Card x-chunk="dashboard-04-chunk-1">
         <CardHeader>
-          <CardTitle>Users</CardTitle>
-          <CardDescription>Manage your users</CardDescription>
+          <CardTitle>Användare</CardTitle>
+          <CardDescription>Hantera användare</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-y-8">
             <Accordion type="single" collapsible>
               <AccordionItem value="item-1">
-                <AccordionTrigger>Invite user</AccordionTrigger>
+                <AccordionTrigger>Bjud in användare</AccordionTrigger>
                 <AccordionContent>
                   <InviteUserForm />
                 </AccordionContent>

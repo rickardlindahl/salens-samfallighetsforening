@@ -29,11 +29,11 @@ export function AdminNavbarMobile() {
       <SheetContent side="left" className="sm:max-w-xs">
         <nav className="grid gap-6 text-lg font-medium">
           <Link
-            href="#"
+            href="/"
             className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
           >
             <Icons.logo className="h-5 w-5 transition-all group-hover:scale-110" />
-            <span className="sr-only">Salens Samfällighetsförening Inc</span>
+            <span className="sr-only">Salen Samfällighetsförening</span>
           </Link>
           <Link
             href="/admin"
@@ -47,7 +47,7 @@ export function AdminNavbarMobile() {
             )}
           >
             <LayoutDashboard className="h-5 w-5" />
-            Admin
+            Översikt
           </Link>
           <Link
             href="/admin/posts"
@@ -61,7 +61,7 @@ export function AdminNavbarMobile() {
             )}
           >
             <SquarePen className="h-5 w-5" />
-            Orders
+            Inlägg
           </Link>
           <Link
             href="/admin/documents"
@@ -75,7 +75,7 @@ export function AdminNavbarMobile() {
             )}
           >
             <Paperclip className="h-5 w-5" />
-            Products
+            Dokument
           </Link>
           <Link
             href="/admin/users"
@@ -89,8 +89,9 @@ export function AdminNavbarMobile() {
             )}
           >
             <Users2 className="h-5 w-5" />
-            Customers
+            Användare
           </Link>
+          {/*
           <Link
             href="#"
             className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
@@ -98,6 +99,7 @@ export function AdminNavbarMobile() {
             <Settings className="h-5 w-5" />
             Settings
           </Link>
+          */}
         </nav>
       </SheetContent>
     </Sheet>

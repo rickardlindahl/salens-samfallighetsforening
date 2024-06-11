@@ -14,9 +14,11 @@ export default async function LoginPage() {
     <>
       <div className="flex flex-col space-y-2 text-center">
         <Icons.logo className="mx-auto h-6 w-6" />
-        <h1 className="text-2xl font-semibold tracking-tight">Welcome back</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">
+          Välkommen tillbaka
+        </h1>
         <p className="text-sm text-muted-foreground">
-          Enter your credentials to sign in to your account
+          Fyll i din epost och lösenord för att logga in
         </p>
       </div>
       <Suspense>
@@ -27,7 +29,7 @@ export default async function LoginPage() {
           href="/reset-password"
           className="hover:text-brand underline underline-offset-4"
         >
-          Forgot password?
+          Glömt ditt lösenord?
         </Link>
       </p>
     </>

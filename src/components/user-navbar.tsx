@@ -41,7 +41,7 @@ export function UserNavbar({ user }: { user: Session["user"] }) {
         <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild className="cursor-pointer" disabled>
-          <Link href="/account/settings">Settings</Link>
+          <Link href="/account/settings">Inställningar</Link>
         </DropdownMenuItem>
         {user.role === "admin" && (
           <DropdownMenuItem className="cursor-pointer">
@@ -52,7 +52,7 @@ export function UserNavbar({ user }: { user: Session["user"] }) {
         <DropdownMenuItem className="cursor-pointer">
           <form action={signOutAction}>
             <Button type="submit" variant="link">
-              Logout
+              Logga ut
             </Button>
           </form>
         </DropdownMenuItem>

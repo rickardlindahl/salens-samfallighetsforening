@@ -10,38 +10,16 @@ import {
 } from "@/components/ui/table";
 import type { Document } from "@/db/schema";
 
-export function NoDocuments() {
-  return (
-    <div className="flex flex-col items-center gap-1 text-center">
-      <h3 className="text-2xl font-bold tracking-tight">No documents yet</h3>
-      <p className="text-sm text-muted-foreground">
-        Use the form to upload documents.
-      </p>
-    </div>
-  );
-}
-
 export function DocumentsTable({ documents }: { documents: Document[] }) {
-  if (documents.length === 0) {
-    return (
-      <div className="flex flex-col items-center gap-1 text-center">
-        <h3 className="text-2xl font-bold tracking-tight">No documents yet</h3>
-        <p className="text-sm text-muted-foreground">
-          Use the form to upload documents.
-        </p>
-      </div>
-    );
-  }
-
   return (
     <>
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Name</TableHead>
-            <TableHead>Description</TableHead>
-            <TableHead className="hidden sm:table-cell">Size</TableHead>
-            <TableHead className="text-right">Download</TableHead>
+            <TableHead>Namn</TableHead>
+            <TableHead>Beskrivning</TableHead>
+            <TableHead className="hidden sm:table-cell">Storlek (kb)</TableHead>
+            <TableHead className="text-right">Ladda ner</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -76,10 +54,10 @@ export function DocumentsTableLoading() {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>Name</TableHead>
-          <TableHead>Description</TableHead>
-          <TableHead className="hidden sm:table-cell">Size</TableHead>
-          <TableHead className="text-right">Download</TableHead>
+          <TableHead>Namn</TableHead>
+          <TableHead>Beskrivning</TableHead>
+          <TableHead className="hidden sm:table-cell">Storlek (kb)</TableHead>
+          <TableHead className="text-right">Ladda ner</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Icons } from "./icons";
 
 export function SiteFooter() {
@@ -13,18 +14,18 @@ export function SiteFooter() {
 
       <section className="container py-20 grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-x-12 gap-y-8">
         <div className="col-span-full xl:col-span-2">
-          <a
-            rel="noreferrer noopener"
+          <Link
             href="/"
-            className="font-bold text-xl flex"
+            className="mr-6 flex items-center space-x-2"
+            rel="noopener noreferrer"
           >
-            <Icons.logo />
-            Salen
-          </a>
+            <Icons.logo className="h-6 w-6" />
+            <span className="font-bold text-xl inline-block">Salen</span>
+          </Link>
         </div>
 
         <div className="flex flex-col gap-2">
-          <h3 className="font-bold text-lg">Links</h3>
+          <h3 className="font-bold text-lg">Länkar</h3>
           <div>
             <a
               rel="noreferrer noopener"

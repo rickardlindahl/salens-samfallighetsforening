@@ -20,7 +20,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
         >
           <>
             <Icons.arrowLeft className="mr-2 h-4 w-4" />
-            Back
+            Tillbaka
           </>
         </Link>
         <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">

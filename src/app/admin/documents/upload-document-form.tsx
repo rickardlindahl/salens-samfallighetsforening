@@ -40,12 +40,12 @@ export function UploadDocumentForm() {
   });
 
   const { startUpload, isUploading } = useUploadThing("documentUploader", {
-    onUploadError: (error) => {
-      toast.error("An error occurred while uploading the file.");
-      console.error(error);
+    onUploadError: (_error) => {
+      toast.error("Ett fel inträffade när filen skulle laddas upp.");
+      // TODO: This should be tracked in some analytics
     },
     onClientUploadComplete: () => {
-      toast.success("File uploaded successfully.");
+      toast.success("Filen har laddats upp!");
     },
   });
 
@@ -74,7 +74,7 @@ export function UploadDocumentForm() {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Description</FormLabel>
+              <FormLabel>Beskrivning</FormLabel>
               <FormControl>
                 <Input
                   type="text"
@@ -94,7 +94,7 @@ export function UploadDocumentForm() {
           name="file"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>File</FormLabel>
+              <FormLabel>Fil</FormLabel>
               <FormControl>
                 <Input
                   type="file"
@@ -119,7 +119,7 @@ export function UploadDocumentForm() {
           name="createdAt"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Date</FormLabel>
+              <FormLabel>Datum</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
@@ -133,7 +133,7 @@ export function UploadDocumentForm() {
                       {field.value ? (
                         format(field.value, "PPP")
                       ) : (
-                        <span>Pick a date</span>
+                        <span>Välj ett datum</span>
                       )}
                       <Icons.calendar className="ml-auto h-4 w-4 opacity-50" />
                     </Button>
@@ -151,7 +151,7 @@ export function UploadDocumentForm() {
                   />
                 </PopoverContent>
               </Popover>
-              <FormDescription>When the document was created.</FormDescription>
+              <FormDescription>När dokumentet skapades.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -161,7 +161,7 @@ export function UploadDocumentForm() {
           {isUploading && (
             <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
           )}
-          Upload
+          Ladda upp
         </Button>
       </form>
     </Form>
