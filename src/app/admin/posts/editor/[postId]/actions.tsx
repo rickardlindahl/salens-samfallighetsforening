@@ -3,12 +3,14 @@
 import { auth } from "@/auth";
 import { db } from "@/db";
 import { posts } from "@/db/schema";
-import { redirect } from "next/navigation";
-import type { EditPostFormData } from "./schema";
-import { eq } from "drizzle-orm";
+import { env } from "@/env";
+import { sendPostPublishedEmail } from "@/lib/email.server";
 import type { JSONContent } from "@tiptap/react";
-import type { Action } from "./action-types";
+import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import type { Action } from "./action-types";
+import type { EditPostFormData } from "./schema";
 
 export async function editPostAction(
   data: EditPostFormData,
@@ -41,10 +43,13 @@ export async function editPostAction(
       })
       .where(eq(posts.id, id));
 
+    if (action === "publish") {
+      await sendPostPublishedEmail(`${env.NEXTAUTH_URL}/posts/${id}`);
+    }
+
     revalidatePath(`/admin/posts/editor/${data.id}`);
     revalidatePath("/posts");
   } catch (e) {
-    console.log(e);
     return {
       isError: true,
     };

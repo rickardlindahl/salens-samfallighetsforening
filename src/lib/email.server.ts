@@ -1,8 +1,14 @@
 "use server";
 
+import { db } from "@/db";
+import { users } from "@/db/schema";
 import { env } from "@/env";
 import FormData from "form-data";
 import Mailgun, { type MailgunMessageData } from "mailgun.js";
+
+async function getEmails() {
+  return await db.select({ email: users.email }).from(users);
+}
 
 function createClient() {
   const mailgun = new Mailgun(FormData);
@@ -68,6 +74,20 @@ export async function sendInviteEmail(
       name,
       tokenValidityPeriod,
       link: verificationLink,
+    }),
+  });
+}
+
+export async function sendPostPublishedEmail(link: string) {
+  console.log(`Sending post-published email with link ${link}`);
+
+  const recipients = await getEmails();
+
+  await sendEmail({
+    template: "post-published",
+    to: recipients.map(({ email }) => email),
+    "h:X-Mailgun-Variables": JSON.stringify({
+      link,
     }),
   });
 }
