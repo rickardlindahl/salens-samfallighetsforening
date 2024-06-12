@@ -36,7 +36,9 @@ export async function sendResetPasswordEmail(
   verificationLink: string,
   tokenValidityPeriod: string,
 ) {
-  console.log("Sending email to", email, "with link", verificationLink);
+  console.log(
+    `Sending reset-password email to ${email} with link ${verificationLink}`,
+  );
 
   await sendEmail({
     template: "reset-password",
@@ -51,9 +53,21 @@ export async function sendResetPasswordEmail(
 
 export async function sendInviteEmail(
   email: string,
-  temporaryPassword: string,
+  name: string,
+  verificationLink: string,
+  tokenValidityPeriod: string,
 ) {
   console.log(
-    `Sending invite email to ${email} - temporaryPassword: ${temporaryPassword}`,
+    `Sending invite-user email to ${email} with link ${verificationLink}`,
   );
+
+  await sendEmail({
+    template: "invite-user",
+    to: email,
+    "h:X-Mailgun-Variables": JSON.stringify({
+      name,
+      tokenValidityPeriod,
+      link: verificationLink,
+    }),
+  });
 }

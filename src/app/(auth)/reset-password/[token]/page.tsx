@@ -1,4 +1,5 @@
 import { Icons } from "@/components/icons";
+import Link from "next/link";
 import React, { Suspense } from "react";
 import { ResetPasswordTokenForm } from "./reset-password-token-form";
 
@@ -18,6 +19,15 @@ export default async function ResetPassword({
       <Suspense>
         <ResetPasswordTokenForm token={token} />
       </Suspense>
+      <p className="px-8 text-center text-sm text-muted-foreground">
+        Problem att uppdatera ditt lösenord?
+        <Link
+          href="/reset-password"
+          className="hover:text-brand underline underline-offset-4"
+        >
+          Återställ lösenord igen
+        </Link>
+      </p>
     </>
   );
 }

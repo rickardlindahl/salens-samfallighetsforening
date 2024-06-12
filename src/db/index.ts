@@ -31,5 +31,6 @@ export async function createUser({
 
   return await db
     .insert(users)
-    .values({ email, password: hashedPassword, name, role });
+    .values({ email, password: hashedPassword, name, role })
+    .returning();
 }
