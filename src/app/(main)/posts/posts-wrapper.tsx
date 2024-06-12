@@ -34,8 +34,8 @@ export async function PostsWrapper() {
 
   return (
     <div className="grid gap-10">
-      {posts.map((data) => (
-        <Post key={data.postId} {...data} />
+      {posts.map((post) => (
+        <Post key={post.postId} {...post} />
       ))}
     </div>
   );

@@ -2,6 +2,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { jsonToHTML } from "@/lib/tiptap-utils.server";
 import { cn, formatRelative } from "@/lib/utils";
 import type { JSONContent } from "@tiptap/react";
+import Link from "next/link";
 
 type PostProps = {
   authorName: string | null;
@@ -12,33 +13,35 @@ type PostProps = {
   postBody: JSONContent | null;
 };
 
-export function Post(props: PostProps) {
+export function Post(post: PostProps) {
   return (
     <article
-      key={props.postId}
+      key={post.postId}
       className="group relative flex flex-col space-y-2 bg-muted/50 border rounded-lg p-4 sm:p-8"
     >
-      <h2 className="text-2xl font-extrabold">{props.postTitle}</h2>
-      {props.postPublishDate && (
+      <Link href={`/posts/${post.postId}`}>
+        <h2 className="text-2xl font-extrabold">{post.postTitle}</h2>
+      </Link>
+      {post.postPublishDate && (
         <p className="text-sm text-muted-foreground">
-          <time dateTime={props.postPublishDate.toISOString()}>
-            {formatRelative(props.postPublishDate)}
+          <time dateTime={post.postPublishDate.toISOString()}>
+            {formatRelative(post.postPublishDate)}
           </time>
         </p>
       )}
-      {props.postBody && (
+      {post.postBody && (
         <div
           // biome-ignore lint/security/noDangerouslySetInnerHtml: Let's trust the input from tiptap
-          dangerouslySetInnerHTML={{ __html: jsonToHTML(props.postBody) }}
+          dangerouslySetInnerHTML={{ __html: jsonToHTML(post.postBody) }}
         />
       )}
-      {props.authorName && props.authorEmail && (
+      {post.authorName && post.authorEmail && (
         <div>
           <a
             className={cn(buttonVariants({ variant: "link" }), "px-0")}
-            href={`mailto:${props.authorEmail}`}
+            href={`mailto:${post.authorEmail}`}
           >
-            {props.authorName}
+            {post.authorName}
           </a>
         </div>
       )}
