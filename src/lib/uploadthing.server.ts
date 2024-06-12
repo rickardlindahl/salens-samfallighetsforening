@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { type FileRouter, createUploadthing } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
 import { z } from "zod";
+import { sendDocumentUploadedEmail } from "./email.server";
 
 const f = createUploadthing();
 
@@ -47,10 +48,10 @@ export const ourFileRouter = {
 
       await db.insert(documents).values(newDocument);
 
+      await sendDocumentUploadedEmail(newDocument.url);
+
       revalidatePath("/admin/documents");
       revalidatePath("/documents");
-
-      //await sendNewDocumentEmail(newDocument);
 
       // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
       return { uploadedBy: metadata.userId };

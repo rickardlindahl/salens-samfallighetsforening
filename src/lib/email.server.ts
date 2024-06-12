@@ -91,3 +91,19 @@ export async function sendPostPublishedEmail(link: string) {
     }),
   });
 }
+
+export async function sendDocumentUploadedEmail(downloadLink: string) {
+  console.log(
+    `Sending document-uploaded email with download-link ${downloadLink}`,
+  );
+
+  const recipients = await getEmails();
+
+  await sendEmail({
+    template: "document-uploaded",
+    to: recipients.map(({ email }) => email),
+    "h:X-Mailgun-Variables": JSON.stringify({
+      downloadLink,
+    }),
+  });
+}
