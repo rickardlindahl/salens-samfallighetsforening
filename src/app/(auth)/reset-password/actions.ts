@@ -33,7 +33,7 @@ export async function resetPasswordAction(data: ResetPasswordFormData) {
   const { email } = data;
 
   const [user] = await db
-    .select({ id: users.id, email: users.email })
+    .select({ id: users.id, email: users.email, name: users.name })
     .from(users)
     .where(eq(users.email, email))
     .limit(1);
@@ -47,7 +47,7 @@ export async function resetPasswordAction(data: ResetPasswordFormData) {
     const verificationToken = await createPasswordResetToken(user.id);
     const verificationLink = `${env.NEXTAUTH_URL}/reset-password/${verificationToken}`;
 
-    await sendPasswordResetTokenEmail(email, verificationLink);
+    await sendPasswordResetTokenEmail(user.email, user.name, verificationLink);
   } catch (e) {
     return {
       isError: true,

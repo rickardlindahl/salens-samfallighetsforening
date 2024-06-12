@@ -57,7 +57,7 @@ export function ResetPasswordForm() {
       <AlertDialog open>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Lösenord återställt</AlertDialogTitle>
+            <AlertDialogTitle>Återställning av lösenord</AlertDialogTitle>
             <AlertDialogDescription>
               Se din epost för instruktioner hur du kan uppdatera ditt lösenord.
             </AlertDialogDescription>
