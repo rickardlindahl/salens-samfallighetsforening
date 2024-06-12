@@ -3,7 +3,7 @@
 import { db } from "@/db";
 import { passwordResetTokens, users } from "@/db/schema";
 import { env } from "@/env";
-import { sendPasswordResetTokenEmail } from "@/lib/email.server";
+import { sendResetPasswordEmail } from "@/lib/email.server";
 import { generateRandomString, hashString } from "@/lib/utils.server";
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
@@ -47,7 +47,7 @@ export async function resetPasswordAction(data: ResetPasswordFormData) {
     const verificationToken = await createPasswordResetToken(user.id);
     const verificationLink = `${env.NEXTAUTH_URL}/reset-password/${verificationToken}`;
 
-    await sendPasswordResetTokenEmail(user.email, user.name, verificationLink);
+    await sendResetPasswordEmail(user.email, user.name, verificationLink);
   } catch (e) {
     return {
       isError: true,

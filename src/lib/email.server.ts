@@ -30,7 +30,7 @@ async function sendEmail(data: MailgunMessageData) {
   });
 }
 
-export async function sendPasswordResetTokenEmail(
+export async function sendResetPasswordEmail(
   email: string,
   name: string,
   verificationLink: string,
