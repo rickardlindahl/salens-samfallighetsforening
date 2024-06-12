@@ -1,33 +1,14 @@
 "use server";
 
 import { db } from "@/db";
-import { passwordResetTokens, users } from "@/db/schema";
+import { users } from "@/db/schema";
 import { env } from "@/env";
 import { sendResetPasswordEmail } from "@/lib/email.server";
-import { generateRandomString, hashString } from "@/lib/utils.server";
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
-import { TimeSpan, createDate } from "oslo";
+import { TimeSpan } from "oslo";
 import type { ResetPasswordFormData } from "./schema";
-
-export async function createPasswordResetToken(
-  userId: string,
-): Promise<string> {
-  await db
-    .delete(passwordResetTokens)
-    .where(eq(passwordResetTokens.userId, userId));
-
-  const tokenId = await generateRandomString(40);
-  const tokenHash = await hashString(tokenId);
-
-  await db.insert(passwordResetTokens).values({
-    token: tokenHash,
-    userId,
-    expiresAt: createDate(new TimeSpan(2, "h")),
-  });
-
-  return tokenId;
-}
+import { createPasswordResetToken } from "@/lib/password.server";
 
 export async function resetPasswordAction(data: ResetPasswordFormData) {
   const { email } = data;
@@ -44,10 +25,18 @@ export async function resetPasswordAction(data: ResetPasswordFormData) {
   }
 
   try {
-    const verificationToken = await createPasswordResetToken(user.id);
+    const verificationToken = await createPasswordResetToken(
+      user.id,
+      new TimeSpan(2, "h"),
+    );
     const verificationLink = `${env.NEXTAUTH_URL}/reset-password/${verificationToken}`;
 
-    await sendResetPasswordEmail(user.email, user.name, verificationLink);
+    await sendResetPasswordEmail(
+      user.email,
+      user.name,
+      verificationLink,
+      "2 timmar",
+    );
   } catch (e) {
     return {
       isError: true,

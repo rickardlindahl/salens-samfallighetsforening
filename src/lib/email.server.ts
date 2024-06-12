@@ -34,6 +34,7 @@ export async function sendResetPasswordEmail(
   email: string,
   name: string,
   verificationLink: string,
+  tokenValidityPeriod: string,
 ) {
   console.log("Sending email to", email, "with link", verificationLink);
 
@@ -42,6 +43,7 @@ export async function sendResetPasswordEmail(
     to: email,
     "h:X-Mailgun-Variables": JSON.stringify({
       name,
+      tokenValidityPeriod,
       link: verificationLink,
     }),
   });
