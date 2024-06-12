@@ -21,7 +21,6 @@ function renderInitials(user: Session["user"]) {
 }
 
 export function UserNavbar({ user }: { user: Session["user"] }) {
-  console.log({ user });
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -44,16 +43,18 @@ export function UserNavbar({ user }: { user: Session["user"] }) {
           <Link href="/account/settings">Inställningar</Link>
         </DropdownMenuItem>
         {user.role === "admin" && (
-          <DropdownMenuItem className="cursor-pointer">
+          <DropdownMenuItem asChild className="cursor-pointer">
             <Link href="/admin">Admin</Link>
           </DropdownMenuItem>
         )}
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="cursor-pointer">
-          <form action={signOutAction}>
-            <Button type="submit" variant="link">
-              Logga ut
-            </Button>
+        <DropdownMenuItem asChild className="cursor-pointer">
+          <form action={signOutAction} className="w-full cursor-pointer">
+            <input
+              type="submit"
+              value="Logga ut"
+              className="w-full text-left cursor-pointer"
+            />
           </form>
         </DropdownMenuItem>
       </DropdownMenuContent>
