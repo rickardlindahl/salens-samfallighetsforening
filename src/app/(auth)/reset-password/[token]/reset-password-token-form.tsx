@@ -16,7 +16,6 @@ import { PasswordField } from "@/components/password-field";
 import { Icons } from "@/components/icons";
 
 export function ResetPasswordTokenForm({ token }: { token: string }) {
-  console.log("ResetPasswordTokenForm", token);
   const form = useForm<ResetPasswordTokenFormData>({
     resolver: zodResolver(resetPasswordTokenFormSchema),
     defaultValues: {
@@ -41,7 +40,7 @@ export function ResetPasswordTokenForm({ token }: { token: string }) {
       }
     } else {
       toast.success("Lösenord uppdaterat", {
-        description: "Du kan nu logga in med ditt nya lösenord.",
+        description: "Du är nu inloggad med ditt nya lösenord. Välkommen!",
       });
     }
   }, []);

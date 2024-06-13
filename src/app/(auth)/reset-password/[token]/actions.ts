@@ -6,7 +6,7 @@ import { db } from "@/db";
 import { passwordResetTokens, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { isWithinExpirationDate } from "oslo";
-import { redirect } from "next/navigation";
+import { signIn } from "@/auth";
 
 export async function resetPasswordTokenAction(
   data: ResetPasswordTokenFormData,
@@ -34,10 +34,11 @@ export async function resetPasswordTokenAction(
   }
 
   const hashedPassword = await hashString(password);
-  await db
+  const [{ email }] = await db
     .update(users)
     .set({ password: hashedPassword })
-    .where(eq(users.id, token.userId));
+    .where(eq(users.id, token.userId))
+    .returning({ email: users.email });
 
-  return redirect("/login");
+  await signIn("credentials", { email, password, redirectTo: "/" });
 }
