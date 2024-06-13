@@ -92,7 +92,12 @@ export async function sendPostPublishedEmail(link: string) {
   });
 }
 
-export async function sendDocumentUploadedEmail(downloadLink: string) {
+export async function sendDocumentUploadedEmail(
+  filename: string,
+  description: string,
+  size: string,
+  downloadLink: string,
+) {
   console.log(
     `Sending document-uploaded email with download-link ${downloadLink}`,
   );
@@ -103,6 +108,9 @@ export async function sendDocumentUploadedEmail(downloadLink: string) {
     template: "document-uploaded",
     to: recipients.map(({ email }) => email),
     "h:X-Mailgun-Variables": JSON.stringify({
+      filename,
+      description,
+      size,
       downloadLink,
     }),
   });

@@ -6,6 +6,7 @@ import { type FileRouter, createUploadthing } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
 import { z } from "zod";
 import { sendDocumentUploadedEmail } from "./email.server";
+import { readableFileSize } from "./utils";
 
 const f = createUploadthing();
 
@@ -48,7 +49,12 @@ export const ourFileRouter = {
 
       await db.insert(documents).values(newDocument);
 
-      await sendDocumentUploadedEmail(newDocument.url);
+      await sendDocumentUploadedEmail(
+        newDocument.name,
+        newDocument.description,
+        readableFileSize(newDocument.size),
+        newDocument.url,
+      );
 
       revalidatePath("/admin/documents");
       revalidatePath("/documents");
