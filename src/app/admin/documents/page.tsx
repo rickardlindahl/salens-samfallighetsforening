@@ -1,4 +1,4 @@
-import { DocumentsTableLoading } from "@/components/documents-table";
+import { DocumentsListLoading } from "@/components/documents-list";
 import {
   Accordion,
   AccordionContent,
@@ -35,7 +35,7 @@ export default async function AdminUsersPage() {
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
-            <Suspense fallback={<DocumentsTableLoading />}>
+            <Suspense fallback={<DocumentsListLoading />}>
               <DocumentsWrapper />
             </Suspense>
           </div>

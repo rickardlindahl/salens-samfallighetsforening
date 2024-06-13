@@ -1,4 +1,4 @@
-import { DocumentsTable } from "@/components/documents-table";
+import { DocumentsList } from "@/components/documents-list";
 import { db } from "@/db";
 import { documents } from "@/db/schema";
 
@@ -19,5 +19,5 @@ export async function Documents() {
     );
   }
 
-  return <DocumentsTable documents={documents} />;
+  return <DocumentsList documents={documents} />;
 }

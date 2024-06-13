@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { Documents } from "./documents";
-import { DocumentsTableLoading } from "@/components/documents-table";
+import { DocumentsListLoading } from "@/components/documents-list";
 
 export default async function DocumentsPage() {
   return (
@@ -18,7 +18,7 @@ export default async function DocumentsPage() {
 
       <hr className="my-8" />
 
-      <Suspense fallback={<DocumentsTableLoading />}>
+      <Suspense fallback={<DocumentsListLoading />}>
         <Documents />
       </Suspense>
     </div>
