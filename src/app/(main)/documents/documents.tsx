@@ -1,9 +1,10 @@
 import { DocumentsList } from "@/components/documents-list";
 import { db } from "@/db";
 import { documents } from "@/db/schema";
+import { desc } from "drizzle-orm";
 
 async function getDocuments() {
-  return await db.select().from(documents);
+  return await db.select().from(documents).orderBy(desc(documents.createdAt));
 }
 
 export async function Documents() {
