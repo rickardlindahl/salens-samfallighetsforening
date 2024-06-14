@@ -1,11 +1,12 @@
 import "@/styles/globals.css";
 
-import { Inter } from "next/font/google";
-import { cn } from "@/lib/utils";
-import { ThemeProvider } from "@/components/theme-provider";
-import { Toaster } from "@/components/ui/sonner";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
+import { ThemeProvider } from "@/components/theme-provider";
 import { ToastMessageListener } from "@/components/toast-message-listener";
+import { Toaster } from "@/components/ui/sonner";
+import { cn } from "@/lib/utils";
+import PlausibleProvider from "next-plausible";
+import { Inter } from "next/font/google";
 import { Suspense } from "react";
 
 export const dynamic = "force-dynamic";
@@ -27,19 +28,25 @@ export default function RootLayout({
           inter.variable,
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
+        <PlausibleProvider
+          domain="salenssamfallighetsforening.se"
+          selfHosted
+          trackFileDownloads
         >
-          {children}
-          <Toaster richColors />
-          <Suspense>
-            <ToastMessageListener />
-          </Suspense>
-          <TailwindIndicator />
-        </ThemeProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+            <Toaster richColors />
+            <Suspense>
+              <ToastMessageListener />
+            </Suspense>
+            <TailwindIndicator />
+          </ThemeProvider>
+        </PlausibleProvider>
       </body>
     </html>
   );
