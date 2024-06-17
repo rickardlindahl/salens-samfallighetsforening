@@ -10,7 +10,7 @@ export default async function PostsPage() {
             Inlägg
           </h1>
           <p className="text-xl text-muted-foreground">
-            Här samlas inlägg från Samfälligheten.
+            Här samlas inlägg från samfälligheten.
           </p>
         </div>
       </div>

@@ -12,7 +12,7 @@ export default async function OverviewPage() {
             Översikt
           </h1>
           <p className="text-xl text-muted-foreground">
-            Här samlas de senaste inläggen och dokumenten från Samfälligheten.
+            Här samlas de senaste inläggen och dokumenten från samfälligheten.
           </p>
         </div>
       </div>

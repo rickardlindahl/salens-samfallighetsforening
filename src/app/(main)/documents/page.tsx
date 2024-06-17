@@ -11,7 +11,7 @@ export default async function DocumentsPage() {
             Dokument
           </h1>
           <p className="text-xl text-muted-foreground">
-            Här samlas dokument från Samfälligheten.
+            Här samlas dokument från samfälligheten.
           </p>
         </div>
       </div>
