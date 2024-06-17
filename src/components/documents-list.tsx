@@ -1,6 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import type { Document } from "@/db/schema";
-import { cn, formatDate, readableFileSize } from "@/lib/utils";
+import { cn, readableFileSize } from "@/lib/utils";
+import { format } from "date-fns/format";
 import { Button, buttonVariants } from "./ui/button";
 
 export function DocumentsList({ documents }: { documents: Document[] }) {
@@ -14,7 +15,7 @@ export function DocumentsList({ documents }: { documents: Document[] }) {
           <div className="grid gap-1">
             <h3 className="font-medium">{description}</h3>
             <div className="text-sm text-gray-500 dark:text-gray-400">
-              <span>{formatDate(createdAt.toString())}</span> &middot;{" "}
+              <span>{format(createdAt, "yyyy-MM-dd")}</span> &middot;{" "}
               <span>{readableFileSize(size)}</span>
             </div>
             <p className="text-sm line-clamp-2">
