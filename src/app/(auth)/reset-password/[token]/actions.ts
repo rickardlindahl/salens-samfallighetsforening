@@ -40,5 +40,5 @@ export async function resetPasswordTokenAction(
     .where(eq(users.id, token.userId))
     .returning({ email: users.email });
 
-  await signIn("credentials", { email, password, redirectTo: "/" });
+  await signIn("credentials", { email, password, redirectTo: "/overview" });
 }
