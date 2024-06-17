@@ -10,6 +10,7 @@ export const env = createEnv({
     UPLOADTHING_SECRET: z.string().min(1),
     UPLOADTHING_APP_ID: z.string().min(1),
     MAILGUN_API_KEY: z.string().min(1),
+    SENTRY_AUTH_TOKEN: z.string().min(1),
   },
 
   /**
