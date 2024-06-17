@@ -3,8 +3,8 @@ import { posts, users } from "@/db/schema";
 import { desc, eq } from "drizzle-orm";
 import { Post } from "./post";
 
-async function getPosts() {
-  return await db
+async function getPosts(limit?: number) {
+  const query = db
     .select({
       authorName: users.name,
       authorEmail: users.email,
@@ -17,10 +17,18 @@ async function getPosts() {
     .leftJoin(users, eq(posts.userId, users.id))
     .where(eq(posts.draft, false))
     .orderBy(desc(posts.publishDate));
+
+  if (typeof limit === "number" && limit > 0) {
+    query.limit(limit);
+  }
+
+  return await query;
 }
 
-export async function PostsWrapper() {
-  const posts = await getPosts();
+type PostsWrapperProps = { limit?: number };
+
+export async function PostsWrapper({ limit = 999 }: PostsWrapperProps) {
+  const posts = await getPosts(limit);
 
   if (posts.length === 0) {
     return (

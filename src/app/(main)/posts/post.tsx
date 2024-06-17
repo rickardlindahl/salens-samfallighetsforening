@@ -1,4 +1,4 @@
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { jsonToHTML } from "@/lib/tiptap-utils.server";
 import { cn, formatRelative } from "@/lib/utils";
 import type { JSONContent } from "@tiptap/react";
@@ -20,7 +20,7 @@ export function Post(post: PostProps) {
       className="group relative flex flex-col space-y-2 bg-muted/50 border rounded-lg p-4 sm:p-8"
     >
       <Link href={`/posts/${post.postId}`}>
-        <h2 className="text-2xl font-extrabold">{post.postTitle}</h2>
+        <h2 className="text-xl font-bold tracking-tight">{post.postTitle}</h2>
       </Link>
       {post.postPublishDate && (
         <p className="text-sm text-muted-foreground">

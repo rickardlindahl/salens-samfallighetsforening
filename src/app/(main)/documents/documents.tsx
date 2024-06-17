@@ -3,12 +3,20 @@ import { db } from "@/db";
 import { documents } from "@/db/schema";
 import { desc } from "drizzle-orm";
 
-async function getDocuments() {
-  return await db.select().from(documents).orderBy(desc(documents.createdAt));
+async function getDocuments(limit?: number) {
+  const query = db.select().from(documents).orderBy(desc(documents.createdAt));
+
+  if (typeof limit === "number" && limit > 0) {
+    query.limit(limit);
+  }
+
+  return await query;
 }
 
-export async function Documents() {
-  const documents = await getDocuments();
+type DocumentsProps = { limit?: number };
+
+export async function Documents({ limit }: DocumentsProps) {
+  const documents = await getDocuments(limit);
 
   if (documents.length === 0) {
     return (
