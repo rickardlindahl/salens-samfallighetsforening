@@ -8,6 +8,10 @@ import { UserNavbar } from "./user-navbar";
 
 const routeLinks = [
   {
+    title: "Översikt",
+    href: "/overview",
+  },
+  {
     title: "Inlägg",
     href: "/posts",
   },
