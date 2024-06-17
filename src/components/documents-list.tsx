@@ -12,12 +12,16 @@ export function DocumentsList({ documents }: { documents: Document[] }) {
           className="grid grid-cols-[1fr_auto] items-center gap-4 border-b border-gray-200 dark:border-gray-800 pb-4"
         >
           <div className="grid gap-1">
-            <h3 className="font-medium">{name}</h3>
+            <h3 className="font-medium">{description}</h3>
             <div className="text-sm text-gray-500 dark:text-gray-400">
               <span>{formatDate(createdAt.toString())}</span> &middot;{" "}
               <span>{readableFileSize(size)}</span>
             </div>
-            <p className="text-sm line-clamp-2">{description}</p>
+            <p className="text-sm line-clamp-2">
+              <a href={url} download>
+                {name}
+              </a>
+            </p>
           </div>
           <a
             href={url}
