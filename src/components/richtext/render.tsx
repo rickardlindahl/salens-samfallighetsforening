@@ -1,4 +1,5 @@
 import type {
+	SerializedAutoLinkNode,
 	SerializedHeadingNode,
 	SerializedLinkNode,
 	SerializedListItemNode,
@@ -102,6 +103,33 @@ export function render(children: SerializedLexicalNode[]) {
 				}
 				case "link": {
 					const linkNode = node as unknown as SerializedLinkNode;
+
+					const attributes = linkNode.fields;
+
+					if (linkNode.fields.linkType === "custom") {
+						return (
+							<a
+								className={cn(buttonVariants({ variant: "link" }))}
+								href={attributes.url}
+								target={attributes.newTab ? "_blank" : undefined}
+							>
+								{render(linkNode.children as SerializedLexicalNode[])}
+							</a>
+						);
+					}
+
+					return (
+						<a
+							className={cn(buttonVariants({ variant: "link" }))}
+							href={getLinkForPage(attributes.doc)}
+							target={attributes.newTab ? "_blank" : undefined}
+						>
+							{render(linkNode.children as SerializedLexicalNode[])}
+						</a>
+					);
+				}
+				case "autolink": {
+					const linkNode = node as unknown as SerializedAutoLinkNode;
 
 					const attributes = linkNode.fields;
 
