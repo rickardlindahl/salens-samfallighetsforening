@@ -1,8 +1,10 @@
 import { User } from "@/payload-types";
 import config from "@payload-config";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
-import { CollectionAfterChangeHook } from "payload";
-import type { CollectionConfig } from "payload/types";
+import {
+	type CollectionConfig,
+	type CollectionAfterChangeHook,
+	getPayload,
+} from "payload";
 import { adminsAndUser } from "./access/adminsAndUser";
 import { admins } from "./access/admins";
 import { checkRole } from "./access/checkRole";
@@ -14,7 +16,7 @@ const sendInviteEmailAfterUserCreated: CollectionAfterChangeHook<
 	// Only trigger the hook when creating a new user
 	if (operation === "create") {
 		// Generate the reset password token for the new user
-		const payload = await getPayloadHMR({
+		const payload = await getPayload({
 			config,
 		});
 		const resetToken = await payload.forgotPassword({

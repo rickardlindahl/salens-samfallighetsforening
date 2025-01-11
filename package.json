@@ -48,6 +48,7 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@types/escape-html": "^1.0.4",
     "@types/node": "^20.11.25",
     "@types/nodemailer": "^6.4.17",
     "@types/react": "^18.2.64",

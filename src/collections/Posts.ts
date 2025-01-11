@@ -1,12 +1,16 @@
-import AlertBox from "@/components/AlertBox";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
 import {
 	HTMLConverterFeature,
 	lexicalEditor,
 } from "@payloadcms/richtext-lexical";
-import { CollectionAfterChangeHook } from "payload";
-import type { CollectionConfig } from "payload/types";
+import {
+	getPayload,
+	type CollectionAfterChangeHook,
+	type CollectionConfig,
+} from "payload";
 import slugify from "@sindresorhus/slugify";
+import { sendEmail } from "@/lib/email";
+import config from "@payload-config";
+import { Post } from "@/payload-types";
 
 const sendEmailAfterPostCreated: CollectionAfterChangeHook<Post> = async ({
 	doc,
@@ -17,7 +21,7 @@ const sendEmailAfterPostCreated: CollectionAfterChangeHook<Post> = async ({
 		return doc;
 	}
 
-	const payload = await getPayloadHMR({
+	const payload = await getPayload({
 		config,
 	});
 	const users = await payload.find({

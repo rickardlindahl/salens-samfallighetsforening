@@ -12,7 +12,7 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import type { User } from "@payload-types";
+import type { User } from "@/payload-types";
 
 function renderInitials(user: User) {
 	return `${user?.firstName?.charAt(0)}${user?.lastName?.charAt(0)}`;

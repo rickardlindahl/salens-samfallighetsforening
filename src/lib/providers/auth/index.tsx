@@ -9,7 +9,7 @@ import {
 	useState,
 } from "react";
 
-import type { User } from "@payload-types";
+import type { User } from "@/payload-types";
 import { gql, USER } from "./gql";
 import { rest } from "./rest";
 import type {
