@@ -4,6 +4,7 @@ import type {
 	SerializedListItemNode,
 	SerializedListNode,
 	SerializedParagraphNode,
+	SerializedQuoteNode,
 	SerializedTextNode,
 	SerializedUploadNode,
 } from "@payloadcms/richtext-lexical";
@@ -177,6 +178,14 @@ export function render(children: SerializedLexicalNode[]) {
 					}
 
 					return null;
+				}
+				case "quote": {
+					const quoteNode = node as unknown as SerializedQuoteNode;
+					return (
+						<blockquote>
+							{render(quoteNode.children as SerializedLexicalNode[])}
+						</blockquote>
+					);
 				}
 				default: {
 					console.log("Default rendering node", node);
