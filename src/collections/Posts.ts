@@ -11,6 +11,9 @@ import slugify from "@sindresorhus/slugify";
 import { sendEmail } from "@/lib/email";
 import config from "@payload-config";
 import { Post } from "@/payload-types";
+import { adminsAndUser } from "./access/adminsAndUser";
+import { admins } from "./access/admins";
+import { checkRole } from "./access/checkRole";
 
 const sendEmailAfterPostCreated: CollectionAfterChangeHook<Post> = async ({
 	doc,
@@ -48,6 +51,13 @@ export const Posts: CollectionConfig = {
 	slug: "posts",
 	admin: {
 		useAsTitle: "title",
+	},
+	access: {
+		read: adminsAndUser,
+		create: admins,
+		update: admins,
+		delete: admins,
+		admin: ({ req: { user } }) => checkRole("admin", user),
 	},
 	labels: {
 		singular: {
