@@ -247,7 +247,7 @@ function renderLinkNode(
 				key={`a-${index}`}
 				className={cn(buttonVariants({ variant: "link" }), "p-0")}
 				href={attributes.url}
-				target={attributes.newTab ? "_blank" : undefined}
+				target="_blank"
 			>
 				{render(linkNode.children as SerializedLexicalNode[])}
 			</a>
