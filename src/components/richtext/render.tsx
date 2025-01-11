@@ -66,7 +66,7 @@ export function render(children: SerializedLexicalNode[]) {
 				if (textNode.format & IS_BOLD) {
 					return (
 						<strong key={`${text}${index}`} className="font-bold">
-							${text}
+							{text}
 						</strong>
 					);
 				}
@@ -74,7 +74,7 @@ export function render(children: SerializedLexicalNode[]) {
 				if (textNode.format & IS_ITALIC) {
 					return (
 						<em key={`${text}${index}`} className="italic">
-							${text}
+							{text}
 						</em>
 					);
 				}
@@ -122,61 +122,12 @@ export function render(children: SerializedLexicalNode[]) {
 					return <br key={`br-${index}`} />;
 				}
 				case "link": {
-					const linkNode = node as unknown as SerializedLinkNode;
-
-					const attributes = linkNode.fields;
-
-					if (linkNode.fields.linkType === "custom") {
-						return (
-							<a
-								key={`a-${index}`}
-								className={cn(buttonVariants({ variant: "link" }))}
-								href={attributes.url}
-								target={attributes.newTab ? "_blank" : undefined}
-							>
-								{render(linkNode.children as SerializedLexicalNode[])}
-							</a>
-						);
-					}
-
-					return (
-						<a
-							key={`a-${index}`}
-							className={cn(buttonVariants({ variant: "link" }))}
-							href={getLinkForPage(attributes.doc)}
-							target={attributes.newTab ? "_blank" : undefined}
-						>
-							{render(linkNode.children as SerializedLexicalNode[])}
-						</a>
-					);
+					return renderLinkNode(node as unknown as SerializedLinkNode, index);
 				}
 				case "autolink": {
-					const linkNode = node as unknown as SerializedAutoLinkNode;
-
-					const attributes = linkNode.fields;
-
-					if (linkNode.fields.linkType === "custom") {
-						return (
-							<a
-								key={`a-${index}`}
-								className={cn(buttonVariants({ variant: "link" }))}
-								href={attributes.url}
-								target={attributes.newTab ? "_blank" : undefined}
-							>
-								{render(linkNode.children as SerializedLexicalNode[])}
-							</a>
-						);
-					}
-
-					return (
-						<a
-							key={`a-${index}`}
-							className={cn(buttonVariants({ variant: "link" }))}
-							href={getLinkForPage(attributes.doc)}
-							target={attributes.newTab ? "_blank" : undefined}
-						>
-							{render(linkNode.children as SerializedLexicalNode[])}
-						</a>
+					return renderLinkNode(
+						node as unknown as SerializedAutoLinkNode,
+						index,
 					);
 				}
 				case "list": {
@@ -282,4 +233,35 @@ export function render(children: SerializedLexicalNode[]) {
 			}
 		})
 		.filter((node) => node !== null);
+}
+
+function renderLinkNode(
+	linkNode: SerializedLinkNode | SerializedAutoLinkNode,
+	index: number,
+): React.ReactNode {
+	const attributes = linkNode.fields;
+
+	if (linkNode.fields.linkType === "custom") {
+		return (
+			<a
+				key={`a-${index}`}
+				className={cn(buttonVariants({ variant: "link" }), "p-0")}
+				href={attributes.url}
+				target={attributes.newTab ? "_blank" : undefined}
+			>
+				{render(linkNode.children as SerializedLexicalNode[])}
+			</a>
+		);
+	}
+
+	return (
+		<a
+			key={`a-${index}`}
+			className={cn(buttonVariants({ variant: "link" }), "p-0")}
+			href={getLinkForPage(attributes.doc)}
+			target={attributes.newTab ? "_blank" : undefined}
+		>
+			{render(linkNode.children as SerializedLexicalNode[])}
+		</a>
+	);
 }
