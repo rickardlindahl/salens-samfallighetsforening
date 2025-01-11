@@ -1,33 +1,42 @@
-import type { ReactNode } from "react";
-
+import { TailwindIndicator } from "@/components/tailwind-indicator";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
+import { AuthProvider } from "@/lib/providers/auth";
 import { cn } from "@/lib/utils";
-import { Inter as FontSans } from "next/font/google";
-import React from "react";
-
-type LayoutProps = {
-	children: ReactNode;
-};
+import { Inter } from "next/font/google";
 
 import "./globals.css";
 
-const fontSans = FontSans({
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+const inter = Inter({
 	subsets: ["latin"],
 	variable: "--font-sans",
 });
 
-const Layout = ({ children }: LayoutProps) => {
+export default function RootLayout({
+	children,
+}: { children: React.ReactNode }) {
 	return (
-		<html lang="en">
+		<html lang="sv" suppressHydrationWarning>
 			<body
 				className={cn(
 					"min-h-screen bg-background font-sans antialiased",
-					fontSans.variable,
+					inter.variable,
 				)}
 			>
-				{children}
+				<ThemeProvider
+					attribute="class"
+					defaultTheme="system"
+					enableSystem
+					disableTransitionOnChange
+				>
+					<AuthProvider api="rest">{children}</AuthProvider>
+					<Toaster richColors />
+					<TailwindIndicator />
+				</ThemeProvider>
 			</body>
 		</html>
 	);
-};
-
-export default Layout;
+}
