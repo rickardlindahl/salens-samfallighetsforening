@@ -62,11 +62,11 @@ export function render(children: SerializedLexicalNode[]) {
 				const text = `${escapeHTML(textNode.text)}`;
 
 				if (textNode.format & IS_BOLD) {
-					return <strong>${text}</strong>;
+					return <strong className="font-bold">${text}</strong>;
 				}
 
 				if (textNode.format & IS_ITALIC) {
-					return <em>${text}</em>;
+					return <em className="italic">${text}</em>;
 				}
 
 				if (textNode.format & IS_STRIKETHROUGH) {
@@ -78,7 +78,11 @@ export function render(children: SerializedLexicalNode[]) {
 				}
 
 				if (textNode.format & IS_CODE) {
-					return <code>${text}</code>;
+					return (
+						<code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
+							${text}
+						</code>
+					);
 				}
 
 				if (textNode.format & IS_SUBSCRIPT) {
@@ -104,6 +108,7 @@ export function render(children: SerializedLexicalNode[]) {
 					if (linkNode.fields.linkType === "custom") {
 						return (
 							<a
+								className={cn(buttonVariants({ variant: "link" }))}
 								href={attributes.url}
 								target={attributes.newTab ? "_blank" : undefined}
 							>
@@ -114,6 +119,7 @@ export function render(children: SerializedLexicalNode[]) {
 
 					return (
 						<a
+							className={cn(buttonVariants({ variant: "link" }))}
 							href={getLinkForPage(attributes.doc)}
 							target={attributes.newTab ? "_blank" : undefined}
 						>
@@ -125,13 +131,13 @@ export function render(children: SerializedLexicalNode[]) {
 					const listNode = node as unknown as SerializedListNode;
 					if (listNode.listType === "bullet") {
 						return (
-							<ul className="list-disc mb-4 pl-8">
+							<ul className="my-6 ml-6 list-disc [&>li]:mt-2">
 								{render(listNode.children as SerializedLexicalNode[])}
 							</ul>
 						);
 					}
 					return (
-						<ol className="list-disc mb-4 pl-8">
+						<ol className="my-6 ml-6 list-decimal [&>li]:mt-2">
 							{render(listNode.children as SerializedLexicalNode[])}
 						</ol>
 					);
@@ -145,8 +151,17 @@ export function render(children: SerializedLexicalNode[]) {
 				case "heading": {
 					const headingNode = node as unknown as SerializedHeadingNode;
 					const Component = headingNode.tag;
+					const styles = {
+						h1: "scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl",
+						h2: "scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0",
+						h3: "scroll-m-20 text-2xl font-semibold tracking-tight",
+						h4: "scroll-m-20 text-xl font-semibold tracking-tight",
+						h5: "scroll-m-20 text-xl font-semibold tracking-tight",
+						h6: "scroll-m-20 text-xl font-semibold tracking-tight",
+					};
+
 					return (
-						<Component>
+						<Component className={styles[headingNode.tag]}>
 							{render(headingNode.children as SerializedLexicalNode[])}
 						</Component>
 					);
@@ -154,7 +169,9 @@ export function render(children: SerializedLexicalNode[]) {
 				case "paragraph": {
 					const paragraphNode = node as unknown as SerializedParagraphNode;
 					return (
-						<p>{render(paragraphNode.children as SerializedLexicalNode[])}</p>
+						<p className="leading-7 [&:not(:first-child)]:mt-6">
+							{render(paragraphNode.children as SerializedLexicalNode[])}
+						</p>
 					);
 				}
 				case "upload": {
@@ -166,7 +183,7 @@ export function render(children: SerializedLexicalNode[]) {
 								download
 								href={values.url}
 								className={cn(
-									"flex flex-row gap-2 items-center",
+									"flex flex-row gap-2 items-center p-0 m-0",
 									buttonVariants({ variant: "link" }),
 								)}
 							>
@@ -182,7 +199,7 @@ export function render(children: SerializedLexicalNode[]) {
 				case "quote": {
 					const quoteNode = node as unknown as SerializedQuoteNode;
 					return (
-						<blockquote>
+						<blockquote className="mt-6 border-l-2 pl-6 italic">
 							{render(quoteNode.children as SerializedLexicalNode[])}
 						</blockquote>
 					);
