@@ -11,6 +11,7 @@ import { Media } from "./collections/Media";
 import { Posts } from "./collections/Posts";
 import { Documents } from "./collections/Documents";
 import { createEmailTransport } from "./lib/email";
+import { migrations } from "./migrations";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -32,6 +33,8 @@ export default buildConfig({
 		pool: {
 			connectionString: process.env.POSTGRES_URL || "",
 		},
+
+		prodMigrations: migrations,
 	}),
 	email: process.env.SMTP_HOST
 		? nodemailerAdapter({
