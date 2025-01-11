@@ -183,8 +183,9 @@ export function render(children: SerializedLexicalNode[]) {
 								download
 								href={values.url}
 								className={cn(
-									"flex flex-row gap-2 items-center p-0 m-0",
+									"flex flex-row gap-2 items-center",
 									buttonVariants({ variant: "link" }),
+									"p-0 m-0",
 								)}
 							>
 								<Icons.download className="w-4 h-4" />
