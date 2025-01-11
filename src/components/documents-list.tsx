@@ -1,15 +1,24 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import { formatRelative, readableFileSize } from "@/lib/utils";
+import { cn, formatRelative, readableFileSize } from "@/lib/utils";
 import type { Document } from "@/payload-types";
 import { Icons } from "./icons";
+import { buttonVariants } from "./ui/button";
 
-export function DocumentsList({ documents }: { documents: Document[] }) {
+export function DocumentsList({
+	documents,
+	showBorder,
+}: { documents: Document[]; showBorder: boolean }) {
 	return (
 		<div className="grid gap-4">
 			{documents.map(({ id, filename, description, url, filesize, date }) => (
 				<div
 					key={id}
-					className="grid gap-1 border-b border-gray-200 dark:border-gray-800 pb-4"
+					className={cn(
+						"grid gap-1 pb-4",
+						showBorder
+							? "border-b border-gray-200 dark:border-gray-800"
+							: undefined,
+					)}
 				>
 					<h3 className="font-medium">{description}</h3>
 					<div className="text-sm text-gray-500 dark:text-gray-400">
@@ -23,7 +32,7 @@ export function DocumentsList({ documents }: { documents: Document[] }) {
 							<a
 								href={url}
 								download
-								className="flex flex-row gap-2 items-center hover:underline"
+								className={cn(buttonVariants({ variant: "link" }), "p-0")}
 							>
 								<Icons.download className="w-4 h-4" />
 								{filename}
