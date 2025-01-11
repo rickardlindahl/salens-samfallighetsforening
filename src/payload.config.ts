@@ -48,10 +48,10 @@ export default buildConfig({
 			enabled: true,
 			collections: {
 				media: {
-					prefix: "/media",
+					prefix: "media",
 				},
 				documents: {
-					prefix: "/documents",
+					prefix: "documents",
 				},
 			},
 			token: process.env.BLOB_READ_WRITE_TOKEN || "",
