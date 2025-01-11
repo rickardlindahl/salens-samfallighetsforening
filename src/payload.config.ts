@@ -5,16 +5,27 @@ import { nodemailerAdapter } from "@payloadcms/email-nodemailer";
 import path from "path";
 import { buildConfig } from "payload";
 import { fileURLToPath } from "url";
+import nodemailer from "nodemailer";
 
 import { Users } from "./collections/Users";
 import { Media } from "./collections/Media";
 import { Posts } from "./collections/Posts";
 import { Documents } from "./collections/Documents";
-import { createEmailTransport } from "./lib/email";
 import { migrations } from "./migrations";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
+
+function createEmailTransport() {
+	return nodemailer.createTransport({
+		host: process.env.SMTP_HOST,
+		port: 587,
+		auth: {
+			user: process.env.SMTP_USER,
+			pass: process.env.SMTP_PASS,
+		},
+	});
+}
 
 export default buildConfig({
 	admin: {

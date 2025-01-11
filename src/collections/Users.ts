@@ -8,7 +8,6 @@ import {
 import { adminsAndUser } from "./access/adminsAndUser";
 import { admins } from "./access/admins";
 import { checkRole } from "./access/checkRole";
-import { sendEmail } from "../lib/email";
 
 const sendInviteEmailAfterUserCreated: CollectionAfterChangeHook<
 	User
@@ -29,7 +28,7 @@ const sendInviteEmailAfterUserCreated: CollectionAfterChangeHook<
 		const resetPasswordUrl = `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/reset-password?token=${resetToken}`;
 
 		// Send the reset-password email
-		await sendEmail({
+		await payload.email.sendEmail({
 			to: doc.email,
 			subject: "Du har blivit inbjuden till Salens Samfällighetsförening",
 			html: `

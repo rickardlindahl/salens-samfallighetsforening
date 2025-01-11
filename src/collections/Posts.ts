@@ -8,7 +8,6 @@ import {
 	type CollectionConfig,
 } from "payload";
 import slugify from "@sindresorhus/slugify";
-import { sendEmail } from "@/lib/email";
 import config from "@payload-config";
 import { Post } from "@/payload-types";
 
@@ -30,8 +29,8 @@ const sendEmailAfterPostCreated: CollectionAfterChangeHook<Post> = async ({
 
 	const postUrl = `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/posts/${doc.slug}`;
 
-	await sendEmail({
-		to: users.docs.map((user) => user.email).join(";"),
+	await payload.email.sendEmail({
+		to: users.docs.map((user) => user.email),
 		subject: "Nytt inlägg publicerat",
 		html: `
     <p>Ett nytt inlägg har publicerats på Salens Samfällighetsförenings hemsida.</p>
