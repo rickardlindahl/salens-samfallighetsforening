@@ -86,10 +86,9 @@ export const Users: CollectionConfig = {
 		delete: admins,
 		admin: ({ req: { user } }) => checkRole("admin", user),
 	},
-	/*	hooks: {
+	hooks: {
 		afterChange: [sendInviteEmailAfterUserCreated],
 	},
-  */
 	labels: {
 		singular: {
 			en: "User",
