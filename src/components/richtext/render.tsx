@@ -26,6 +26,7 @@ import {
 	IS_SUPERSCRIPT,
 	IS_UNDERLINE,
 } from "./richtext-node-format";
+import React from "react";
 
 export type SerializedLexicalEditorState = {
 	root: {
@@ -57,49 +58,68 @@ function getLinkForPage(_doc: unknown) {
 export function render(children: SerializedLexicalNode[]) {
 	return children
 		.filter(Boolean)
-		.map<React.ReactNode>((node) => {
+		.map<React.ReactNode>((node, index) => {
 			if (node.type === "text") {
 				const textNode = node as unknown as SerializedTextNode;
 				const text = `${escapeHTML(textNode.text)}`;
 
 				if (textNode.format & IS_BOLD) {
-					return <strong className="font-bold">${text}</strong>;
+					return (
+						<strong key={`${text}${index}`} className="font-bold">
+							${text}
+						</strong>
+					);
 				}
 
 				if (textNode.format & IS_ITALIC) {
-					return <em className="italic">${text}</em>;
+					return (
+						<em key={`${text}${index}`} className="italic">
+							${text}
+						</em>
+					);
 				}
 
 				if (textNode.format & IS_STRIKETHROUGH) {
-					return <span className="line-through">${text}</span>;
+					return (
+						<span key={`${text}${index}`} className="line-through">
+							{text}
+						</span>
+					);
 				}
 
 				if (textNode.format & IS_UNDERLINE) {
-					return <span className="underline">${text}</span>;
+					return (
+						<span key={`${text}${index}`} className="underline">
+							{text}
+						</span>
+					);
 				}
 
 				if (textNode.format & IS_CODE) {
 					return (
-						<code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
-							${text}
+						<code
+							key={`${text}${index}`}
+							className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold"
+						>
+							{text}
 						</code>
 					);
 				}
 
 				if (textNode.format & IS_SUBSCRIPT) {
-					return <sub>${text}</sub>;
+					return <sub key={`${text}${index}`}>{text}</sub>;
 				}
 
 				if (textNode.format & IS_SUPERSCRIPT) {
-					return <sup>${text}</sup>;
+					return <sup key={`${text}${index}`}>{text}</sup>;
 				}
 
-				return text;
+				return <React.Fragment key={`${text}${index}`}>{text}</React.Fragment>;
 			}
 
 			switch (node.type) {
 				case "linebreak": {
-					return <br />;
+					return <br key={`br-${index}`} />;
 				}
 				case "link": {
 					const linkNode = node as unknown as SerializedLinkNode;
@@ -109,6 +129,7 @@ export function render(children: SerializedLexicalNode[]) {
 					if (linkNode.fields.linkType === "custom") {
 						return (
 							<a
+								key={`a-${index}`}
 								className={cn(buttonVariants({ variant: "link" }))}
 								href={attributes.url}
 								target={attributes.newTab ? "_blank" : undefined}
@@ -120,6 +141,7 @@ export function render(children: SerializedLexicalNode[]) {
 
 					return (
 						<a
+							key={`a-${index}`}
 							className={cn(buttonVariants({ variant: "link" }))}
 							href={getLinkForPage(attributes.doc)}
 							target={attributes.newTab ? "_blank" : undefined}
@@ -136,6 +158,7 @@ export function render(children: SerializedLexicalNode[]) {
 					if (linkNode.fields.linkType === "custom") {
 						return (
 							<a
+								key={`a-${index}`}
 								className={cn(buttonVariants({ variant: "link" }))}
 								href={attributes.url}
 								target={attributes.newTab ? "_blank" : undefined}
@@ -147,6 +170,7 @@ export function render(children: SerializedLexicalNode[]) {
 
 					return (
 						<a
+							key={`a-${index}`}
 							className={cn(buttonVariants({ variant: "link" }))}
 							href={getLinkForPage(attributes.doc)}
 							target={attributes.newTab ? "_blank" : undefined}
@@ -159,13 +183,19 @@ export function render(children: SerializedLexicalNode[]) {
 					const listNode = node as unknown as SerializedListNode;
 					if (listNode.listType === "bullet") {
 						return (
-							<ul className="my-6 ml-6 list-disc [&>li]:mt-2">
+							<ul
+								key={`ul-${index}`}
+								className="my-6 ml-6 list-disc [&>li]:mt-2"
+							>
 								{render(listNode.children as SerializedLexicalNode[])}
 							</ul>
 						);
 					}
 					return (
-						<ol className="my-6 ml-6 list-decimal [&>li]:mt-2">
+						<ol
+							key={`ol-${index}`}
+							className="my-6 ml-6 list-decimal [&>li]:mt-2"
+						>
 							{render(listNode.children as SerializedLexicalNode[])}
 						</ol>
 					);
@@ -173,7 +203,9 @@ export function render(children: SerializedLexicalNode[]) {
 				case "listitem": {
 					const listItemNode = node as unknown as SerializedListItemNode;
 					return (
-						<li>{render(listItemNode.children as SerializedLexicalNode[])}</li>
+						<li key={`li-${index}`}>
+							{render(listItemNode.children as SerializedLexicalNode[])}
+						</li>
 					);
 				}
 				case "heading": {
@@ -189,7 +221,10 @@ export function render(children: SerializedLexicalNode[]) {
 					};
 
 					return (
-						<Component className={styles[headingNode.tag]}>
+						<Component
+							key={`${Component}-${index}`}
+							className={styles[headingNode.tag]}
+						>
 							{render(headingNode.children as SerializedLexicalNode[])}
 						</Component>
 					);
@@ -197,7 +232,10 @@ export function render(children: SerializedLexicalNode[]) {
 				case "paragraph": {
 					const paragraphNode = node as unknown as SerializedParagraphNode;
 					return (
-						<p className="leading-7 [&:not(:first-child)]:mt-6">
+						<p
+							key={`p-${index}`}
+							className="leading-7 [&:not(:first-child)]:mt-6"
+						>
 							{render(paragraphNode.children as SerializedLexicalNode[])}
 						</p>
 					);
@@ -208,12 +246,13 @@ export function render(children: SerializedLexicalNode[]) {
 						const values = uploadNode.value as DocumentCollection;
 						return values.url ? (
 							<a
+								key={`a-${index}`}
 								download
 								href={values.url}
 								className={cn(
 									"flex flex-row gap-2 items-center",
 									buttonVariants({ variant: "link" }),
-									"p-0 m-0",
+									"p-0",
 								)}
 							>
 								<Icons.download className="w-4 h-4" />
@@ -228,7 +267,10 @@ export function render(children: SerializedLexicalNode[]) {
 				case "quote": {
 					const quoteNode = node as unknown as SerializedQuoteNode;
 					return (
-						<blockquote className="mt-6 border-l-2 pl-6 italic">
+						<blockquote
+							key={`quote-${index}`}
+							className="mt-6 border-l-2 pl-6 italic"
+						>
 							{render(quoteNode.children as SerializedLexicalNode[])}
 						</blockquote>
 					);
