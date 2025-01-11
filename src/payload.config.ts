@@ -4,6 +4,7 @@ import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { nodemailerAdapter } from "@payloadcms/email-nodemailer";
 import path from "path";
 import { buildConfig } from "payload";
+import { sv } from "payload/i18n/sv";
 import { fileURLToPath } from "url";
 import nodemailer from "nodemailer";
 
@@ -39,6 +40,9 @@ export default buildConfig({
 	secret: process.env.PAYLOAD_SECRET || "",
 	typescript: {
 		outputFile: path.resolve(dirname, "payload-types.ts"),
+	},
+	i18n: {
+		supportedLanguages: { sv },
 	},
 	db: vercelPostgresAdapter({
 		pool: {
