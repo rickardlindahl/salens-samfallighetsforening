@@ -22,6 +22,7 @@ const sendInviteEmailAfterUserCreated: CollectionAfterChangeHook<
 			collection: "users",
 			data: { email: doc.email },
 			disableEmail: true, // Disable default Payload email so you can send a custom one
+			expiration: 7 * 24 * 60 * 60 * 1000,
 		});
 
 		// Create a reset-password link with the generated token
